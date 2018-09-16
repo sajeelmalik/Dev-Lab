@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="login-container">
+        <form action="">
+            Login: <input type="text">
+            Password: <input type="password">
+            <input type="submit" value="Login">
+        </form>
+
+    </div>
+
+    <div class="library-container">
+        <div class="concept-container">
+            <h3>Concepts</h3>
+            <div class="concept-category" id=concept-category1>
+                <p>Functions</p>
+            </div>
+        </div>
+        <div class="content-container">
+            <h3>Content</h3>
+            <div class="content-item" data-id='1' id="content-item1">
+                <h4>Sample Link</h4>
+                <p class='star-number'>500</pclas>
+                    <p class='star-image'>STAR</p>
+            </div>
+            <div class="content-item" data-id='2' id="content-item2">
+                <h4>Sample Link</h4>
+                <p class='star-number'>421</p>
+                <p class='star-image'>STAR</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous">
+    </script>
+    <script>
+        // $.get('/api/concepts', function (err, data) {
+        //     if (err) throw err;
+        //     //Iteems come in an array of objects and come in Most Likes, DESC
+        //     data.forEach(function (item) {
+        //         var newDiv = $("<div class= content-item>");
+        //         var linkTitle = $(`<a href="${data.link}">`);
+        //         var starNumber = $("<p class = star-number>");
+        //         var starImage = $("<img class = star-image>");
+        //         newDiv.data('id', data.id)
+        //         newDiv.attr('id', 'content-item' + data.id)
+        //         linkTitle.text(data.title);
+        //         starImage.attr('src', 'imageSRC');
+        //         newDiv.append(linkTitle, starNumber, starImage);
+        //         $(".content-container").prepend(newDiv);
+
+        //     })
+        // })
+        $(".star-image").on('click', function (e) {
+            var starID = $(this).parent().data('id');
+            console.log(starID);
+
+        })
+    </script>
+</body>
+
+</html>

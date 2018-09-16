@@ -1,0 +1,35 @@
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+div {
+    border: 1px black solid;
+}
+
+.login-container {
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.library-container {
+    height: 50%;
+    display: flex;
+
+}
+
+.concept-container {
+    flex: 1;
+}
+
+.content-container {
+    flex: 1;
+}
+
+.content-item {
+    display: flex;
+}
+
+.content-item>h4 {
+    flex: 8;
+}
