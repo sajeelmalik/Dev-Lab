@@ -41,7 +41,7 @@ module.exports = function(app) {
     });
   
     // Resource route for saving a new Resource
-    app.Resource("/api/resources", function(req, res) {
+    app.post("/api/resources", function(req, res) {
       db.Resource.create(req.body).then(function(dbResource) {
         res.json(dbResource);
       });
