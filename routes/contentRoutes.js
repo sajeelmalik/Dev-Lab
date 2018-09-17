@@ -1,4 +1,4 @@
-// DEV LAB: apiRoutes.js - this file offers a set of routes for displaying and saving data to the db
+// DEV LAB: contentRoutes.js - this file offers a set of routes for displaying and saving content data (consisting of all the educational material) to the db
 // *********************************************************************************
 
 // Dependencies
@@ -12,62 +12,40 @@ var db = require("../models");
 module.exports = function(app) {
 
     // GET route for getting all of the resources
-    app.get("/api/resources", function(req, res) {
-      var query = {};
-      if (req.query.user_id) {
-        query.userId = req.query.user_id;
-      }
-      // 1. Add a join here to include all of the users to these resources
-      db.Resource.findAll({
-        include: [db.user],
-        where: query
-      }).then(function(dbResource) {
-        res.json(dbResource);
+    app.get("/api/contents", function(req, res) {
+      db.Content.findAll({}).then(function(dbcontent) {
+        res.json(dbcontent);
+      });
+    });
+
+    // content route for saving a new resource, inputted by a user (this path will be outlined in the client-side script)
+    app.post("/api/contents", function(req, res) {
+      db.Content.create(req.body).then(function(dbcontent) {
+        res.json(dbcontent);
       });
     });
   
-    // Get route for retrieving a single Resource
-    app.get("/api/resources/:id", function(req, res) {
-      // 2. Add a join here to include the user who wrote the Resource
-      db.Resource.findOne({
-        include: [db.user],
+    // DELETE route for deleting contents
+    app.delete("/api/contents/:id", function(req, res) {
+      db.Content.destroy({
         where: {
           id: req.params.id
         }
-      }).then(function(dbResource) {
-        console.log(dbResource);
-        res.json(dbResource);
+      }).then(function(dbcontent) {
+        res.json(dbcontent);
       });
     });
   
-    // Resource route for saving a new Resource
-    app.post("/api/resources", function(req, res) {
-      db.Resource.create(req.body).then(function(dbResource) {
-        res.json(dbResource);
-      });
-    });
-  
-    // DELETE route for deleting resources
-    app.delete("/api/resources/:id", function(req, res) {
-      db.Resource.destroy({
-        where: {
-          id: req.params.id
-        }
-      }).then(function(dbResource) {
-        res.json(dbResource);
-      });
-    });
-  
-    // PUT route for updating resources
-    app.put("/api/resources", function(req, res) {
-      db.Resource.update(
+    // PUT route for updating content; we may or may not use this functionality
+    app.put("/api/contents", function(req, res) {
+      db.Content.update(
         req.body,
         {
           where: {
             id: req.body.id
           }
-        }).then(function(dbResource) {
-        res.json(dbResource);
+        }).then(function(dbcontent) {
+        res.json(dbcontent);
       });
     });
   };
