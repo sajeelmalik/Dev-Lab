@@ -14,13 +14,26 @@ module.exports = function(sequelize, DataTypes) {
           len: [1]
         }
       },
+      links: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: [1],
+          isUrl: true
+        }
+      },
       conceptBody: {
         type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           len: [1]
         }
+      },
+      created_at: {
+        type: Sequelize.DATE
       }
+    }, {
+      timestamps: false
     });
 
   

@@ -1,9 +1,15 @@
 module.exports = function(sequelize, DataTypes) {
-    var Save = sequelize.define("Save");
+    var Save = sequelize.define("Save", {
+      created_at: {
+        type: Sequelize.DATE
+      }
+    }, {
+      timestamps: false
+    });
 
     Save.associate = function(models) {
 
-      Save.belongTo(models.User, {
+      Save.belongsTo(models.User, {
         foreignKey: {
           allowNull: false
         }

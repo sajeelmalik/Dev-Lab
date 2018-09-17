@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
 
 
     Vote.associate = function(models) {
-      Vote.belongTo(models.User, {
+      Vote.belongsTo(models.User, {
         foreignKey: {
           allowNull: false
         }
