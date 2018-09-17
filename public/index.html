@@ -12,188 +12,103 @@
 </head>
 
 <body>
-    <div class="login-container">
-        <form action="">
-            Login: <input id='username' type="text">
-            Password: <input id='password' type="password">
-            <input type="submit" id='submit-login' value="Login">
-        </form>
+    <header>
+        <div class="library-links">
+            <p id='user-library-link'>My Library</p>
+            <p id='full-library-link' class='active'>Full Library</p>
+        </div>
+        <div class="login-container">
+            <form action="">
+                Login: <input id='username' type="text">
+                Password: <input id='password' type="password">
+                <input type="submit" id='submit-login' value="Login">
+            </form>
+    </header>
 
     </div>
-
-    <div class="library-container">
-        <div class="concept-container">
-            <h3>Concepts</h3>
-            <!-- <div class="concept-category" id=concept-category1>
+    <main>
+        <div class="user-library-container">
+            Library
+            <p>User categories: All saved articles(sort by saves vs date added) AND saved workflows.</p>
+        </div>
+        <div class="library-container">
+            <div class="concept-container">
+                <h3>Concepts</h3>
+                <!-- <div class="concept-category" id=concept-category1>
                 <h4>Functions</h4>
             </div> -->
-        </div>
-        <div class="content-container">
-            <h3>Content</h3>
-            <div class="content-item-container">
-                <div class="content-item" data-id='1' id="content-item1">
-                    <a>Sample Link</a>
-                    <p class='star-number'>500</p>
-                    <i class='fas fa-star saved star-image'></i>
-                </div>
-                <div class="content-item" data-id='2' id="content-item2">
-                    <a>Sample Link</a>
-                    <p class='star-number'>421</p>
-                    <i class='fas fa-star star-image'></i>
+            </div>
+            <div class="content-container">
+                <h3>Content</h3>
+                <div class="content-item-container">
+                    <!-- <div class="content-item" data-id='1' id="content-item1">
+                        <a>Sample Link</a>
+                        <p class='star-number'>500</p>
+                        <i class='fas fa-star saved star-image'></i>
+                    </div>
+                    <div class="content-item" data-id='2' id="content-item2">
+                        <a>Sample Link</a>
+                        <p class='star-number'>421</p>
+                        <i class='fas fa-star star-image'></i>
+                    </div> -->
                 </div>
             </div>
         </div>
-    </div>
-    <div class="add-content">
-        <h2>Add Content</h2>
-        <form action="">
-            Concept: <select>
+        <div class="add-content">
+            <h2>Add Content</h2>
+            <form action="">
+                Concept: <select>
 
-            </select>
-            <label for="new-name">Title: </label>
-            <input type="text" id='new-name'>
-            <label for="new-link">Link: </label>
-            <input type="text" id='new-link'>
-            <input type="submit" id='submit-content' value="Add Content">
-        </form>
-    </div>
+                </select>
+                <label for="new-name">Title: </label>
+                <input type="text" id='new-name'>
+                <label for="new-link">Link: </label>
+                <input type="text" id='new-link'>
+                <input type="submit" id='submit-content' value="Add Content">
+            </form>
+        </div>
+    </main>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous">
     </script>
     <script>
         $(function () {
-            var loggedIn = false;
+            var userID;
+            var loggedIn = true;
 
+            $.get('/api/content', function (err, data) {
+                if (err) throw err;
 
-            // })
-            // $.get('/api/concept', function (err, data) {
-            // if (err) throw err;
-            data = [{
-                    id: 3,
-                    title: 'conditionals'
-                },
-                {
-                    id: 4,
-                    title: 'api calls'
-                }, {
-                    id: 12,
-                    title: 'functions'
-                }
-
-            ]
-            data.forEach(function (concept) {
-                var newDiv = $("<div class= 'concept-category'>");
-                var linkTitle = $(`<h4>`);
-                var dropdownOption = $(`<option value= ${concept.title}>`)
-                newDiv.data('id', concept.id)
-                newDiv.attr('id', 'category-' + concept.title)
-                linkTitle.text(concept.title);
-                newDiv.append(linkTitle);
-                $(".concept-container").append(newDiv);
-                dropdownOption.text(concept.title);
-                $('select').append(dropdownOption);
-            });
-
-            $(".concept-category").on('click', function (e) {
-                $(".content-item-container").empty();
-
-                var category = $(this).attr('id');
-                category = category.slice(category.indexOf('-') + 1);
-                console.log(category);
-                // $.get('/api/content/' + category, function (err, data) {
-                // if (err) throw err;
+                //POPULATES CONCEPT CATEGORIES
                 data = [{
-                        content: 'testLink',
-                        id: 1,
-                        title: 'im a title',
-                        likes: 200,
-                        saved: true,
-                        category: 'functions'
+                        id: 3,
+                        title: 'conditionals'
                     },
                     {
-                        content: 'testLink2',
-                        id: 2,
-                        title: 'im a title2',
-                        likes: 431,
-                        saved: false,
-                        category: 'conditionals'
-                    },
-                    {
-                        content: 'testLink3',
+                        id: 4,
+                        title: 'api calls'
+                    }, {
                         id: 12,
-                        title: 'im a title3',
-                        likes: 300,
-                        saved: false,
-                        category: 'api calls'
+                        title: 'functions'
+                    }
 
-                    },
                 ]
-                //Items come in an array of objects and come in Most Likes, DESC
-                data.forEach(function (item) {
-                    var newDiv = $("<div class= content-item>");
-                    var linkTitle = $(`<a href="${item.content}">`);
-                    var starNumber = $("<p class = star-number>");
-                    var starImage = $("<i class='fas fa-star star-image'></i>");
-                    if (item.saved && loggedIn) starImage.addClass('saved');
-                    starNumber.text(item.likes);
-                    newDiv.data('id', item.id)
-                    newDiv.attr('id', 'content-item' + item.id)
-                    linkTitle.text(item.title);
-                    starImage.attr('src', 'imageSRC');
-                    newDiv.append(linkTitle, starNumber, starImage);
-                    $(".content-item-container").prepend(newDiv);
-
-
-                })
-                // })
-
+                data.forEach(function (concept) {
+                    var newDiv = $("<div class= 'concept-category'>");
+                    var linkTitle = $(`<h4>`);
+                    var dropdownOption = $(`<option value= ${concept.title}>`)
+                    newDiv.data('id', concept.id)
+                    newDiv.attr('id', 'category-' + concept.title)
+                    linkTitle.text(concept.title);
+                    newDiv.append(linkTitle);
+                    $(".concept-container").append(newDiv);
+                    dropdownOption.text(concept.title);
+                    $('select').append(dropdownOption);
+                });
             })
 
-
-
-
-
-            $(".star-image").on('click', function (e) {
-                var starID = $(this).parent().data('id');
-                if ($(this).hasClass('saved')) {
-                    // $(this).css('color', 'black');
-                    $(this).toggleClass('saved');
-                    $('')
-                    $.ajax('/api/content/' + starID, {
-                        method: 'PUT',
-                        data: {
-                            saved: false
-                        }
-                    })
-                } else {
-                    // $(this).css('color', 'orange')
-                    $(this).toggleClass('saved')
-                    $.ajax('/api/content/' + starID, {
-                        method: 'PUT',
-                        data: {
-                            saved: true
-                        }
-                    })
-                }
-
-
-
-            })
-            $("#submit-content").on('click', function (e) {
-                e.preventDefault();
-                var createObj = {
-                    content: $("#new-link").val(),
-                    title: $("#new-name").val(),
-                    category: $("select").val(),
-                    likes: 0
-
-                }
-                $.post('/api/concept/new', createObj, function () {
-                    //modal pop up - successfully submitted
-                })
-
-            })
+            //PAGE LOGIN
             $("#submit-login").on('click', function (e) {
                 e.preventDefault();
                 var username = $("#login").val();
@@ -203,9 +118,141 @@
                     username,
                     password
                 }, function (data) {
-                    if (data === 'success') loggedIn = true;
+                    //data should container userID
+                    if (data) {
+                        userID = data;
+                        loggedIn = true;
+                    } else {
+                        //incorrect password
+                    }
                 })
             })
+            //ON CLICK OF CONCEPTS, POPULATE CONTENT-ITEMS CONTAINER
+            $(".concept-category").on('click', function (e) {
+                $(".content-item-container").empty();
+                var category = $(this).attr('id');
+                category = category.slice(category.indexOf('-') + 1);
+                console.log(category);
+                $.get('/api/content/' + category, function (err, data) {
+                    if (err) throw err;
+                    data = [{
+                            content: 'testLink',
+                            id: 1,
+                            title: 'im a title',
+                            saves: 200,
+                            saved: true,
+                            category: 'functions'
+                        },
+                        {
+                            content: 'testLink2',
+                            id: 2,
+                            title: 'im a title2',
+                            saves: 431,
+                            saved: false,
+                            category: 'conditionals'
+                        },
+                        {
+                            content: 'testLink3',
+                            id: 12,
+                            title: 'im a title3',
+                            saves: 300,
+                            saved: false,
+                            category: 'api calls'
+
+                        },
+                    ];
+                    //CREATE INDIVIDUAL CONTENT ITEM DIV
+                    //Items come in an array of objects and come in Most saves, DESC
+                    data.forEach(function (item) {
+                        var newDiv = $("<div class= content-item>");
+                        var linkTitle = $(`<a href="${item.content}">`);
+                        var starNumber = $("<p class = star-number>");
+                        var starImage = $("<i class='fas fa-star star-image'></i>");
+                        if (item.saved && loggedIn) starImage.addClass('saved');
+                        starNumber.text(item.saves);
+                        newDiv.data('id', item.id);
+                        starNumber.attr('id', 'content-item' + item.id);
+                        linkTitle.text(item.title);
+                        newDiv.append(linkTitle, starNumber, starImage);
+                        $(".content-item-container").prepend(newDiv);
+
+                    })
+                })
+
+            })
+
+
+
+
+            //ON CLICK LISTENER FOR SAVING CONTENT
+            $(document).on('click', ".star-image", function (e) {
+                var starID = $(this).parent().data('id');
+                var temp = $(`#content-item${starID}`).text()
+                temp = parseInt(temp);
+                //IF CONTENT IS BEING UNSAVED
+                if ($(this).hasClass('saved')) {
+                    $(this).removeClass('saved');
+                    $(`#content-item${starID}`).text(temp - 1)
+                    $.ajax(`/api/delete/${userID}/${starID}`, {
+                        method: 'DELETE',
+                        data: {
+                            saved: false
+                        }
+                    })
+                    $.post('/user/resources/new/' + starID)
+
+                } else {
+                    $(`#content-item${starID}`).text(temp + 1)
+                    //IF CONTENT IS BEING SAVED
+                    $(this).addClass('saved')
+                    $.ajax(`/api/save/${userID}/${starID}`, {
+                        method: 'POST'
+                    })
+                }
+
+            })
+
+            //ADD NEW CONTENT
+            $("#submit-content").on('click', function (e) {
+                e.preventDefault();
+                var createObj = {
+                    content: $("#new-link").val(),
+                    title: $("#new-name").val(),
+                    category: $("select").val(),
+
+                }
+                $.post('/api/concept/new', createObj, function () {
+                    //modal pop up - successfully submitted
+                })
+
+            })
+
+
+            if (loggedIn) {
+                $("#user-library-link").on('click', function () {
+                    if (!$(this).hasClass('active')) {
+                        $(this).toggleClass('active');
+                        $("#full-library-link").toggleClass('active');
+                        $(".library-container").hide();
+                        $(".add-content").hide();
+                        $(".user-library-container").css('display', 'block')
+                        $.get(`/api/${userID}`, function (err, data) {
+                            if (err) throw err;
+                            //generate library div populated with 
+                        })
+                    }
+                })
+            }
+            $("#full-library-link").on('click', function () {
+                if (!$(this).hasClass('active')) {
+                    $(this).toggleClass('active')
+                    $("#user-library-link").toggleClass('active')
+                    $(".library-container").show();
+                    $(".add-content").show();
+                    $(".user-library-container").css('display', 'none')
+                }
+            })
+
 
         })
     </script>

@@ -3,19 +3,40 @@ body {
 }
 
 div {
-    border: 1px black solid;
+    border: 1px #000000 solid;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.library-links {
+    display: flex;
+}
+
+.library-links>p {
+    margin: 0;
+}
+
+.active {
+    background-color: black;
+    color: white;
 }
 
 .login-container {
     display: flex;
-    justify-content: flex-end;
-
 }
 
 .library-container {
     height: 50%;
     display: flex;
 
+}
+
+.user-library-container {
+    display: none;
+    height: 400px;
 }
 
 .concept-container {
@@ -38,8 +59,4 @@ div {
 
 .saved {
     color: orange;
-}
-
-.star-image {
-    border: 1px black solid;
 }
