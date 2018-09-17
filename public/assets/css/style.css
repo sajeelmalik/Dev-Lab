@@ -20,6 +20,7 @@ div {
 
 .concept-container {
     flex: 1;
+    text-transform: capitalize;
 }
 
 .content-container {
@@ -28,8 +29,17 @@ div {
 
 .content-item {
     display: flex;
+    align-items: center;
 }
 
-.content-item>h4 {
+.content-item>a {
     flex: 8;
+}
+
+.saved {
+    color: orange;
+}
+
+.star-image {
+    border: 1px black solid;
 }
