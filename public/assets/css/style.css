@@ -1,0 +1,62 @@
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+}
+
+div {
+    border: 1px #000000 solid;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.library-links {
+    display: flex;
+}
+
+.library-links>p {
+    margin: 0;
+}
+
+.active {
+    background-color: black;
+    color: white;
+}
+
+.login-container {
+    display: flex;
+}
+
+.library-container {
+    height: 50%;
+    display: flex;
+
+}
+
+.user-library-container {
+    display: none;
+    height: 400px;
+}
+
+.concept-container {
+    flex: 1;
+    text-transform: capitalize;
+}
+
+.content-container {
+    flex: 1;
+}
+
+.content-item {
+    display: flex;
+    align-items: center;
+}
+
+.content-item>a {
+    flex: 8;
+}
+
+.saved {
+    color: orange;
+}
