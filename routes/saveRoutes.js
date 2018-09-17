@@ -16,6 +16,7 @@ module.exports = function(app) {
         query.userId = req.query.user_id;
       }
       // 1. Add a join here to include all of the users to these resources
+      // "required:false" is our solution to the left join
       db.Content.findAll({
         include: [{
             model: db.User, 
