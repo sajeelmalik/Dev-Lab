@@ -77,36 +77,28 @@
             var userID;
             var loggedIn = true;
 
-            $.get('/api/content', function (err, data) {
-                if (err) throw err;
+            $.get('/api/contents', function (err, data) {
+                    if (err) throw err;
+                    console.log(data);
+                }).then(data => {
+                    //POPULATES CONCEPT CATEGORIES
 
-                //POPULATES CONCEPT CATEGORIES
-                data = [{
-                        id: 3,
-                        title: 'conditionals'
-                    },
-                    {
-                        id: 4,
-                        title: 'api calls'
-                    }, {
-                        id: 12,
-                        title: 'functions'
-                    }
+                    data.forEach(function (concept) {
+                        var newDiv = $("<div class= 'concept-category'>");
+                        var linkTitle = $(`<h4>`);
+                        var dropdownOption = $(`<option value= ${concept.conceptTitle}>`)
+                        newDiv.data('id', concept.id)
+                        newDiv.attr('id', 'category-' + concept.conceptTitle)
+                        linkTitle.text(concept.conceptTitle);
+                        newDiv.append(linkTitle);
+                        $(".concept-container").append(newDiv);
+                        dropdownOption.text(concept.conceptTitle);
+                        $('select').append(dropdownOption);
+                    });
+                })
+                .catch(err => console.log(err))
 
-                ]
-                data.forEach(function (concept) {
-                    var newDiv = $("<div class= 'concept-category'>");
-                    var linkTitle = $(`<h4>`);
-                    var dropdownOption = $(`<option value= ${concept.title}>`)
-                    newDiv.data('id', concept.id)
-                    newDiv.attr('id', 'category-' + concept.title)
-                    linkTitle.text(concept.title);
-                    newDiv.append(linkTitle);
-                    $(".concept-container").append(newDiv);
-                    dropdownOption.text(concept.title);
-                    $('select').append(dropdownOption);
-                });
-            })
+
 
             //PAGE LOGIN
             $("#submit-login").on('click', function (e) {
@@ -128,61 +120,31 @@
                 })
             })
             //ON CLICK OF CONCEPTS, POPULATE CONTENT-ITEMS CONTAINER
-            $(".concept-category").on('click', function (e) {
+            $(document).on('click', ".concept-category", function (e) {
                 $(".content-item-container").empty();
                 var category = $(this).attr('id');
                 category = category.slice(category.indexOf('-') + 1);
                 console.log(category);
-                $.get('/api/content/' + category, function (err, data) {
+                $.get('/api/contents/' + category, function (err, data) {
                     if (err) throw err;
-                    data = [{
-                            content: 'testLink',
-                            id: 1,
-                            title: 'im a title',
-                            saves: 200,
-                            saved: true,
-                            category: 'functions'
-                        },
-                        {
-                            content: 'testLink2',
-                            id: 2,
-                            title: 'im a title2',
-                            saves: 431,
-                            saved: false,
-                            category: 'conditionals'
-                        },
-                        {
-                            content: 'testLink3',
-                            id: 12,
-                            title: 'im a title3',
-                            saves: 300,
-                            saved: false,
-                            category: 'api calls'
-
-                        },
-                    ];
+                }).then(data => {
                     //CREATE INDIVIDUAL CONTENT ITEM DIV
                     //Items come in an array of objects and come in Most saves, DESC
                     data.forEach(function (item) {
                         var newDiv = $("<div class= content-item>");
-                        var linkTitle = $(`<a href="${item.content}">`);
+                        var linkTitle = $(`<a href="${item.links}">`);
                         var starNumber = $("<p class = star-number>");
                         var starImage = $("<i class='fas fa-star star-image'></i>");
                         if (item.saved && loggedIn) starImage.addClass('saved');
                         starNumber.text(item.saves);
                         newDiv.data('id', item.id);
                         starNumber.attr('id', 'content-item' + item.id);
-                        linkTitle.text(item.title);
+                        linkTitle.text(item.contentTitle);
                         newDiv.append(linkTitle, starNumber, starImage);
                         $(".content-item-container").prepend(newDiv);
-
                     })
                 })
-
             })
-
-
-
 
             //ON CLICK LISTENER FOR SAVING CONTENT
             $(document).on('click', ".star-image", function (e) {
@@ -194,10 +156,7 @@
                     $(this).removeClass('saved');
                     $(`#content-item${starID}`).text(temp - 1)
                     $.ajax(`/api/delete/${userID}/${starID}`, {
-                        method: 'DELETE',
-                        data: {
-                            saved: false
-                        }
+                        method: 'DELETE'
                     })
                     $.post('/user/resources/new/' + starID)
 

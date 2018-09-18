@@ -4,7 +4,7 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                IsEmail: true
+                isEmail: true
             }
         },
         userName: {
@@ -23,7 +23,8 @@ module.exports = function (sequelize, DataTypes) {
     User.associate = function (models) {
         // When an User is deleted, also delete any associated content
         User.belongsToMany(models.Content, {
-            through: 'User_Content'
+            through: 'User_Content',
+            as: 'savedLinks'
         });
     };
 

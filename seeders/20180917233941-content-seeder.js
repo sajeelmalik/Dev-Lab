@@ -13,14 +13,16 @@ module.exports = {
         links: 'www.google.com',
         contentBody: 'Functions link lorem ipsum',
         saves: 421,
-        created_at: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       }, {
         conceptTitle: 'api calls',
         contentTitle: 'Fetch & aJax',
         links: 'www.yahoo.com',
         contentBody: 'functions',
         saves: 213,
-        created_at: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         conceptTitle: 'conditionals',
@@ -28,7 +30,8 @@ module.exports = {
         links: 'www.gmail.com',
         contentBody: 'functions',
         saves: 111,
-        created_at: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
       {
         conceptTitle: 'functions',
@@ -36,7 +39,8 @@ module.exports = {
         links: 'www.reddit.com',
         contentBody: 'functions',
         saves: 4021,
-        created_at: new Date()
+        createdAt: new Date(),
+        updatedAt: new Date()
       },
     ], {});
 
