@@ -23,6 +23,8 @@
                 Password: <input id='password' type="password">
                 <input type="submit" id='submit-login' value="Login">
             </form>
+            <input type="button" value="Sign Up" id='sign-up-button'>
+
     </header>
 
     </div>
@@ -69,6 +71,20 @@
         </div>
     </main>
 
+    <div class="sign-up-modal closed">
+        <form action="">
+            <label for="userName">Username: </label>
+            <input name='userName' type="text">
+            <label for="userPassword">Password: </label>
+            <input name='userPassword' type="password">
+            <label for="usermail">Email : </label>
+            <input name='userEmail' type="text">
+            <input type="submit" value='Sign Up!' id="sign-up-submit">
+            <input type="button" value='Cancel' id="sign-up-cancel">
+        </form>
+
+    </div>
+    <div class="screen-overlay"></div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous">
     </script>
@@ -77,36 +93,28 @@
             var userID;
             var loggedIn = true;
 
-            $.get('/api/content', function (err, data) {
-                if (err) throw err;
+            $.get('/api/contents', function (err, data) {
+                    if (err) throw err;
+                    console.log(data);
+                }).then(data => {
+                    //POPULATES CONCEPT CATEGORIES
 
-                //POPULATES CONCEPT CATEGORIES
-                data = [{
-                        id: 3,
-                        title: 'conditionals'
-                    },
-                    {
-                        id: 4,
-                        title: 'api calls'
-                    }, {
-                        id: 12,
-                        title: 'functions'
-                    }
+                    data.forEach(function (concept) {
+                        var newDiv = $("<div class= 'concept-category'>");
+                        var linkTitle = $(`<h4>`);
+                        var dropdownOption = $(`<option value= ${concept.conceptTitle}>`)
+                        newDiv.data('id', concept.id)
+                        newDiv.attr('id', 'category-' + concept.conceptTitle)
+                        linkTitle.text(concept.conceptTitle);
+                        newDiv.append(linkTitle);
+                        $(".concept-container").append(newDiv);
+                        dropdownOption.text(concept.conceptTitle);
+                        $('select').append(dropdownOption);
+                    });
+                })
+                .catch(err => console.log(err))
 
-                ]
-                data.forEach(function (concept) {
-                    var newDiv = $("<div class= 'concept-category'>");
-                    var linkTitle = $(`<h4>`);
-                    var dropdownOption = $(`<option value= ${concept.title}>`)
-                    newDiv.data('id', concept.id)
-                    newDiv.attr('id', 'category-' + concept.title)
-                    linkTitle.text(concept.title);
-                    newDiv.append(linkTitle);
-                    $(".concept-container").append(newDiv);
-                    dropdownOption.text(concept.title);
-                    $('select').append(dropdownOption);
-                });
-            })
+
 
             //PAGE LOGIN
             $("#submit-login").on('click', function (e) {
@@ -128,61 +136,31 @@
                 })
             })
             //ON CLICK OF CONCEPTS, POPULATE CONTENT-ITEMS CONTAINER
-            $(".concept-category").on('click', function (e) {
+            $(document).on('click', ".concept-category", function (e) {
                 $(".content-item-container").empty();
                 var category = $(this).attr('id');
                 category = category.slice(category.indexOf('-') + 1);
                 console.log(category);
-                $.get('/api/content/' + category, function (err, data) {
+                $.get('/api/contents/' + category, function (err, data) {
                     if (err) throw err;
-                    data = [{
-                            content: 'testLink',
-                            id: 1,
-                            title: 'im a title',
-                            saves: 200,
-                            saved: true,
-                            category: 'functions'
-                        },
-                        {
-                            content: 'testLink2',
-                            id: 2,
-                            title: 'im a title2',
-                            saves: 431,
-                            saved: false,
-                            category: 'conditionals'
-                        },
-                        {
-                            content: 'testLink3',
-                            id: 12,
-                            title: 'im a title3',
-                            saves: 300,
-                            saved: false,
-                            category: 'api calls'
-
-                        },
-                    ];
+                }).then(data => {
                     //CREATE INDIVIDUAL CONTENT ITEM DIV
                     //Items come in an array of objects and come in Most saves, DESC
                     data.forEach(function (item) {
                         var newDiv = $("<div class= content-item>");
-                        var linkTitle = $(`<a href="${item.content}">`);
+                        var linkTitle = $(`<a href="${item.links}">`);
                         var starNumber = $("<p class = star-number>");
                         var starImage = $("<i class='fas fa-star star-image'></i>");
                         if (item.saved && loggedIn) starImage.addClass('saved');
                         starNumber.text(item.saves);
                         newDiv.data('id', item.id);
                         starNumber.attr('id', 'content-item' + item.id);
-                        linkTitle.text(item.title);
+                        linkTitle.text(item.contentTitle);
                         newDiv.append(linkTitle, starNumber, starImage);
                         $(".content-item-container").prepend(newDiv);
-
                     })
                 })
-
             })
-
-
-
 
             //ON CLICK LISTENER FOR SAVING CONTENT
             $(document).on('click', ".star-image", function (e) {
@@ -194,10 +172,7 @@
                     $(this).removeClass('saved');
                     $(`#content-item${starID}`).text(temp - 1)
                     $.ajax(`/api/delete/${userID}/${starID}`, {
-                        method: 'DELETE',
-                        data: {
-                            saved: false
-                        }
+                        method: 'DELETE'
                     })
                     $.post('/user/resources/new/' + starID)
 
@@ -251,6 +226,38 @@
                     $(".add-content").show();
                     $(".user-library-container").css('display', 'none')
                 }
+            })
+
+            $("#sign-up-button").on('click', function (e) {
+                $(".sign-up-modal").css('display', 'flex');
+                $(".screen-overlay").css('display', 'flex');
+            })
+            $("#sign-up-cancel").on('click', function (e) {
+                $(".sign-up-modal").css('display', 'none');
+                $(".screen-overlay").css('display', 'none');
+            })
+            $("#sign-up-submit").on('click', function (e) {
+                e.preventDefault();
+                var newUser = {
+                    userName: $("input[name=userName]").val(),
+                    userPassword: $("input[name=userPassword]").val(),
+                    userEmail: $("input[name=userEmail]").val()
+                }
+                $.post('/api/new/users', newUser, function (resp) {
+                    console.log(resp);
+                    $("#sign-up-submit").css('display', 'none')
+                    $(".sign-up-modal").html(
+                        `Thank you ${resp.userName}! You've successfully signed up for DevLab. Please log in with your email ${resp.userEmail}`
+                    )
+                    $(document).on("click", ".sign-up-modal", () => {
+                        $(".sign-up-modal").css('display', 'none');
+                        $(".screen-overlay").css('display', 'none');
+
+                    })
+                })
+
+
+                console.log(newUser);
             })
 
 
