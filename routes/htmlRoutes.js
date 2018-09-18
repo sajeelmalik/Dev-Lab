@@ -6,7 +6,7 @@ var path = require("path");
 
 // Routes
 // =============================================================
-module.exports = function(app) {
+module.exports = function(app, auth) {
 
   // index route loads index.html
   app.get("/", function(req, res) {

@@ -29,7 +29,7 @@ app.use(session({ secret: 'farley the cat',resave: true, saveUninitialized:true}
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 //load passport strategies
-require('./config/passport/passport.js')(passport, db.user);
+require('./config/passport/passport.js')(passport, db.User);
 
 // Static directory
 app.use(express.static("public"));
