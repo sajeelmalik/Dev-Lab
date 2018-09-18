@@ -1,9 +1,22 @@
+/* Color Scheme
+
+Red #EA0F0B
+Dark Blues #000022 #010131
+Gold #FFD447
+ */
+
+
 body {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    font-family: 'Raleway', sans-serif;
+}
+
+h1, h2{
+    font-family: 'Montserrat', sans-serif;
+
 }
 
 div {
-    border: 1px #000000 solid;
+    /* border: 1px #000000 solid; */
 }
 
 header {
@@ -19,6 +32,61 @@ header {
     margin: 0;
 }
 
+#landing{
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    /* background-color: rgba(234, 15, 11, 0.048) */
+}
+
+.title{
+    position: absolute;
+    font-size: 96px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    font-weight: 400;
+    color: #EA0F0B;
+    top: 40%;
+    left: 48%;
+    transform: translate(-50%, -50%);
+}
+
+.title:hover{
+    cursor: crosshair;
+    /* text-shadow: 1px 1px 1px 1px rgb(20, 20, 199); */
+}
+
+.title::selection{
+    background-color: #EA0F0B;
+}
+
+#laptop{
+    max-height: 175px;
+    max-width: 175px;
+}
+#lab{
+    font-weight: 600;
+    font-style: italic;
+    color: #010131;
+}
+
+#lab::selection{
+    background-color: #000022;
+}
+
+.uk-button{
+    transition: 0.2s ease-in-out;
+}
+
+.uk-button:hover{
+    background-color: #010131d7;
+}
+
+.uk-button:active{
+    text-decoration-line: underline;
+    text-decoration-style: solid;   
+    background-color: #010131d7;
+}
 
 
 .login-container {
@@ -41,13 +109,17 @@ header {
     text-transform: capitalize;
 }
 
+.concept-category{
+    text-transform: capitalize;
+}
+
 .content-container {
-    flex: 1;
+    flex: 2;
 }
 
 .content-item {
-    display: flex;
-    align-items: center;
+    /* display: flex;
+    align-items: center; */
 }
 
 .content-item>a {
@@ -57,7 +129,7 @@ header {
 /* MODIFIERS */
 
 .active {
-    background-color: black;
+    background-color: rgba(234, 15, 11, 0.781);
     color: white;
 }
 
@@ -71,19 +143,36 @@ header {
 
 /* MODALS */
 
-.sign-up-modal {
-    display: none;
-    position: fixed;
-    left: 25%;
-    top: 25%;
-    height: 300px;
-    max-width: 100%;
-    background-color: #eaeaee;
-    z-index: 1010;
-
+.uk-offcanvas-bar{
+    background-color: #000022;
+    opacity: 0.9;
 }
 
-.screen-overlay {
+.sign-up-modal {
+    background-color: #00002242;
+    opacity: 0.9;
+}
+
+.uk-modal-header{
+    background-color: #000022;
+}
+
+.uk-modal-header h2{
+   color: white;
+}
+
+#sign-up-submit{
+    transition: 0.1s ease-in;
+}
+
+#sign-up-submit:hover{  
+    background-color:rgba(234, 15, 11, 0.781);
+    letter-spacing: 2px;
+    color: rgb(195, 200, 240);
+    font-size: 1.1em;
+}
+
+/* .screen-overlay {
     display: none;
     position: absolute;
     top: 0;
@@ -92,4 +181,44 @@ header {
     min-width: 100vw;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 1000;
-}
+} */
+
+/* ANIMATIONS */
+
+.title {
+    position: relative;
+    display: inline-block;
+    transition: color 0.2s ease;
+  }
+  
+  .title::after, .title::before {
+    content: "";
+    position: absolute;
+    width: 0;
+    right: 0;
+    height: 20px;
+    bottom: -20px;
+    z-index: -1;
+  }
+  
+  .title:hover::after, .title:hover::before {
+    display: block;
+    width: 100%;
+    left: 0;
+    bottom: -20px;
+  }
+  
+ .title::before{
+    -webkit-transition: width 0.6s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
+    background: rgba(234, 15, 11, 0.781);
+    border-radius: 20px;
+
+  }
+  
+ .title::after {
+    /* transition: width 0.2s cubic-bezier(0.29, 0.18, 0.26, 0.83); */
+    -webkit-transition: width 0.4s cubic-bezier(0.29, 0.18, 0.26, 0.83);
+    background: #010131;
+    border-radius: 20px;
+
+  }

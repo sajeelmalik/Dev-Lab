@@ -6,11 +6,11 @@ var path = require("path");
 
 // Routes
 // =============================================================
-module.exports = function(app, auth) {
+module.exports = function(app) {
 
   // index route loads index.html
-  app.get("/", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/index.html"));
+  app.get("/", isLoggedIn, function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/dashboard.html"));
   });
 
   // All educational resources in resources.html
@@ -18,5 +18,13 @@ module.exports = function(app, auth) {
   //   res.sendFile(path.join(__dirname, "../public/resources.html"));
   // });
 
- 
+  function isLoggedIn(req, res, next) {
+    console.log("HTML page: " + req.user.id);
+    if (req.isAuthenticated())
+
+        return next();
+
+    res.redirect('/signin');
+
+}
 };
