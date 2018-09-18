@@ -7,12 +7,42 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
+
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.16/css/uikit.min.css" />
+
+    <!-- UIkit JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.16/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.16/js/uikit-icons.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Raleway" rel="stylesheet">
+
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Document</title>
 </head>
 
 <body>
-    <header>
+    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
+        <nav class="uk-alert-danger uk-navbar-container uk-animation-slide-top" uk-navbar style="position: relative; z-index: 980;">
+            <div class="uk-navbar-left uk-margin-left">
+                <ul class="uk-navbar-nav">
+                    <li class="uk-button" id='user-library-link'>My Library</li>
+                    <li class="uk-button active" id='full-library-link'>Full Library</li>
+                </ul>
+            </div>
+            <div class="uk-navbar-right">
+                <form class="uk-form" action="" id="login">
+                    Login: <input class="uk-input uk-width-1-4" id='username' type="text">
+                    Password: <input class="uk-input uk-width-1-4" id='password' type="password">
+                    <input class="uk-button" type="submit" id='submit-login' value="Login">
+                    <input class="uk-button" type="button" value="Sign Up" id='sign-up-button'>
+                </form>
+
+            </div>
+        </nav>
+    </div>
+
+    <!-- <header>
         <div class="library-links">
             <p id='user-library-link'>My Library</p>
             <p id='full-library-link' class='active'>Full Library</p>
@@ -25,7 +55,12 @@
             </form>
             <input type="button" value="Sign Up" id='sign-up-button'>
 
-    </header>
+    </header> -->
+    <div id="landing">
+        <h1 class="title uk-animation-fade"><span><img src="./assets/images/lapiconDARKblue.png" id="laptop"></span>Dev<span
+                id="lab">Lab</span></h1>
+        <!-- <p>Teach yourself how to code.</p> -->
+    </div>
 
     </div>
     <main>
@@ -33,42 +68,66 @@
             Library
             <p>User categories: All saved articles(sort by saves vs date added) AND saved workflows.</p>
         </div>
-        <div class="library-container">
-            <div class="concept-container">
-                <h3>Concepts</h3>
-                <!-- <div class="concept-category" id=concept-category1>
+        <div class="uk-container " uk-scrollspy="target: > div; cls:uk-animation-slide-top-small; delay: 300">
+            <div class="library-container">
+                <div class="concept-container">
+                    <h3>Concepts</h3>
+                    <!-- <div class="concept-category" id=concept-category1>
                 <h4>Functions</h4>
             </div> -->
-            </div>
-            <div class="content-container">
-                <h3>Content</h3>
-                <div class="content-item-container">
-                    <!-- <div class="content-item" data-id='1' id="content-item1">
-                        <a>Sample Link</a>
-                        <p class='star-number'>500</p>
-                        <i class='fas fa-star saved star-image'></i>
+                </div>
+                <div class="content-container">
+                    <h3>Content</h3>
+                    <div class="content-item-container" uk-scrollspy="target: > ul; cls:uk-animation-slide-right-medium; delay: 300">
+                        <!-- 
+                        <ul uk-accordion>
+                        <li>
+                            <a class="uk-accordion-title" href="#">For Loops <span class='star-number uk-align-right'>421
+                                    <i class='fas fa-star star-image'></i></span></a>
+                            <div class="uk-accordion-content content-item" data-id='1' id="content-item1">
+                                <a>Sample Link</a>
+
+                            </div>
+                        </li>
+                        <li>
+                            <a class="uk-accordion-title" href="#">Conditionals<span class='star-number uk-align-right'>282
+                                    <i class='fas fa-star star-image'></i></span>
+                            </a>
+                            <div class="uk-accordion-content content-item" data-id='1' id="content-item1">
+                                <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae ab deserunt deleniti ea delectus libero soluta facilis mollitia molestias <a>iusto.</a></P>
+                            </div>
+                        </li>
+                    </ul>-->
+
                     </div>
-                    <div class="content-item" data-id='2' id="content-item2">
-                        <a>Sample Link</a>
-                        <p class='star-number'>421</p>
-                        <i class='fas fa-star star-image'></i>
-                    </div> -->
                 </div>
             </div>
-        </div>
-        <div class="add-content">
-            <h2>Add Content</h2>
-            <form action="">
-                Concept: <select>
+            <button class="uk-button uk-button-danger uk-align-center uk-width-1-1" type = "button" uk-toggle="target: #add-content-slider">Add Content</button>
 
-                </select>
-                <label for="new-name">Title: </label>
-                <input type="text" id='new-name'>
-                <label for="new-link">Link: </label>
-                <input type="text" id='new-link'>
-                <input type="submit" id='submit-content' value="Add Content">
-            </form>
-        </div>
+            <div id="add-content-slider" uk-offcanvas="overlay: true">
+                <div class="uk-offcanvas-bar">
+
+                    <button class="uk-offcanvas-close" type="button" uk-close></button>
+
+                    <div class="add-content">
+                        <h2>Add Content</h2>
+                        <form action="">
+                            Concept: <select>
+
+                            </select>
+                            <label for="new-name">Title: </label>
+                            <input type="text" id='new-name'>
+                            <label for="new-link">Link: </label>
+                            <input type="text" id='new-link'>
+                            <input type="submit" id='submit-content' value="Add Content">
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+
+
     </main>
 
     <div class="sign-up-modal closed">
@@ -84,34 +143,37 @@
         </form>
 
     </div>
-    <div class="screen-overlay"></div>
+    <!-- <div class="screen-overlay"></div> -->
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous">
-    </script>
+
+        </script>
     <script>
         $(function () {
             var userID;
             var loggedIn = true;
 
             $.get('/api/contents', function (err, data) {
-                    if (err) throw err;
-                    console.log(data);
-                }).then(data => {
-                    //POPULATES CONCEPT CATEGORIES
+                if (err) throw err;
+                console.log(data);
+            }).then(data => {
+                //POPULATES CONCEPT CATEGORIES
 
-                    data.forEach(function (concept) {
-                        var newDiv = $("<div class= 'concept-category'>");
-                        var linkTitle = $(`<h4>`);
-                        var dropdownOption = $(`<option value= ${concept.conceptTitle}>`)
-                        newDiv.data('id', concept.id)
-                        newDiv.attr('id', 'category-' + concept.conceptTitle)
-                        linkTitle.text(concept.conceptTitle);
-                        newDiv.append(linkTitle);
-                        $(".concept-container").append(newDiv);
-                        dropdownOption.text(concept.conceptTitle);
-                        $('select').append(dropdownOption);
-                    });
-                })
+                data.forEach(function (concept) {
+                    var newDiv = $("<div class= 'concept-category'>");
+                    var linkTitle = $(`<h4>`);
+                    var dropdownOption = $(`<option value= ${concept.conceptTitle}>`)
+                    newDiv.data('id', concept.id)
+                    newDiv.attr('id', 'category-' + concept.conceptTitle)
+                    linkTitle.text(concept.conceptTitle);
+                    newDiv.append(linkTitle);
+                    $(".concept-container").append(newDiv);
+                    dropdownOption.text(concept.conceptTitle);
+                    $('select').append(dropdownOption);
+                });
+            })
                 .catch(err => console.log(err))
 
 
@@ -146,18 +208,26 @@
                 }).then(data => {
                     //CREATE INDIVIDUAL CONTENT ITEM DIV
                     //Items come in an array of objects and come in Most saves, DESC
+                    var newAccordion = $("<ul uk-accordion>");
                     data.forEach(function (item) {
-                        var newDiv = $("<div class= content-item>");
-                        var linkTitle = $(`<a href="${item.links}">`);
-                        var starNumber = $("<p class = star-number>");
+                        var newItem = $("<li class=content-item>")
+                        var linkTitle = $(`<a class="uk-accordion-title" href="#">`); //${item.links}
+                        var starNumber = $("<span class = star-number>");
                         var starImage = $("<i class='fas fa-star star-image'></i>");
+                        var newDiv = $("<div class=uk-accordion-content>");
+
                         if (item.saved && loggedIn) starImage.addClass('saved');
                         starNumber.text(item.saves);
-                        newDiv.data('id', item.id);
+                        linkTitle.data('id', item.id);
                         starNumber.attr('id', 'content-item' + item.id);
+                        starNumber.append(starImage);
                         linkTitle.text(item.contentTitle);
-                        newDiv.append(linkTitle, starNumber, starImage);
-                        $(".content-item-container").prepend(newDiv);
+                        linkTitle.append(starNumber);
+                        starNumber.addClass("uk-align-right");
+
+                        newItem.append(linkTitle, newDiv);
+                        newAccordion.append(newItem);
+                        $(".content-item-container").prepend(newAccordion);
                     })
                 })
             })
