@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
     var Save = sequelize.define("Save", {
       created_at: {
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       }
     }, {
       timestamps: false

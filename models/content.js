@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
         }
       },
       created_at: {
-        type: Sequelize.DATE
+        type: DataTypes.DATE
       }
     }, {
       timestamps: false

@@ -4,6 +4,8 @@
 // =============================================================
 var express = require("express");
 var bodyParser = require("body-parser");
+var passport   = require('passport')
+var session    = require('express-session')
 
 // Sets up the Express App
 // =============================================================
@@ -20,6 +22,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 
+// For Passport
+app.use(session({ secret: 'farley the cat',resave: true, saveUninitialized:true})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+//load passport strategies
+require('./config/passport/passport.js')(passport, db.user);
+
 // Static directory
 app.use(express.static("public"));
 
@@ -30,6 +39,7 @@ require("./routes/voteRoutes.js")(app);
 require("./routes/userRoutes.js")(app);
 require("./routes/saveRoutes.js")(app);
 require("./routes/htmlRoutes.js")(app);
+require("./routes/authRoutes.js")(app, passport);
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
