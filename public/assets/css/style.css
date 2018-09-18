@@ -19,10 +19,7 @@ header {
     margin: 0;
 }
 
-.active {
-    background-color: black;
-    color: white;
-}
+
 
 .login-container {
     display: flex;
@@ -57,6 +54,42 @@ header {
     flex: 8;
 }
 
+/* MODIFIERS */
+
+.active {
+    background-color: black;
+    color: white;
+}
+
 .saved {
     color: orange;
+}
+
+/* .closed {
+    display: none;
+} */
+
+/* MODALS */
+
+.sign-up-modal {
+    display: none;
+    position: fixed;
+    left: 25%;
+    top: 25%;
+    height: 300px;
+    max-width: 100%;
+    background-color: #eaeaee;
+    z-index: 1010;
+
+}
+
+.screen-overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
 }

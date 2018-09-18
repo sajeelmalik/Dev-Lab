@@ -20,9 +20,25 @@ module.exports = function (app) {
       res.json(resp)
     })
   })
+
+  //WORKING
+  app.get('/api/users/:id', function (req, res) {
+    db.User.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [{
+        all: true
+      }]
+    }).then(function (resp) {
+      res.json(resp)
+    })
+  })
+
+
   //WORKING
   // content route for creating a new user
-  app.post("/api/users", function (req, res) {
+  app.post("/api/new/users", function (req, res) {
     db.User.create(req.body).then(function (dbUser) {
       res.json(dbUser);
     });

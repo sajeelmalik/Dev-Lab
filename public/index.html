@@ -23,6 +23,8 @@
                 Password: <input id='password' type="password">
                 <input type="submit" id='submit-login' value="Login">
             </form>
+            <input type="button" value="Sign Up" id='sign-up-button'>
+
     </header>
 
     </div>
@@ -69,6 +71,20 @@
         </div>
     </main>
 
+    <div class="sign-up-modal closed">
+        <form action="">
+            <label for="userName">Username: </label>
+            <input name='userName' type="text">
+            <label for="userPassword">Password: </label>
+            <input name='userPassword' type="password">
+            <label for="usermail">Email : </label>
+            <input name='userEmail' type="text">
+            <input type="submit" value='Sign Up!' id="sign-up-submit">
+            <input type="button" value='Cancel' id="sign-up-cancel">
+        </form>
+
+    </div>
+    <div class="screen-overlay"></div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous">
     </script>
@@ -210,6 +226,38 @@
                     $(".add-content").show();
                     $(".user-library-container").css('display', 'none')
                 }
+            })
+
+            $("#sign-up-button").on('click', function (e) {
+                $(".sign-up-modal").css('display', 'flex');
+                $(".screen-overlay").css('display', 'flex');
+            })
+            $("#sign-up-cancel").on('click', function (e) {
+                $(".sign-up-modal").css('display', 'none');
+                $(".screen-overlay").css('display', 'none');
+            })
+            $("#sign-up-submit").on('click', function (e) {
+                e.preventDefault();
+                var newUser = {
+                    userName: $("input[name=userName]").val(),
+                    userPassword: $("input[name=userPassword]").val(),
+                    userEmail: $("input[name=userEmail]").val()
+                }
+                $.post('/api/new/users', newUser, function (resp) {
+                    console.log(resp);
+                    $("#sign-up-submit").css('display', 'none')
+                    $(".sign-up-modal").html(
+                        `Thank you ${resp.userName}! You've successfully signed up for DevLab. Please log in with your email ${resp.userEmail}`
+                    )
+                    $(document).on("click", ".sign-up-modal", () => {
+                        $(".sign-up-modal").css('display', 'none');
+                        $(".screen-overlay").css('display', 'none');
+
+                    })
+                })
+
+
+                console.log(newUser);
             })
 
 
