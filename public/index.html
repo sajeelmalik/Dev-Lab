@@ -21,7 +21,7 @@
     <title>Document</title>
 </head>
 
-<body>
+<body class="uk-offcanvas-content">
     <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
         <nav class="uk-alert-danger uk-navbar-container uk-animation-slide-top" uk-navbar style="position: relative; z-index: 980;">
             <div class="uk-navbar-left uk-margin-left">
@@ -35,7 +35,7 @@
                     Login: <input class="uk-input uk-width-1-4" id='username' type="text">
                     Password: <input class="uk-input uk-width-1-4" id='password' type="password">
                     <input class="uk-button" type="submit" id='submit-login' value="Login">
-                    <input class="uk-button" type="button" value="Sign Up" id='sign-up-button'>
+                    <input class="uk-button" type="button" value="Sign Up" id='sign-up-button' href="#sign-up-prompt" uk-toggle>
                 </form>
 
             </div>
@@ -63,23 +63,24 @@
     </div>
 
     </div>
-    <main>
+    <hr class="uk-divider-icon" uk-scrollspy="cls:uk-animation-grow">
+    <div class="uk-container" uk-scrollspy="target: > div; cls:uk-animation-slide-top-small; delay: 300">
         <div class="user-library-container">
             Library
             <p>User categories: All saved articles(sort by saves vs date added) AND saved workflows.</p>
         </div>
-        <div class="uk-container " uk-scrollspy="target: > div; cls:uk-animation-slide-top-small; delay: 300">
-            <div class="library-container">
-                <div class="concept-container">
-                    <h3>Concepts</h3>
-                    <!-- <div class="concept-category" id=concept-category1>
+
+        <div class="library-container">
+            <div class="concept-container">
+                <h2  class = "uk-text-left">Concepts</h2>
+                <!-- <div class="concept-category" id=concept-category1>
                 <h4>Functions</h4>
             </div> -->
-                </div>
-                <div class="content-container">
-                    <h3>Content</h3>
-                    <div class="content-item-container" uk-scrollspy="target: > ul; cls:uk-animation-slide-right-medium; delay: 300">
-                        <!-- 
+            </div>
+            <div class="content-container">
+                <h2 class = "uk-text-center">Content</h2>
+                <div class="content-item-container" uk-scrollspy="target: > ul; cls:uk-animation-slide-right-medium; delay: 300">
+                    <!-- 
                         <ul uk-accordion>
                         <li>
                             <a class="uk-accordion-title" href="#">For Loops <span class='star-number uk-align-right'>421
@@ -99,55 +100,75 @@
                         </li>
                     </ul>-->
 
-                    </div>
                 </div>
             </div>
-            <button class="uk-button uk-button-danger uk-align-center uk-width-1-1" type = "button" uk-toggle="target: #add-content-slider">Add Content</button>
+        </div>
+        <button class="uk-button uk-button-danger uk-align-center uk-width-1-1" type="button" uk-toggle="target: #add-content-slider">Add
+            Content</button>
 
-            <div id="add-content-slider" uk-offcanvas="overlay: true">
-                <div class="uk-offcanvas-bar">
+    </div>
 
-                    <button class="uk-offcanvas-close" type="button" uk-close></button>
+    <div id="add-content-slider" uk-offcanvas="overlay: true">
+        <div class="uk-offcanvas-bar">
 
-                    <div class="add-content">
-                        <h2>Add Content</h2>
-                        <form action="">
-                            Concept: <select>
+            <button class="uk-offcanvas-close" type="button" uk-close></button>
 
-                            </select>
-                            <label for="new-name">Title: </label>
-                            <input type="text" id='new-name'>
-                            <label for="new-link">Link: </label>
-                            <input type="text" id='new-link'>
-                            <input type="submit" id='submit-content' value="Add Content">
-                        </form>
+            <div class="add-content uk-margin-large-top">
+                <h2>Add Content</h2>
+                <form class="uk-form-stacked" action="">
+                    <div id="add-content-inputs">
+                        <label class="uk-form-label" for="new-concept">Concept: </label>
+                        <select class="uk-select" id="new-concept"></select>
+                        <label class="uk-form-label" for="new-name">Title: </label>
+                        <input class="uk-input" type="text" id='new-name'>
+                        <label class="uk-form-label" for="new-link">Link: </label>
+                        <input class="uk-input" type="text" id='new-link'>
+                        <br>
+                        <label class="uk-form-label" for="new-desc">Description: </label>
+                        <textarea class="uk-textarea" type="text" id='new-desc'></textarea>
                     </div>
 
-
-                </div>
+                    <input class="uk-button uk-button-danger uk-align-center" type="submit" id='submit-content' value="Add Content">
+                </form>
             </div>
 
 
-    </main>
+        </div>
+    </div>
 
-    <div class="sign-up-modal closed">
-        <form action="">
-            <label for="userName">Username: </label>
-            <input name='userName' type="text">
-            <label for="userPassword">Password: </label>
-            <input name='userPassword' type="password">
-            <label for="usermail">Email : </label>
-            <input name='userEmail' type="text">
-            <input type="submit" value='Sign Up!' id="sign-up-submit">
-            <input type="button" value='Cancel' id="sign-up-cancel">
-        </form>
-
+    <div class="sign-up-modal uk-flex-top" id = "sign-up-prompt" uk-modal>
+        <div class="uk-modal-dialog uk-margin-auto-vertical">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <div class="uk-modal-header">
+                <h2 class="uk-modal-title">Sign-Up for DevLab!</h2>
+            </div>
+            <div class="uk-modal-body">
+                <form class = "uk-form" action="">
+                    <label class="uk-form-label" for="userName">Username: </label>
+                    <input class="uk-input" name='userName' type="text">
+                    <label class="uk-form-label" for="userPassword">Password: </label>
+                    <input class="uk-input" name='userPassword' type="password">
+                    <label class="uk-form-label" for="userEmail">Email : </label>
+                    <input class="uk-input" name='userEmail' type="text">
+                </form>
+            </div>
+            <div class="uk-modal-footer uk-text-right">
+                <input class="uk-button" type="button" value='Cancel' id="sign-up-cancel">
+                <input class="uk-button" type="submit" value='Sign Up!' id="sign-up-submit">
+            </div>
+        </div>
     </div>
     <!-- <div class="screen-overlay"></div> -->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous">
+
+
+
+
+
+
 
         </script>
     <script>
