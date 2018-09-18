@@ -31,13 +31,10 @@ module.exports = function (sequelize, DataTypes) {
     },
     saves: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       validate: {
         len: [1]
       }
-    },
-    created_at: {
-      type: DataTypes.DATE
     }
   }, {});
 
@@ -45,7 +42,8 @@ module.exports = function (sequelize, DataTypes) {
   Content.associate = function (models) {
     // Content can't be created without an User due to the foreign key constraint
     Content.belongsToMany(models.User, {
-      through: 'User_Content'
+      through: 'User_Content',
+      as: "saveBy"
 
     });
 

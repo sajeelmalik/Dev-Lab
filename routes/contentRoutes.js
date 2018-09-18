@@ -10,14 +10,18 @@ var Sequelize = require('sequelize');
 // Routes
 // =============================================================
 module.exports = function (app) {
-  // app.get("/api/contents/all", function (req, res) {
-  //   db.Content.findAll({
-  //     all: true
-  //   }).then(function (dbcontent) {
-  //     res.json(dbcontent);
-  //   });
-  // });
-  //WORKING
+  app.get("/api/contents/all", function (req, res) {
+    db.Content.findAll({
+      include: [{
+        all: true
+      }]
+    }).then(function (dbcontent) {
+      res.json(dbcontent);
+    });
+  });
+
+
+  // WORKING
   // GET route for getting all of the concent titles
   app.get("/api/contents", function (req, res) {
     db.Content.findAll({
@@ -51,7 +55,12 @@ module.exports = function (app) {
   // content route for saving a new resource, inputted by a user (this path will be outlined in the client-side script)
   app.post("/api/new/contents", function (req, res) {
     console.log(req.body);
-    db.Content.create(req.body).then(function (dbcontent) {
+    db.Content.create({
+      conceptTitle: req.body.category,
+      contentTitle: req.body.title,
+      links: req.body.content,
+      contentBody: req.body.description
+    }).then(function (dbcontent) {
       res.json(dbcontent);
     });
   });
@@ -75,7 +84,7 @@ module.exports = function (app) {
           id: req.body.id
         }
       }).then(function (dbcontent) {
-      res.json(dbcontent);
-    });
+        res.json(dbcontent);
+      });
   });
 };
