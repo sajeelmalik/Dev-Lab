@@ -7,6 +7,13 @@ module.exports = function (sequelize, DataTypes) {
         len: [1]
       }
     },
+    contentTitle: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1]
+      }
+    },
     links: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -15,7 +22,7 @@ module.exports = function (sequelize, DataTypes) {
         isUrl: true
       }
     },
-    conceptBody: {
+    contentBody: {
       type: DataTypes.TEXT,
       allowNull: false,
       validate: {
@@ -30,7 +37,7 @@ module.exports = function (sequelize, DataTypes) {
       }
     },
     created_at: {
-      type: Sequelize.DATE
+      type: DataTypes.DATE
     }
   }, {
     timestamps: false
@@ -39,21 +46,11 @@ module.exports = function (sequelize, DataTypes) {
 
   Content.associate = function (models) {
     // Content can't be created without an User due to the foreign key constraint
-    Content.belongsTo(models.User, {
-      foreignKey: {
-        allowNull: false
-      }
+    Content.belongsToMany(models.User, {
+      through: 'User_Content'
+
     });
-    Content.hasMany(models.Save, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
-    Content.hasMany(models.Vote, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
+
   };
 
 

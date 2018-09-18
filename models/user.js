@@ -1,4 +1,4 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
     var User = sequelize.define("User", {
         userEmail: {
             type: DataTypes.STRING,
@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
             validate: {
                 IsEmail: true
             }
-        }, 
+        },
         userName: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -20,12 +20,12 @@ module.exports = function(sequelize, DataTypes) {
         }
     });
 
-    User.associate = function(models) {
+    User.associate = function (models) {
         // When an User is deleted, also delete any associated content
-        User.hasMany(models.Content, {
-          onDelete: "cascade"
+        User.belongsToMany(models.Content, {
+            through: 'User_Content'
         });
-      };
-  
+    };
+
     return User;
 };

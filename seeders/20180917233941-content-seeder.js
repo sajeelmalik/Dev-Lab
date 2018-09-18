@@ -11,14 +11,14 @@ module.exports = {
         conceptTitle: 'functions',
         contentTitle: 'Function CLosure',
         links: 'www.google.com',
-        conceptBody: 'Functions link lorem ipsum',
+        contentBody: 'Functions link lorem ipsum',
         saves: 421,
         created_at: new Date()
       }, {
         conceptTitle: 'api calls',
         contentTitle: 'Fetch & aJax',
         links: 'www.yahoo.com',
-        conceptBody: 'functions',
+        contentBody: 'functions',
         saves: 213,
         created_at: new Date()
       },
@@ -26,7 +26,7 @@ module.exports = {
         conceptTitle: 'conditionals',
         contentTitle: 'If/Else Statements',
         links: 'www.gmail.com',
-        conceptBody: 'functions',
+        contentBody: 'functions',
         saves: 111,
         created_at: new Date()
       },
@@ -34,7 +34,7 @@ module.exports = {
         conceptTitle: 'functions',
         contentTitle: 'ES6 Arrow Functions',
         links: 'www.reddit.com',
-        conceptBody: 'functions',
+        contentBody: 'functions',
         saves: 4021,
         created_at: new Date()
       },
