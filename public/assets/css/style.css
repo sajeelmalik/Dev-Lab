@@ -135,7 +135,9 @@ video {
 
 .title:hover {
     cursor: crosshair;
-    text-shadow: 2px 2px 4px rgba(234, 15, 11, 0.315);
+    text-shadow: 3px 3px 4px rgba(234, 15, 11, 0.315);
+    /* transition: 0.3s ease-in-out; */
+
 }
 
 .title::selection {
@@ -200,6 +202,9 @@ video {
     margin: auto;
 }
 
+.uk-container{
+    min-height:100vh;
+}
 
 .uk-button {
     transition: 0.2s ease-in-out;
