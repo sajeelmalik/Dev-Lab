@@ -50,23 +50,17 @@ module.exports = function (app) {
     db.User.findById(req.params.userId)
       .then(user => {
         user.removeSavedLinks(req.params.contentId);
+      })
+      .then(() => {
+        db.Content.decrement("saves", {
+          where: {
+            id: req.body.contentId,
+          }
+        })
       }).then(function (dbUser) {
         res.json(dbUser);
       });
   });
-
-
-  // DELETE route for deleting users
-  // app.delete("/api/users/:id", function (req, res) {
-  //   db.User.destroy({
-  //     where: {
-  //       id: req.params.id
-  //     }
-  //   }).then(function (dbUser) {
-  //     res.json(dbUser);
-  //   });
-  // });
-
 
   //WORKING
   //Adds links to users
@@ -74,7 +68,15 @@ module.exports = function (app) {
     db.User.findById(req.params.id)
       .then(user => {
         user.addSavedLinks(req.body.contentId)
-      }).then(res.json())
+      })
+      .then(() => {
+        db.Content.increment("saves", {
+          where: {
+            id: req.body.contentId,
+          }
+        })
+      })
+      .then(res.json())
       .catch(next)
   })
 
@@ -89,4 +91,17 @@ module.exports = function (app) {
       res.json(dbUser);
     });
   });
+
+
+  // DELETE route for deleting users
+  // app.delete("/api/users/:id", function (req, res) {
+  //   db.User.destroy({
+  //     where: {
+  //       id: req.params.id
+  //     }
+  //   }).then(function (dbUser) {
+  //     res.json(dbUser);
+  //   });
+  // });
+
 };
