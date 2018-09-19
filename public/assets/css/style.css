@@ -3,6 +3,7 @@
 Red #EA0F0B
 Dark Blues #000022 #010131
 Gold #FFD447
+White #FFFFFF
  */
 
 
@@ -13,11 +14,30 @@ body {
 h1,
 h2 {
     font-family: 'Montserrat', sans-serif;
-
 }
 
-div {
-    /* border: 1px #000000 solid; */
+* {
+    margin: 0; padding: 0;
+  }
+   
+#background-overlay {
+    overflow: hidden;
+    height: 100vh;
+    background: #edeae8;
+    position: relative;
+}
+   
+video {
+    position: absolute;
+     
+    /* Vertical and Horizontal center*/
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+
+    /* establishes a semi-responsive background */
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }
 
 h4 {
@@ -38,22 +58,26 @@ header {
 }
 
 #landing {
-    position: relative;
+    position: absolute;
+    z-index: 3;
+    top: 0;
     height: 100vh;
     width: 100%;
-    /* background-color: rgba(234, 15, 11, 0.048) */
+    background-color: transparent;
 }
 
 .title {
-    position: absolute;
-    font-size: 96px;
+    position: relative;
+    font-size: 110px;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     font-weight: 400;
-    color: #EA0F0B;
-    top: 40%;
+    color: rgb(235, 92, 90);
+    text-shadow: 1px 1px 3px rgba(234, 15, 11, 0.315);
+    left: -2%
+    /* top: 50%;
     left: 48%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0); */
 }
 
 .title:hover {
@@ -73,12 +97,18 @@ header {
 #lab {
     font-weight: 600;
     font-style: italic;
-    color: #010131;
+    color: rgb(238, 56, 53);
 }
 
 #lab::selection {
     background-color: #000022;
 }
+
+#login-prompts{
+    position: relative;
+    margin: auto 0;
+}
+
 
 .uk-button {
     transition: 0.2s ease-in-out;
@@ -94,6 +124,16 @@ header {
     background-color: #010131d7;
 }
 
+#password, #username, #submit-login, #sign-up-button{
+    border-radius: 20px;
+    /* transition: 0.2s ease-in-out; */
+    opacity: 0.9;
+}
+
+#password:focus, #username:focus{
+    border: 2px solid rgba(234, 15, 11, 0.658);
+    opacity: 0.95;
+}
 
 .login-container {
     display: flex;
@@ -140,7 +180,9 @@ header {
 }
 
 .saved {
-    color: orange;
+    color: #FFD447;
+    size: 1.1em;
+    transition: 0.2s ease;
 }
 
 /* .closed {
@@ -151,12 +193,12 @@ header {
 
 .uk-offcanvas-bar {
     background-color: #000022;
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 .sign-up-modal {
     background-color: #00002242;
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 .uk-modal-header {
@@ -219,7 +261,7 @@ header {
 
 .title::before {
     -webkit-transition: width 0.6s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
-    background: rgba(234, 15, 11, 0.781);
+    background: rgba(240, 62, 58, 0.781);
     border-radius: 20px;
 
 }
@@ -227,7 +269,7 @@ header {
 .title::after {
     /* transition: width 0.2s cubic-bezier(0.29, 0.18, 0.26, 0.83); */
     -webkit-transition: width 0.4s cubic-bezier(0.29, 0.18, 0.26, 0.83);
-    background: #010131;
+    background: rgba(230, 46, 43, 0.884);
     border-radius: 20px;
 
 }

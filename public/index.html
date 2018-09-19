@@ -22,7 +22,7 @@
 </head>
 
 <body class="uk-offcanvas-content">
-    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; bottom: #transparent-sticky-navbar">
+    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-hidden; top: 400">
         <nav class="uk-alert-danger uk-navbar-container uk-animation-slide-top" uk-navbar style="position: relative; z-index: 980;">
             <div class="uk-navbar-left uk-margin-left">
                 <ul class="uk-navbar-nav">
@@ -43,24 +43,30 @@
         </nav>
     </div>
 
-    <!-- <header>
-        <div class="library-links">
-            <p id='user-library-link'>My Library</p>
-            <p id='full-library-link' class='active'>Full Library</p>
-        </div>
-        <div class="login-container">
-            <form action="">
-                Login: <input id='username' type="text">
-                Password: <input id='password' type="password">
-                <input type="submit" id='submit-login' value="Login">
-            </form>
-            <input type="button" value="Sign Up" id='sign-up-button'>
+    <div id="background-overlay">
+        <video autoplay muted loop>
+            <source src="./assets/images/nightsky.mp4" type="video/mp4">
+        </video>
+    </div>
 
-    </header> -->
     <div id="landing">
-        <h1 class="title uk-animation-fade"><span><img src="./assets/images/lapiconDARKblue.png" id="laptop"></span>Dev<span
-                id="lab">Lab</span></h1>
-        <!-- <p>Teach yourself how to code.</p> -->
+        <div class="uk-position-center">
+            <h1 class="title uk-animation-fade"><span><img src="./assets/images/lapiconDARKblue.png" id="laptop"></span>Dev<span
+                    id="lab">Lab</span></h1>
+            <p class = "landing-text uk-text-center">Brewing up developers.</p>
+            <div id="login-prompts">
+                <form class="uk-form-stacked" action="" id="login">
+                    <h5 class="landing-text uk-text-center">Login to DevLab: </h5>
+                    <input class="uk-input uk-width-1-2 uk-align-center" id='username'
+                        type="text" placeholder="Username">
+                    <!-- <label class="uk-form-label uk-text-center" for="password">Password: </label> -->
+                    <input class="uk-input uk-width-1-2 uk-align-center"
+                        id='password' type="password" placeholder="Password">
+                </form>
+            </div>
+            <input class="uk-button" type="submit" id='submit-login' value="Login">
+            <input class="uk-button" type="button" value="Sign Up" id='sign-up-button' href="#sign-up-prompt" uk-toggle>
+        </div>
     </div>
 
     </div>
@@ -172,11 +178,8 @@
 
 
 
-
-
-
-
-    </script>
+        </script>
+    <script src='./assets/js/background.js'></script>
     <script src='./assets/js/main.js'></script>
 </body>
 
