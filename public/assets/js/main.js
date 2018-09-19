@@ -1,39 +1,18 @@
 $(function () {
-    var userID = 1;
-    var loggedIn = true;
+
+    var userID = 0;
     var userContentArray = [];
-    $.get(`/api/users/${userID}`, function (err, data) {
-        if (err) throw err;
-    }).then(resp => {
-        resp.savedLinks.forEach(elem => {
-            userContentArray.push(elem.id)
-        })
-        console.log(userContentArray);
-    })
+    getCurrentSaves();
 
-    $.get('/api/contents', function (err, data) {
-            if (err) throw err;
-            console.log(data);
-        }).then(data => {
-            //POPULATES CONCEPT CATEGORIES
+    if (userID) {
+        $("#background-overlay").hide();
+        $("#landing").hide()
 
-            data.forEach(function (concept) {
-                var newDiv = $("<div class= 'concept-category'>");
-                var linkTitle = $(`<h4>`);
-                var dropdownOption = $(`<option value= ${concept.conceptTitle}>`)
-                newDiv.data('id', concept.id)
-                newDiv.attr('id', 'category-' + concept.conceptTitle)
-                linkTitle.text(concept.conceptTitle);
-                newDiv.append(linkTitle);
-                $(".concept-container").append(newDiv);
-                dropdownOption.text(concept.conceptTitle);
-                $('#new-concept').append(dropdownOption);
+    } else {
+        $("#navbar").attr('uk-sticky', 'cls-inactive: uk-hidden; top: 300')
+        $('#add-content-button').prop('disabled', true);
 
-            });
-        })
-        .catch(err => console.log(err))
-
-
+    }
 
     //PAGE LOGIN
     $("#submit-login").on('click', function (e) {
@@ -48,12 +27,33 @@ $(function () {
             //data should container userID
             if (data) {
                 userID = data;
-                loggedIn = true;
             } else {
                 //incorrect password
             }
         })
     })
+
+    //POPULATES CONCEPT CATEGORIES
+    $.get('/api/contents', function (err, data) {
+            if (err) throw err;
+            console.log(data);
+        }).then(data => {
+            data.forEach(function (concept) {
+                var newDiv = $("<div class= 'concept-category'>");
+                var linkTitle = $(`<h4>`);
+                var dropdownOption = $(`<option value= ${concept.conceptTitle}>`)
+                newDiv.attr('id', 'category-' + concept.conceptTitle)
+                linkTitle.text(concept.conceptTitle);
+                newDiv.append(linkTitle);
+                $(".concept-container").append(newDiv);
+                dropdownOption.text(concept.conceptTitle);
+                $('#new-concept').append(dropdownOption);
+
+            });
+        })
+        .catch(err => console.log(err))
+
+
     //ON CLICK OF CONCEPTS, POPULATE CONTENT-ITEMS CONTAINER
     $(document).on('click', ".concept-category", function (e) {
         $(".content-item-container").empty();
@@ -70,17 +70,15 @@ $(function () {
                 var newItem = $("<li class=content-item>")
                 var linkTitle = $(`<a class="uk-accordion-title" href="#">`); //${item.links}
                 var starNumber = $("<span class = star-number>");
-                var starImage = $(`<i data-value='${item.saves}' class='fas fa-star star-image'></i>`);
+                var starImage = $(`<i data-id='${item.id}' data-value='${item.saves}' class='fas fa-star star-image'></i>`);
                 var newDiv = $("<div class=uk-accordion-content>");
-                if (userContentArray.includes(item.id)) starImage.addClass('saved');
+                if (userContentArray.includes(item.id)) starImage.addClass('saved')
                 starNumber.text(item.saves);
-                starImage.data('id', item.id);
                 starNumber.attr('id', 'content-item' + item.id);
                 starNumber.append(starImage);
                 linkTitle.text(item.contentTitle);
                 linkTitle.append(starNumber);
                 starNumber.addClass("uk-align-right");
-
                 newItem.append(linkTitle, newDiv);
                 newAccordion.append(newItem);
                 $(".content-item-container").prepend(newAccordion);
@@ -90,20 +88,20 @@ $(function () {
 
     //ON CLICK LISTENER FOR SAVING CONTENT
     $(document).on('click', ".star-image", function (e) {
-        console.log(this);
         var starID = $(this).data('id');
+        var matchingStars = document.querySelectorAll(`i[data-id='${starID}']`);
         //IF CONTENT IS BEING UNSAVED
         if ($(this).hasClass('saved')) {
-            $(this).removeClass('saved');
+            matchingStars.forEach(node => node.classList.remove('saved'))
             this.previousSibling.nodeValue--;
             $.ajax(`/api/delete/${userID}/${starID}`, {
                 method: 'DELETE'
             })
 
         } else {
-            this.previousSibling.nodeValue++;
             //IF CONTENT IS BEING SAVED
-            $(this).addClass('saved')
+            matchingStars.forEach(node => node.classList.add('saved'))
+            this.previousSibling.nodeValue++;
             $.ajax(`/api/users/${userID}`, {
                 method: 'PUT',
                 data: {
@@ -117,22 +115,28 @@ $(function () {
     //ADD NEW CONTENT
     $("#submit-content").on('click', function (e) {
         e.preventDefault();
+        console.log($("#new-concept").val());
         var createObj = {
-            content: $("#new-link").val(),
-            title: $("#new-name").val(),
-            category: $("#new-concept").val(),
+            conceptTitle: $("#new-concept").val(),
+            links: $("#new-link").val(),
+            contentTitle: $("#new-name").val(),
+            contentBody: $("#new-desc").val(),
+            saves: 0
 
         }
-        $.post('/api/concept/new', createObj, function () {
+        $.post('/api/new/contents', createObj, function () {
             //modal pop up - successfully submitted
         })
 
     })
 
-
-    if (loggedIn) {
+    //USER LIBRARY
+    if (userID) {
         $("#user-library-link").on('click', function () {
+            $("#landing").hide();
+            $("#background-overlay").hide();
             if (!$(this).hasClass('active')) {
+                console.log('working');
                 $(this).toggleClass('active');
                 $("#landing").hide();
                 $(".uk-button-danger").hide();
@@ -145,21 +149,23 @@ $(function () {
                     if (err) throw err;
 
                 }).then(data => {
-                    console.log('data', data);
+                    userContentArray = [];
                     data.savedLinks.forEach(elem => {
+                        userContentArray.push(elem.id)
                         var dropdownOption = $(`<option value=${elem.conceptTitle}>`)
                         dropdownOption.text(`${elem.conceptTitle}`)
                         $("#user-category-dropdown").append(dropdownOption);
-                        var userMain = $("<div class='user-main'>");
+                        var userContainer = $("<div class='user-content-container'>")
+                        var userTitle = $("<div class='user-title'>");
                         var userSaves = $(`<span class='star-number'>${elem.saves}</span>`);
                         var userDate = $("<div class='user-date'>");
-                        var userImage = $(`<i data-value='${elem.saves}'class='fas fa-star star-image'></i>`);
-                        if (userContentArray.includes(elem.id)) userImage.addClass('saved');
-                        userMain.text(elem.contentTitle)
-                        userImage.data('id', elem.id)
+                        var userImage = $(`<i data-id='${elem.id}' data-value='${elem.saves}'class='fas fa-star star-image'></i>`);
+                        if (userContentArray.includes(elem.id)) userImage.addClass('saved')
+                        userTitle.text(elem.contentTitle)
                         userSaves.append(userImage)
                         userDate.text(elem.createdAt)
-                        $(".user-library-container").append(userMain, userSaves, userDate);
+                        $(userContainer).append(userTitle, userSaves, userDate);
+                        $(".user-library").append(userContainer);
                     })
 
 
@@ -168,11 +174,14 @@ $(function () {
         })
     }
     $("#full-library-link").on('click', function () {
+
+        getCurrentSaves();
         if (!$(this).hasClass('active')) {
+            userID ? $("#landing").hide() : $("#landing").show();
+
             $(this).toggleClass('active')
-            $(".user-library-container").empty();
+            $(".user-library").empty();
             $("#user-category-dropdown").empty();
-            $("#landing").show();
             $(".uk-button-danger").show();
             $(".uk-divider-icon").show();
             $("#user-library-link").toggleClass('active')
@@ -185,11 +194,11 @@ $(function () {
     $("#sign-up-button").on('click', function (e) {
         $(".sign-up-modal").css('display', 'flex');
         $(".screen-overlay").css('display', 'flex');
-    })
+    });
     $("#sign-up-cancel").on('click', function (e) {
         $(".sign-up-modal").css('display', 'none');
         $(".screen-overlay").css('display', 'none');
-    })
+    });
     $("#sign-up-submit").on('click', function (e) {
         e.preventDefault();
         var newUser = {
@@ -213,6 +222,17 @@ $(function () {
 
         console.log(newUser);
     })
+
+    function getCurrentSaves() {
+        $.get(`/api/users/${userID}`, function (err, data) {
+            if (err) throw err;
+        }).then(resp => {
+            userContentArray = [];
+            resp.savedLinks.forEach(elem => {
+                userContentArray.push(elem.id)
+            })
+        })
+    }
 
 
 })

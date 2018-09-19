@@ -37,7 +37,7 @@ module.exports = function (app) {
     db.Content.findAll({
       all: true,
       order: [
-        ['saves', 'ASC']
+        ['saves', 'DESC']
       ],
       where: {
         conceptTitle: req.params.category
