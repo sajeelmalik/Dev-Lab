@@ -1,4 +1,4 @@
-// JS for 
+// JS for Splash Page responsiveness and miscellaneous animations
 // Bideo.js framework
 var video = document.querySelector('video')
   , container = document.querySelector('#background-overlay');
@@ -56,31 +56,35 @@ window.addEventListener('resize', setVideoDimensions, false);
 
 //jQuery Animations
 
-$(document).on("click", "#laptop", function () {
-  $(this).addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
-  $("#vial").addClass("uk-animation-fade uk-animation-slow");
-  setTimeout(function () {
-    //(this) doesn't work within the function scope
-    $("#laptop").hide();
-    $("#laptop").removeClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+// $(document).on("click", "#laptop", function () {
+//   $(this).addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+//   $("#vial").addClass("uk-animation-fade uk-animation-slow");
+//   setTimeout(function () {
+//     //(this) doesn't work within the function scope
+//     $("#laptop").hide();
+//     $("#laptop").removeClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
 
-    $("#vial").show();
-    $("#vial").removeClass("uk-animation-fade uk-animation-slow");
-  }, 1000);
+//     $("#vial").show();
+//     $("#vial").removeClass("uk-animation-fade uk-animation-slow");
+//   }, 1000);
 
-});
+// });
 
-$(document).on("click", "#vial", function () {
-  $(this).addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
-  $("#laptop").addClass("uk-animation-fade uk-animation-slow");
-  setTimeout(function () {
-    //(this) doesn't work within the function scope
-    $("#vial").hide();
-    $("#vial").removeClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+// $(document).on("click", "#vial", function () {
+//   $(this).addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+//   $("#laptop").addClass("uk-animation-fade uk-animation-slow");
+//   setTimeout(function () {
+//     //(this) doesn't work within the function scope
+//     $("#vial").hide();
+//     $("#vial").removeClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
     
     
-    $("#laptop").show();
-    $("#laptop").removeClass("uk-animation-fade uk-animation-slow");
-  }, 1000);
+//     $("#laptop").show();
+//     $("#laptop").removeClass("uk-animation-fade uk-animation-slow");
+//   }, 1000);
 
-})
+// })
+
+// setTimeout(function(){
+
+// })
