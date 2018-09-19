@@ -8,6 +8,8 @@ Gold #FFD447
 
 body {
     font-family: 'Raleway', sans-serif;
+    background-color: #F8F8F8;
+    min-height: 100vh;
 }
 
 h1,

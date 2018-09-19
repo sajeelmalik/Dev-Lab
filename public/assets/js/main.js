@@ -1,13 +1,33 @@
 $(function () {
     var userID = 1;
-    var loggedIn = true;
     var userContentArray = [];
     getCurrentSaves();
+
+    if (userID) $("#landing").hide()
+    //PAGE LOGIN
+    $("#submit-login").on('click', function (e) {
+        e.preventDefault();
+        var username = $("#login").val();
+        var password = $("#password").val();
+
+        $.post('/login', {
+            username,
+            password
+        }, function (data) {
+            //data should container userID
+            if (data) {
+                userID = data;
+            } else {
+                //incorrect password
+            }
+        })
+    })
+
+    //POPULATES CONCEPT CATEGORIES
     $.get('/api/contents', function (err, data) {
             if (err) throw err;
             console.log(data);
         }).then(data => {
-            //POPULATES CONCEPT CATEGORIES
             data.forEach(function (concept) {
                 var newDiv = $("<div class= 'concept-category'>");
                 var linkTitle = $(`<h4>`);
@@ -24,26 +44,6 @@ $(function () {
         .catch(err => console.log(err))
 
 
-
-    //PAGE LOGIN
-    $("#submit-login").on('click', function (e) {
-        e.preventDefault();
-        var username = $("#login").val();
-        var password = $("#password").val();
-
-        $.post('/login', {
-            username,
-            password
-        }, function (data) {
-            //data should container userID
-            if (data) {
-                userID = data;
-                loggedIn = true;
-            } else {
-                //incorrect password
-            }
-        })
-    })
     //ON CLICK OF CONCEPTS, POPULATE CONTENT-ITEMS CONTAINER
     $(document).on('click', ".concept-category", function (e) {
         $(".content-item-container").empty();
@@ -69,7 +69,6 @@ $(function () {
                 linkTitle.text(item.contentTitle);
                 linkTitle.append(starNumber);
                 starNumber.addClass("uk-align-right");
-
                 newItem.append(linkTitle, newDiv);
                 newAccordion.append(newItem);
                 $(".content-item-container").prepend(newAccordion);
@@ -121,9 +120,8 @@ $(function () {
 
     })
 
-
-    if (loggedIn) {
-
+    //USER LIBRARY
+    if (userID) {
         $("#user-library-link").on('click', function () {
             if (!$(this).hasClass('active')) {
                 $(this).toggleClass('active');
@@ -163,12 +161,14 @@ $(function () {
         })
     }
     $("#full-library-link").on('click', function () {
+
         getCurrentSaves();
         if (!$(this).hasClass('active')) {
+            userID ? $("#landing").hide() : $("#landing").show();
+
             $(this).toggleClass('active')
             $(".user-library").empty();
             $("#user-category-dropdown").empty();
-            $("#landing").show();
             $(".uk-button-danger").show();
             $(".uk-divider-icon").show();
             $("#user-library-link").toggleClass('active')
