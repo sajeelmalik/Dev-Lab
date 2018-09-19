@@ -3,6 +3,7 @@
 Red #EA0F0B
 Dark Blues #000022 #010131
 Gold #FFD447
+White #FFFFFF
  */
 
 
@@ -15,20 +16,34 @@ body {
 h1,
 h2 {
     font-family: 'Montserrat', sans-serif;
-
 }
 
-div {
-    /* border: 1px #000000 solid; */
+* {
+    margin: 0; padding: 0;
+  }
+   
+#background-overlay {
+    overflow: hidden;
+    height: 100vh;
+    background: #edeae8;
+    position: relative;
+}
+   
+video {
+    position: absolute;
+     
+    /* Vertical and Horizontal center*/
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+
+    /* establishes a semi-responsive background */
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
 }
 
 h4 {
     text-transform: uppercase;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
 }
 
 .library-links {
@@ -39,28 +54,61 @@ header {
     margin: 0;
 }
 
+.landing-text{
+    color: #FFFFFF;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid  rgb(235, 92, 90);; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    margin-bottom: 20px;
+    margin-top: 15px;
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+      typing 3.5s steps(40, end),
+      blink-caret .75s step-end infinite;
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color:  rgb(235, 92, 90);; }
+  }
+
+#login input{
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
 #landing {
-    position: relative;
+    position: absolute;
+    z-index: 3;
+    top: 0;
     height: 100vh;
     width: 100%;
-    /* background-color: rgba(234, 15, 11, 0.048) */
+    background-color: transparent;
 }
 
 .title {
-    position: absolute;
-    font-size: 96px;
+    position: relative;
+    font-size: 110px;
     font-family: 'Montserrat', sans-serif;
     text-align: center;
     font-weight: 400;
-    color: #EA0F0B;
-    top: 40%;
-    left: 48%;
-    transform: translate(-50%, -50%);
+    color: rgb(235, 92, 90);
+    text-shadow: 1px 1px 3px rgba(234, 15, 11, 0.315);
+    left: -2%;
+    transition: 0.3s ease-in-out;
 }
 
 .title:hover {
     cursor: crosshair;
-    /* text-shadow: 1px 1px 1px 1px rgb(20, 20, 199); */
+    text-shadow: 2px 2px 4px rgba(234, 15, 11, 0.315);
 }
 
 .title::selection {
@@ -72,39 +120,82 @@ header {
     max-width: 175px;
 }
 
+#vial {
+    display: none;
+    max-height: 155px;
+    max-width: 155px;
+}
+
 #lab {
     font-weight: 600;
     font-style: italic;
-    color: #010131;
+    color: rgb(238, 56, 53);
 }
 
 #lab::selection {
     background-color: #000022;
 }
 
+#login{
+    display:flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-around;
+    margin: auto;
+}
+
+
 .uk-button {
     transition: 0.2s ease-in-out;
 }
 
 .uk-button:hover {
-    background-color: #010131d7;
+    background-color: rgb(235, 92, 90);
+    color: #000022;
 }
 
 .uk-button:active {
     text-decoration-line: underline;
     text-decoration-style: solid;
-    background-color: #010131d7;
+    background-color: rgb(238, 56, 53);
+    letter-spacing: 1px;
 }
 
+#password, #username, #submit-login, #sign-up-button{
+    border-radius: 20px;
+    /* transition: 0.2s ease-in-out; */
+    opacity: 0.9;
+}
 
-.login-container {
-    display: flex;
+#password, #username{
+    background-color: #0101312d;
+}
+
+#password:focus, #username:focus{
+    border: 2px solid rgba(234, 15, 11, 0.658);
+}
+#password:focus, #username:focus, #password:hover, #username:hover{
+    background-color: transparent;
+    color: #ffffff;
+}
+
+#scroller{
+    color: #FFFFFF;
+    transition: 0.1s ease-in-out;
+    opacity: 0.9;
+}
+
+#scroller:hover{
+    color: rgb(235, 92, 90);
+}
+
+#scroller:active{
+    color: rgb(238, 56, 53);
 }
 
 .library-container {
     height: 50%;
     display: flex;
-
 }
 
 .user-library-container {
@@ -152,7 +243,9 @@ header {
 }
 
 .saved {
-    color: orange;
+    color: #FFD447;
+    size: 1.1em;
+    transition: 0.2s ease;
 }
 
 /* .closed {
@@ -163,12 +256,16 @@ header {
 
 .uk-offcanvas-bar {
     background-color: #000022;
-    opacity: 0.9;
+    opacity: 0.95;
 }
 
 .sign-up-modal {
     background-color: #00002242;
-    opacity: 0.9;
+    opacity: 0.95;
+}
+
+.uk-modal-dialog{
+    border-radius: 20px;
 }
 
 .uk-modal-header {
@@ -231,7 +328,7 @@ header {
 
 .title::before {
     -webkit-transition: width 0.6s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
-    background: rgba(234, 15, 11, 0.781);
+    background: rgba(40, 42, 167, 0.781);
     border-radius: 20px;
 
 }
@@ -239,7 +336,7 @@ header {
 .title::after {
     /* transition: width 0.2s cubic-bezier(0.29, 0.18, 0.26, 0.83); */
     -webkit-transition: width 0.4s cubic-bezier(0.29, 0.18, 0.26, 0.83);
-    background: #010131;
+    background: #0e0e4eb9;  
     border-radius: 20px;
 
 }
