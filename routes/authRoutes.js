@@ -20,10 +20,13 @@ module.exports = function (app, passport) {
     });
 
     app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/',
-
         failureRedirect: '/signup'
-    }));
+    }),function(res, req){
+        res.cookie('userid', req.user.id, { maxAge: 2592000000 });  // Expires in one month
+        res.redirect("/");
+    }
+    
+    );
 
     app.post('/signin', passport.authenticate('local-signin', {
         successRedirect: '/',
@@ -32,6 +35,7 @@ module.exports = function (app, passport) {
     }));
 
     app.get('/logout', function (req, res) {
+        res.clearCookie('userid');
 
         req.session.destroy(function (err) {
 
