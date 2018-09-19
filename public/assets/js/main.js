@@ -1,6 +1,6 @@
 $(function () {
 
-    var userID = 0;
+    var userID = Cookies.get('userid');
     var userContentArray = [];
     getCurrentSaves();
 
@@ -29,18 +29,28 @@ $(function () {
     //PAGE LOGIN
     $("#submit-login").on('click', function (e) {
         e.preventDefault();
-        var username = $("#login").val();
+        var email = $("#username").val();
         var password = $("#password").val();
+        console.log("sign in" + email);
+        $.ajax({
+            type: "POST",
+            url: '/signin', 
+            data: {
+            email: email,
+            password: password
+            },
+            success: function() {   
+                location.reload();  
+            }
+        })
+    })
 
-        $.post('/login', {
-            username,
-            password
-        }, function (data) {
-            //data should container userID
-            if (data) {
-                userID = data;
-            } else {
-                //incorrect password
+    $(document).on("click", "#logout-link", function(e){
+        $.ajax({
+            type: "GET",
+            url: "/signout",
+            success: function(){
+                location.reload();
             }
         })
     })
@@ -224,21 +234,17 @@ $(function () {
     $("#sign-up-submit").on('click', function (e) {
         e.preventDefault();
         var newUser = {
-            userName: $("input[name=userName]").val(),
-            userPassword: $("input[name=userPassword]").val(),
-            userEmail: $("input[name=userEmail]").val()
+            name: $("input[name=userName]").val(),
+            password: $("input[name=userPassword]").val(),
+            email: $("input[name=userEmail]").val()
         }
-        $.post('/api/new/users', newUser, function (resp) {
-            console.log(resp);
-            $("#sign-up-submit").css('display', 'none')
-            $(".sign-up-modal").html(
-                `Thank you ${resp.userName}! You've successfully signed up for DevLab. Please log in with your email ${resp.userEmail}`
-            )
-            $(document).on("click", ".sign-up-modal", () => {
-                $(".sign-up-modal").css('display', 'none');
-                $(".screen-overlay").css('display', 'none');
-
-            })
+        $.ajax({
+            type: "POST",
+            url: '/signup', 
+            data: newUser,
+            success: function() {   
+                location.reload();  
+            }
         })
 
 

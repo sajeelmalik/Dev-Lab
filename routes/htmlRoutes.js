@@ -10,6 +10,9 @@ module.exports = function(app) {
 
   // index route loads index.html
   app.get("/", function(req, res) {
+    if(req.isAuthenticated()){
+    res.cookie('userid', req.user.id, { maxAge: 2592000000 });  // Expires in one month
+    }
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
@@ -18,5 +21,13 @@ module.exports = function(app) {
   //   res.sendFile(path.join(__dirname, "../public/resources.html"));
   // });
 
- 
+  function isLoggedIn(req, res, next) {
+    //console.log("HTML page: " + req.user.id);
+    if (req.isAuthenticated())
+
+        return next();
+
+    res.redirect('/signin');
+
+}
 };
