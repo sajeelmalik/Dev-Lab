@@ -134,7 +134,9 @@ header {
 }
 
 .saved {
-    color: orange;
+    color: #FFD447;
+    size: 1.1em;
+    transition: 0.2s ease;
 }
 
 /* .closed {

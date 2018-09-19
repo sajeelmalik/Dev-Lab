@@ -229,7 +229,10 @@
                 }).then(data => {
                     //CREATE INDIVIDUAL CONTENT ITEM DIV
                     //Items come in an array of objects and come in Most saves, DESC
+
+                    //UIKit accordion unordered list
                     var newAccordion = $("<ul uk-accordion>");
+
                     data.forEach(function (item) {
                         var newItem = $("<li class=content-item>")
                         var linkTitle = $(`<a class="uk-accordion-title" href="#">`); //${item.links}
@@ -245,6 +248,8 @@
                         linkTitle.text(item.contentTitle);
                         linkTitle.append(starNumber);
                         starNumber.addClass("uk-align-right");
+
+                        newDiv.append(item.links, item.contentBody);
 
                         newItem.append(linkTitle, newDiv);
                         newAccordion.append(newItem);
