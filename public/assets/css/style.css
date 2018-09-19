@@ -329,6 +329,7 @@ justify-content: flex-end;
     color: white;
 }
 
+
 #add-content-slider{
     transition: 0.2s ease-in-out;
 }
@@ -337,15 +338,27 @@ justify-content: flex-end;
     border-radius: 20px;
 }
 
-#sign-up-submit {
-    transition: 0.1s ease-in;
+
+.uk-modal-body input {
+    background-color: #0101312d;
+}
+
+.uk-modal-body input:focus {
+    border: 2px solid rgba(234, 15, 11, 0.658);
+    background-color: rgba(233, 136, 134, 0.473);
+    color: #000022;
+}
+
+#sign-up-submit, #sign-up-cancel {
+    transition: 0.14s ease-in;
+    border-radius: 20px;
 }
 
 #sign-up-submit:hover {
     background-color: rgba(234, 15, 11, 0.781);
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     color: rgb(195, 200, 240);
-    font-size: 1.1em;
+    font-size: 1.05em;
 }
 
 /* .screen-overlay {
