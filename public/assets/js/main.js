@@ -1,9 +1,19 @@
 $(function () {
-    var userID = 1;
+
+    var userID = 0;
     var userContentArray = [];
     getCurrentSaves();
 
-    if (userID) $("#landing").hide()
+    if (userID) {
+        $("#background-overlay").hide();
+        $("#landing").hide()
+
+    } else {
+        $("#navbar").attr('uk-sticky', 'cls-inactive: uk-hidden; top: 300')
+        $('#add-content-button').prop('disabled', true);
+
+    }
+
     //PAGE LOGIN
     $("#submit-login").on('click', function (e) {
         e.preventDefault();
@@ -123,7 +133,10 @@ $(function () {
     //USER LIBRARY
     if (userID) {
         $("#user-library-link").on('click', function () {
+            $("#landing").hide();
+            $("#background-overlay").hide();
             if (!$(this).hasClass('active')) {
+                console.log('working');
                 $(this).toggleClass('active');
                 $("#landing").hide();
                 $(".uk-button-danger").hide();
@@ -181,11 +194,11 @@ $(function () {
     $("#sign-up-button").on('click', function (e) {
         $(".sign-up-modal").css('display', 'flex');
         $(".screen-overlay").css('display', 'flex');
-    })
+    });
     $("#sign-up-cancel").on('click', function (e) {
         $(".sign-up-modal").css('display', 'none');
         $(".screen-overlay").css('display', 'none');
-    })
+    });
     $("#sign-up-submit").on('click', function (e) {
         e.preventDefault();
         var newUser = {

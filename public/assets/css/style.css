@@ -19,21 +19,23 @@ h2 {
 }
 
 * {
-    margin: 0; padding: 0;
-  }
-   
+    margin: 0;
+    padding: 0;
+}
+
 #background-overlay {
     overflow: hidden;
     height: 100vh;
     background: #edeae8;
     position: relative;
 }
-   
+
 video {
     position: absolute;
-     
+
     /* Vertical and Horizontal center*/
-    left: 50%; top: 50%;
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
 
     /* establishes a semi-responsive background */
@@ -54,33 +56,52 @@ h4 {
     margin: 0;
 }
 
-.landing-text{
+.landing-text {
     color: #FFFFFF;
-    overflow: hidden; /* Ensures the content is not revealed until the animation */
-    border-right: .15em solid  rgb(235, 92, 90);; /* The typwriter cursor */
-    white-space: nowrap; /* Keeps the content on a single line */
-    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    overflow: hidden;
+    /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid rgb(235, 92, 90);
+    ;
+    /* The typwriter cursor */
+    white-space: nowrap;
+    /* Keeps the content on a single line */
+    margin: 0 auto;
+    /* Gives that scrolling effect as the typing happens */
     margin-bottom: 20px;
     margin-top: 15px;
-    letter-spacing: .15em; /* Adjust as needed */
-    animation: 
-      typing 3.5s steps(40, end),
-      blink-caret .75s step-end infinite;
-  }
-  
-  /* The typing effect */
-  @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-  }
-  
-  /* The typewriter cursor effect */
-  @keyframes blink-caret {
-    from, to { border-color: transparent }
-    50% { border-color:  rgb(235, 92, 90);; }
-  }
+    letter-spacing: .15em;
+    /* Adjust as needed */
+    animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s step-end infinite;
+}
 
-#login input{
+/* The typing effect */
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: rgb(235, 92, 90);
+        ;
+    }
+}
+
+#login input {
     margin-top: 0;
     margin-bottom: 5px;
 }
@@ -136,8 +157,8 @@ h4 {
     background-color: #000022;
 }
 
-#login{
-    display:flex;
+#login {
+    display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: space-around;
@@ -161,35 +182,44 @@ h4 {
     letter-spacing: 1px;
 }
 
-#password, #username, #submit-login, #sign-up-button{
+#password,
+#username,
+#submit-login,
+#sign-up-button {
     border-radius: 20px;
     /* transition: 0.2s ease-in-out; */
     opacity: 0.9;
 }
 
-#password, #username{
+#password,
+#username {
     background-color: #0101312d;
 }
 
-#password:focus, #username:focus{
+#password:focus,
+#username:focus {
     border: 2px solid rgba(234, 15, 11, 0.658);
 }
-#password:focus, #username:focus, #password:hover, #username:hover{
+
+#password:focus,
+#username:focus,
+#password:hover,
+#username:hover {
     background-color: transparent;
     color: #ffffff;
 }
 
-#scroller{
+#scroller {
     color: #FFFFFF;
     transition: 0.1s ease-in-out;
     opacity: 0.9;
 }
 
-#scroller:hover{
+#scroller:hover {
     color: rgb(235, 92, 90);
 }
 
-#scroller:active{
+#scroller:active {
     color: rgb(238, 56, 53);
 }
 
@@ -257,6 +287,7 @@ h4 {
 .uk-offcanvas-bar {
     background-color: #000022;
     opacity: 0.95;
+
 }
 
 .sign-up-modal {
@@ -264,7 +295,7 @@ h4 {
     opacity: 0.95;
 }
 
-.uk-modal-dialog{
+.uk-modal-dialog {
     border-radius: 20px;
 }
 
@@ -336,7 +367,7 @@ h4 {
 .title::after {
     /* transition: width 0.2s cubic-bezier(0.29, 0.18, 0.26, 0.83); */
     -webkit-transition: width 0.4s cubic-bezier(0.29, 0.18, 0.26, 0.83);
-    background: #0e0e4eb9;  
+    background: #0e0e4eb9;
     border-radius: 20px;
 
 }
