@@ -57,6 +57,37 @@ header {
     margin: 0;
 }
 
+.landing-text{
+    color: #FFFFFF;
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid  rgb(235, 92, 90);; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    margin-bottom: 20px;
+    margin-top: 15px;
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+      typing 3.5s steps(40, end),
+      blink-caret .75s step-end infinite;
+  }
+  
+  /* The typing effect */
+  @keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+  }
+  
+  /* The typewriter cursor effect */
+  @keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color:  rgb(235, 92, 90);; }
+  }
+
+#login input{
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
 #landing {
     position: absolute;
     z-index: 3;
@@ -74,15 +105,13 @@ header {
     font-weight: 400;
     color: rgb(235, 92, 90);
     text-shadow: 1px 1px 3px rgba(234, 15, 11, 0.315);
-    left: -2%
-    /* top: 50%;
-    left: 48%;
-    transform: translate(-50%, 0); */
+    left: -2%;
+    transition: 0.3s ease-in-out;
 }
 
 .title:hover {
     cursor: crosshair;
-    /* text-shadow: 1px 1px 1px 1px rgb(20, 20, 199); */
+    text-shadow: 2px 2px 4px rgba(234, 15, 11, 0.315);
 }
 
 .title::selection {
@@ -104,9 +133,12 @@ header {
     background-color: #000022;
 }
 
-#login-prompts{
-    position: relative;
-    margin: auto 0;
+#login{
+    display:flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-around;
+    margin: auto;
 }
 
 
@@ -115,13 +147,15 @@ header {
 }
 
 .uk-button:hover {
-    background-color: #010131d7;
+    background-color: rgb(235, 92, 90);
+    color: #000022;
 }
 
 .uk-button:active {
     text-decoration-line: underline;
     text-decoration-style: solid;
-    background-color: #010131d7;
+    background-color: rgb(238, 56, 53);
+    letter-spacing: 1px;
 }
 
 #password, #username, #submit-login, #sign-up-button{
@@ -130,13 +164,15 @@ header {
     opacity: 0.9;
 }
 
-#password:focus, #username:focus{
-    border: 2px solid rgba(234, 15, 11, 0.658);
-    opacity: 0.95;
+#password, #username{
+    background-color: #0101312d;
 }
 
-.login-container {
-    display: flex;
+#password:focus, #username:focus{
+    border: 2px solid rgba(234, 15, 11, 0.658);
+}
+#password:focus, #username:focus, #password:hover, #username:hover{
+    background-color: transparent;
 }
 
 .library-container {
@@ -201,6 +237,10 @@ header {
     opacity: 0.95;
 }
 
+.uk-modal-dialog{
+    border-radius: 20px;
+}
+
 .uk-modal-header {
     background-color: #000022;
 }
@@ -261,7 +301,7 @@ header {
 
 .title::before {
     -webkit-transition: width 0.6s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
-    background: rgba(240, 62, 58, 0.781);
+    background: rgba(58, 60, 187, 0.781);
     border-radius: 20px;
 
 }
@@ -269,7 +309,7 @@ header {
 .title::after {
     /* transition: width 0.2s cubic-bezier(0.29, 0.18, 0.26, 0.83); */
     -webkit-transition: width 0.4s cubic-bezier(0.29, 0.18, 0.26, 0.83);
-    background: rgba(230, 46, 43, 0.884);
+    background: #0e0e4eb9;  
     border-radius: 20px;
 
 }
