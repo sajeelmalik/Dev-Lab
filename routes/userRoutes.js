@@ -54,12 +54,12 @@ module.exports = function (app) {
       .then(() => {
         db.Content.decrement("saves", {
           where: {
-            id: req.body.contentId,
+            id: req.params.contentId,
           }
         })
       }).then(function (dbUser) {
         res.json(dbUser);
-      });
+      }).catch(err => console.log(err));
   });
 
   //WORKING

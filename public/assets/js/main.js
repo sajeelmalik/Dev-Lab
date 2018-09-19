@@ -7,11 +7,23 @@ $(function () {
     if (userID) {
         $("#background-overlay").hide();
         $("#landing").hide()
+        //Create Logout Button
+        $("#login-link").hide();
+        $("#sign-up-nav-button").hide();
+        var logoutLink = $("<a class='uk-button' href='/signout' id='logout-link' uk-scroll>Logout</a>");
+        $("#nav-right").html(logoutLink);
 
     } else {
         $("#navbar").attr('uk-sticky', 'cls-inactive: uk-hidden; top: 300')
         $('#add-content-button').prop('disabled', true);
+        $("#login-link").show();
+        $("#sign-up-nav-button").show();
+        $("#logout-link").hide();
 
+        $("#add-content-button").hover(function () {
+            console.log("test");
+            $("#add-content-button").text("Login to DevLab to add your favorite resources!");
+        })
     }
 
     //PAGE LOGIN
@@ -40,7 +52,7 @@ $(function () {
         }).then(data => {
             data.forEach(function (concept) {
                 var newDiv = $("<div class= 'concept-category'>");
-                var linkTitle = $(`<h4>`);
+                var linkTitle = $(`<h4 class = content-title>`);
                 var dropdownOption = $(`<option value= ${concept.conceptTitle}>`)
                 newDiv.attr('id', 'category-' + concept.conceptTitle)
                 linkTitle.text(concept.conceptTitle);
@@ -56,6 +68,9 @@ $(function () {
 
     //ON CLICK OF CONCEPTS, POPULATE CONTENT-ITEMS CONTAINER
     $(document).on('click', ".concept-category", function (e) {
+        $(".content-title").removeClass("content-active");
+        $(this).children("h4").toggleClass("content-active");
+
         $(".content-item-container").empty();
         var category = $(this).attr('id');
         category = category.slice(category.indexOf('-') + 1);
@@ -65,13 +80,15 @@ $(function () {
         }).then(data => {
             //CREATE INDIVIDUAL CONTENT ITEM DIV
             //Items come in an array of objects and come in Most saves, DESC
-            var newAccordion = $("<ul uk-accordion>");
+            var newAccordion = $("<ul uk-accordion uk-scrollspy='target: > li ; cls:uk-animation-slide-right-medium; delay: 100'>");
             data.forEach(function (item) {
                 var newItem = $("<li class=content-item>")
                 var linkTitle = $(`<a class="uk-accordion-title" href="#">`); //${item.links}
                 var starNumber = $("<span class = star-number>");
                 var starImage = $(`<i data-id='${item.id}' data-value='${item.saves}' class='fas fa-star star-image'></i>`);
                 var newDiv = $("<div class=uk-accordion-content>");
+                var itemLinks = $("<a>");
+                var itemBody = $("<p>");
                 if (userContentArray.includes(item.id)) starImage.addClass('saved')
                 starNumber.text(item.saves);
                 starNumber.attr('id', 'content-item' + item.id);
@@ -79,6 +96,9 @@ $(function () {
                 linkTitle.text(item.contentTitle);
                 linkTitle.append(starNumber);
                 starNumber.addClass("uk-align-right");
+                itemLinks.append(item.links);
+                itemBody.append(item.contentBody);
+                newDiv.append(itemLinks, itemBody);
                 newItem.append(linkTitle, newDiv);
                 newAccordion.append(newItem);
                 $(".content-item-container").prepend(newAccordion);
@@ -144,10 +164,11 @@ $(function () {
                 $("#full-library-link").toggleClass('active');
                 $(".library-container").hide();
                 $(".add-content").hide();
-                $(".user-library-container").css('display', 'block');
+                $(".user-library-container").css('display', 'flex');
+
+                //CREATE USER CONTENT DIVS
                 $.get(`/api/users/${userID}`, function (err, data) {
                     if (err) throw err;
-
                 }).then(data => {
                     userContentArray = [];
                     data.savedLinks.forEach(elem => {
@@ -163,7 +184,8 @@ $(function () {
                         if (userContentArray.includes(elem.id)) userImage.addClass('saved')
                         userTitle.text(elem.contentTitle)
                         userSaves.append(userImage)
-                        userDate.text(elem.createdAt)
+                        var createdDate = elem.createdAt;
+                        userDate.append(moment(createdDate).format('MM DD YYYY'))
                         $(userContainer).append(userTitle, userSaves, userDate);
                         $(".user-library").append(userContainer);
                     })
