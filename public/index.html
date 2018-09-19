@@ -34,6 +34,12 @@
                     <li class="uk-button active" id='full-library-link'>Full Library</li>
                 </ul>
             </div>
+            <div class="uk-navbar-center">
+                <a class="uk-navbar-item uk-logo" href="#" uk-scroll><span>
+                        <img src="./assets/images/laptop2.png" id="laptop-icon" style="height: 40px; width: 40px;">
+                    </span>
+                    <span style = "color: rgb(235, 92, 90)" >Dev</span><span id="lab">Lab</span></a>
+            </div>
             <div class="uk-navbar-right" id="nav-right">
                 <!-- Login: <input class="uk-input uk-width-1-4" id='username' type="text">
                     Password: <input class="uk-input uk-width-1-4" id='password' type="password"> -->
@@ -53,8 +59,11 @@
 
     <div id="landing">
         <div class="uk-position-center">
-            <h1 class="title uk-animation-fade uk-animation-slow"><span><img src="./assets/images/laptop2.png" id="laptop"></span><span><img
-                        src="./assets/images/vial.png" id="vial"></span>Dev<span id="lab">Lab</span></h1>
+            <h1 class="title uk-animation-fade uk-animation-slow"><span>
+                    <img src="./assets/images/laptop2.png" id="laptop">
+                    <img src="./assets/images/laptop.png" id="laptopred">
+                </span>
+                Dev<span id="lab">Lab</span></h1>
             <p class="landing-text uk-text-center">Brewing up developers, one lesson at a time.</p>
 
             <form class="uk-form-stacked uk-animation-slide-top-small" action="" id="login">
@@ -67,13 +76,13 @@
             </form>
         </div>
         <!-- <a href = "#full-library" class = "uk-position-bottom-center" id = "scroller" uk-scroll>SCROLL</a> -->
-        <a href="#full-library" uk-scroll><span uk-icon="icon: triangle-down; ratio: 3.5" class="uk-position-bottom-center"
+        <a href="#main-content" uk-scroll><span uk-icon="icon: triangle-down; ratio: 3.5" class="uk-position-bottom-center"
                 id="scroller"></span></a>
     </div>
 
     </div>
     <hr class="uk-divider-icon" uk-scrollspy="cls:uk-animation-scale-up">
-    <div class="uk-container" uk-scrollspy="target: > div; cls:uk-animation-slide-top-small; delay: 300">
+    <div id = "main-content" class="uk-container" uk-scrollspy="target: > div; cls:uk-animation-slide-top-small; delay: 300">
         <div class="user-library-container">
             <h2>User Library</h2>
             <div class="category-dropdown">

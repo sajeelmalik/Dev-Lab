@@ -182,18 +182,18 @@ $(function () {
                 }).then(data => {
                     userContentArray = [];
                     data.savedLinks.forEach(elem => {
-                        userContentArray.push(elem.id)
-                        var dropdownOption = $(`<option value=${elem.conceptTitle}>`)
-                        dropdownOption.text(`${elem.conceptTitle}`)
+                        userContentArray.push(elem.id);
+                        var dropdownOption = $(`<option value=${elem.conceptTitle}>`);
+                        dropdownOption.text(`${elem.conceptTitle}`);
                         $("#user-category-dropdown").append(dropdownOption);
-                        var userContainer = $("<div class='user-content-container'>")
+                        var userContainer = $("<div class='user-content-container'>");
                         var userTitle = $("<div class='user-title'>");
                         var userSaves = $(`<span class='star-number'>${elem.saves}</span>`);
                         var userDate = $("<div class='user-date'>");
                         var userImage = $(`<i data-id='${elem.id}' data-value='${elem.saves}'class='fas fa-star star-image'></i>`);
-                        if (userContentArray.includes(elem.id)) userImage.addClass('saved')
-                        userTitle.text(elem.contentTitle)
-                        userSaves.append(userImage)
+                        if (userContentArray.includes(elem.id)) userImage.addClass('saved');
+                        userTitle.text(elem.contentTitle);
+                        userSaves.append(userImage);
                         var createdDate = elem.createdAt;
                         userDate.append(moment(createdDate).format('MM DD YYYY'))
                         $(userContainer).append(userTitle, userSaves, userDate);
