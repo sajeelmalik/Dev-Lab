@@ -44,11 +44,6 @@ h4 {
     text-transform: uppercase;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-}
-
 .library-links {
     display: flex;
 }
@@ -123,6 +118,12 @@ header {
     max-width: 175px;
 }
 
+#vial {
+    display: none;
+    max-height: 155px;
+    max-width: 155px;
+}
+
 #lab {
     font-weight: 600;
     font-style: italic;
@@ -173,12 +174,26 @@ header {
 }
 #password:focus, #username:focus, #password:hover, #username:hover{
     background-color: transparent;
+    color: #ffffff;
+}
+
+#scroller{
+    color: #FFFFFF;
+    transition: 0.1s ease-in-out;
+    opacity: 0.9;
+}
+
+#scroller:hover{
+    color: rgb(235, 92, 90);
+}
+
+#scroller:active{
+    color: rgb(238, 56, 53);
 }
 
 .library-container {
     height: 50%;
     display: flex;
-
 }
 
 .user-library-container {
@@ -301,7 +316,7 @@ header {
 
 .title::before {
     -webkit-transition: width 0.6s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
-    background: rgba(58, 60, 187, 0.781);
+    background: rgba(40, 42, 167, 0.781);
     border-radius: 20px;
 
 }

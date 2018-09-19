@@ -1,24 +1,25 @@
-// JS
+// JS for 
+// Bideo.js framework
 var video = document.querySelector('video')
   , container = document.querySelector('#background-overlay');
- 
+
 var setVideoDimensions = function () {
   // Video's intrinsic dimensions
   var w = video.videoWidth
     , h = video.videoHeight;
-   
+
   // Intrinsic Ratio
   // Will be more than 1 if W > H and less if W < H
   var videoRatio = (w / h).toFixed(2);
-   
+
   // Get the container's computed styles
   //
   // Also calculate the min dimensions required (this will be
   // the container dimentions)
   var containerStyles = window.getComputedStyle(container)
-    , minW = parseInt( containerStyles.getPropertyValue('width') )
-    , minH = parseInt( containerStyles.getPropertyValue('height') );
-   
+    , minW = parseInt(containerStyles.getPropertyValue('width'))
+    , minH = parseInt(containerStyles.getPropertyValue('height'));
+
   // What's the min:intrinsic dimensions
   //
   // The idea is to get which of the container dimension
@@ -34,21 +35,52 @@ var setVideoDimensions = function () {
   // will become 600 proportionately.
   var widthRatio = minW / w
     , heightRatio = minH / h;
-   
+
   // Whichever ratio is more, the scaling
   // has to be done over that dimension
   if (widthRatio > heightRatio) {
     var newWidth = minW;
-    var newHeight = Math.ceil( newWidth / videoRatio );
+    var newHeight = Math.ceil(newWidth / videoRatio);
   }
   else {
     var newHeight = minH;
-    var newWidth = Math.ceil( newHeight * videoRatio );
+    var newWidth = Math.ceil(newHeight * videoRatio);
   }
-   
+
   video.style.width = newWidth + 'px';
   video.style.height = newHeight + 'px';
 };
- 
+
 video.addEventListener('loadedmetadata', setVideoDimensions, false);
 window.addEventListener('resize', setVideoDimensions, false);
+
+//jQuery Animations
+
+$(document).on("click", "#laptop", function () {
+  $(this).addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+  $("#vial").addClass("uk-animation-fade uk-animation-slow");
+  setTimeout(function () {
+    //(this) doesn't work within the function scope
+    $("#laptop").hide();
+    $("#laptop").removeClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+
+    $("#vial").show();
+    $("#vial").removeClass("uk-animation-fade uk-animation-slow");
+  }, 1000);
+
+});
+
+$(document).on("click", "#vial", function () {
+  $(this).addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+  $("#laptop").addClass("uk-animation-fade uk-animation-slow");
+  setTimeout(function () {
+    //(this) doesn't work within the function scope
+    $("#vial").hide();
+    $("#vial").removeClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+    
+    
+    $("#laptop").show();
+    $("#laptop").removeClass("uk-animation-fade uk-animation-slow");
+  }, 1000);
+
+})

@@ -22,8 +22,8 @@
 </head>
 
 <body class="uk-offcanvas-content">
-    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-hidden; top: 400">
-        <nav class="uk-alert-danger uk-navbar-container uk-animation-slide-top" uk-navbar style="position: relative; z-index: 980;">
+    <div uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky; cls-inactive: uk-hidden; top: 300">
+        <nav class=" uk-navbar-container uk-animation-slide-top" uk-navbar style="position: relative; z-index: 980;">
             <div class="uk-navbar-left uk-margin-left">
                 <ul class="uk-navbar-nav">
                     <li class="uk-button" id='user-library-link'>My Library</li>
@@ -31,13 +31,11 @@
                 </ul>
             </div>
             <div class="uk-navbar-right">
-                <form class="uk-form" action="" id="login">
-                    Login: <input class="uk-input uk-width-1-4" id='username' type="text">
-                    Password: <input class="uk-input uk-width-1-4" id='password' type="password">
-                    <input class="uk-button" type="submit" id='submit-login' value="Login">
-                    <input class="uk-button" type="button" value="Sign Up" id='sign-up-button' href="#sign-up-prompt"
-                        uk-toggle>
-                </form>
+                    <!-- Login: <input class="uk-input uk-width-1-4" id='username' type="text">
+                    Password: <input class="uk-input uk-width-1-4" id='password' type="password"> -->
+                    <a class="uk-button" href="#" uk-scroll>Login</a>
+                    <button class="uk-button" type="button" value="Sign Up" href="#sign-up-prompt"
+                        uk-toggle>Sign-Up</button>
 
             </div>
         </nav>
@@ -51,25 +49,24 @@
 
     <div id="landing">
         <div class="uk-position-center">
-            <h1 class="title uk-animation-fade uk-animation-slow"><span><img src="./assets/images/lapiconRED.png" id="laptop"></span>Dev<span
+            <h1 class="title uk-animation-fade uk-animation-slow"><span><img src="./assets/images/laptop2.png" id="laptop"></span><span><img src="./assets/images/vial.png" id="vial"></span>Dev<span
                     id="lab">Lab</span></h1>
             <p class="landing-text uk-text-center">Brewing up developers, one lesson at a time.</p>
 
-            <form class="uk-form-stacked" action="" id="login">
+            <form class="uk-form-stacked uk-animation-slide-top-small" action="" id="login">
                 <!-- <h5 class="landing-text uk-text-center">Login to DevLab: </h5> -->
                 <input class="uk-input uk-width-1-2 uk-align-center" id='username' type="text" placeholder="Username">
-                <!-- <label class="uk-form-label uk-text-center" for="password">Password: </label> -->
                 <input class="uk-input uk-width-1-2 uk-align-center" id='password' type="password" placeholder="Password">
                 <input class="uk-button uk-width-1-2 uk-align-center" type="submit" id='submit-login' value="Login">
-                <input class="uk-button uk-width-1-2 uk-align-center" type="button" value="Sign Up" id='sign-up-button' href="#sign-up-prompt"
-                    uk-toggle>
+                <input class="uk-button uk-width-1-2 uk-align-center" type="button" value="Sign Up" id='sign-up-button' href="#sign-up-prompt" uk-toggle>
             </form>
         </div>
-        <p>Scroll</p>
+        <!-- <a href = "#full-library" class = "uk-position-bottom-center" id = "scroller" uk-scroll>SCROLL</a> -->
+        <a href = "#full-library" uk-scroll><span uk-icon="icon: triangle-down; ratio: 3.5" class = "uk-position-bottom-center" id = "scroller"></span></a>
     </div>
 
     </div>
-    <hr class="uk-divider-icon" uk-scrollspy="cls:uk-animation-grow">
+    <hr class="uk-divider-icon" uk-scrollspy="cls:uk-animation-scale-up">
     <div class="uk-container" uk-scrollspy="target: > div; cls:uk-animation-slide-top-small; delay: 300">
         <div class="user-library-container">
             <h2>User Library</h2>
@@ -81,7 +78,7 @@
             </div>
         </div>
 
-        <div class="library-container">
+        <div class="library-container" id="full-library">
             <div class="concept-container">
                 <h2 class="uk-text-left">Concepts</h2>
                 <!-- <div class="concept-category" id=concept-category1>
@@ -175,14 +172,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous">
 
-
-
-
-
-
-
         </script>
-    <script src='./assets/js/background.js'></script>
+    <script src='./assets/js/landing.js'></script>
     <script src='./assets/js/main.js'></script>
 </body>
 
