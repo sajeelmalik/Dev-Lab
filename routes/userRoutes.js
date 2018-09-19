@@ -71,7 +71,6 @@ module.exports = function (app) {
   //WORKING
   //Adds links to users
   app.put('/api/users/:id', function (req, res, next) {
-    console.log('yes', req.body.contentId);
     db.User.findById(req.params.id)
       .then(user => {
         user.addSavedLinks(req.body.contentId)

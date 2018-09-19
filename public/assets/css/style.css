@@ -110,6 +110,16 @@ header {
     height: 400px;
 }
 
+.user-content-container {
+    display: flex;
+    border-bottom: 1px black solid;
+    margin: 1em 0;
+}
+
+.user-title {
+    flex: 8;
+}
+
 .concept-container {
     flex: 1;
     text-transform: capitalize;
