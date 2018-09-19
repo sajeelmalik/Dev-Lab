@@ -1,8 +1,8 @@
 $(function () {
-    var userID;
+    var userID = 1;
     var loggedIn = true;
     var userContentArray = [];
-    $.get('/api/users/1', function (err, data) {
+    $.get(`/api/users/${userID}`, function (err, data) {
         if (err) throw err;
     }).then(resp => {
         resp.savedLinks.forEach(elem => {
@@ -27,7 +27,8 @@ $(function () {
                 newDiv.append(linkTitle);
                 $(".concept-container").append(newDiv);
                 dropdownOption.text(concept.conceptTitle);
-                $('select').append(dropdownOption);
+                $('#new-concept').append(dropdownOption);
+
             });
         })
         .catch(err => console.log(err))
@@ -69,12 +70,11 @@ $(function () {
                 var newItem = $("<li class=content-item>")
                 var linkTitle = $(`<a class="uk-accordion-title" href="#">`); //${item.links}
                 var starNumber = $("<span class = star-number>");
-                var starImage = $("<i class='fas fa-star star-image'></i>");
+                var starImage = $(`<i data-value='${item.saves}' class='fas fa-star star-image'></i>`);
                 var newDiv = $("<div class=uk-accordion-content>");
-
                 if (userContentArray.includes(item.id)) starImage.addClass('saved');
                 starNumber.text(item.saves);
-                linkTitle.data('id', item.id);
+                starImage.data('id', item.id);
                 starNumber.attr('id', 'content-item' + item.id);
                 starNumber.append(starImage);
                 linkTitle.text(item.contentTitle);
@@ -90,20 +90,19 @@ $(function () {
 
     //ON CLICK LISTENER FOR SAVING CONTENT
     $(document).on('click', ".star-image", function (e) {
-        var starID = $(this).parent().data('id');
-        var temp = $(`#content-item${starID}`).text()
-        temp = parseInt(temp);
+
+        var starID = $(this).data('id');
         //IF CONTENT IS BEING UNSAVED
         if ($(this).hasClass('saved')) {
             $(this).removeClass('saved');
-            $(`#content-item${starID}`).text(temp - 1)
+            this.previousSibling.nodeValue--;
             $.ajax(`/api/delete/${userID}/${starID}`, {
                 method: 'DELETE'
             })
             $.post('/user/resources/new/' + starID)
 
         } else {
-            $(`#content-item${starID}`).text(temp + 1)
+            this.previousSibling.nodeValue++;
             //IF CONTENT IS BEING SAVED
             $(this).addClass('saved')
             $.ajax(`/api/save/${userID}/${starID}`, {
@@ -119,7 +118,7 @@ $(function () {
         var createObj = {
             content: $("#new-link").val(),
             title: $("#new-name").val(),
-            category: $("select").val(),
+            category: $("#new-concept").val(),
 
         }
         $.post('/api/concept/new', createObj, function () {
@@ -133,13 +132,35 @@ $(function () {
         $("#user-library-link").on('click', function () {
             if (!$(this).hasClass('active')) {
                 $(this).toggleClass('active');
+                $("#landing").hide();
+                $(".uk-button-danger").hide();
+                $(".uk-divider-icon").hide();
                 $("#full-library-link").toggleClass('active');
                 $(".library-container").hide();
                 $(".add-content").hide();
-                $(".user-library-container").css('display', 'block')
-                $.get(`/api/${userID}`, function (err, data) {
+                $(".user-library-container").css('display', 'block');
+                $.get(`/api/users/${userID}`, function (err, data) {
                     if (err) throw err;
-                    //generate library div populated with 
+
+                }).then(data => {
+                    console.log(data);
+                    data.savedLinks.forEach(elem => {
+                        console.log('elem', elem.conceptTitle);
+                        var dropdownOption = $(`<option value=${elem.conceptTitle}>`)
+                        dropdownOption.text(`${elem.conceptTitle}`)
+                        $("#user-category-dropdown").append(dropdownOption);
+                        var userMain = $("<div class='user-main'>");
+                        var userSaves = $(`<span class='star-number'>${elem.saves}</span>`);
+                        var userDate = $("<div class='user-date'>");
+                        var userImage = $(`<i data-value='${elem.saves}'class='fas fa-star star-image saved'></i>`);
+                        userMain.text(elem.contentTitle)
+                        userImage.attr('id', elem.id)
+                        userSaves.append(userImage)
+                        userDate.text(elem.createdAt)
+                        $(".user-library-container").append(userMain, userSaves, userDate);
+                    })
+
+
                 })
             }
         })
@@ -147,6 +168,10 @@ $(function () {
     $("#full-library-link").on('click', function () {
         if (!$(this).hasClass('active')) {
             $(this).toggleClass('active')
+            $("#user-category-dropdown").empty();
+            $("#landing").show();
+            $(".uk-button-danger").show();
+            $(".uk-divider-icon").show();
             $("#user-library-link").toggleClass('active')
             $(".library-container").show();
             $(".add-content").show();
