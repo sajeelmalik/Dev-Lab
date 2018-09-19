@@ -6,7 +6,6 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var passport   = require('passport');
 var session    = require('express-session');
-var cookieParser = require('cookie-parser')
 
 
 // Sets up the Express App
@@ -32,10 +31,8 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 //load passport strategies
 require('./config/passport/passport.js')(passport, db.User);
-app.use(cookieParser());
 
 // Static directory
-app.use(express.static("public"));
 
 // Routes
 // =============================================================
@@ -43,6 +40,9 @@ require("./routes/contentRoutes.js")(app);
 require("./routes/userRoutes.js")(app);
 require("./routes/htmlRoutes.js")(app);
 require("./routes/authRoutes.js")(app, passport);
+
+app.use(express.static("public"));
+
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================

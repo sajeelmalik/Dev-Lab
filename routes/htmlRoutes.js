@@ -11,7 +11,7 @@ module.exports = function(app) {
   // index route loads index.html
   app.get("/", isLoggedIn, function(req, res) {
     res.cookie('userid', req.user.id, { maxAge: 2592000000 });  // Expires in one month
-    res.sendFile(path.join(__dirname, "../public/dashboard.html"));
+    res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
   // All educational resources in resources.html
