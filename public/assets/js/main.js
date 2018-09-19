@@ -90,7 +90,7 @@ $(function () {
 
     //ON CLICK LISTENER FOR SAVING CONTENT
     $(document).on('click', ".star-image", function (e) {
-
+        console.log(this);
         var starID = $(this).data('id');
         //IF CONTENT IS BEING UNSAVED
         if ($(this).hasClass('saved')) {
@@ -99,14 +99,16 @@ $(function () {
             $.ajax(`/api/delete/${userID}/${starID}`, {
                 method: 'DELETE'
             })
-            $.post('/user/resources/new/' + starID)
 
         } else {
             this.previousSibling.nodeValue++;
             //IF CONTENT IS BEING SAVED
             $(this).addClass('saved')
-            $.ajax(`/api/save/${userID}/${starID}`, {
-                method: 'POST'
+            $.ajax(`/api/users/${userID}`, {
+                method: 'PUT',
+                data: {
+                    contentId: starID
+                }
             })
         }
 
@@ -143,18 +145,18 @@ $(function () {
                     if (err) throw err;
 
                 }).then(data => {
-                    console.log(data);
+                    console.log('data', data);
                     data.savedLinks.forEach(elem => {
-                        console.log('elem', elem.conceptTitle);
                         var dropdownOption = $(`<option value=${elem.conceptTitle}>`)
                         dropdownOption.text(`${elem.conceptTitle}`)
                         $("#user-category-dropdown").append(dropdownOption);
                         var userMain = $("<div class='user-main'>");
                         var userSaves = $(`<span class='star-number'>${elem.saves}</span>`);
                         var userDate = $("<div class='user-date'>");
-                        var userImage = $(`<i data-value='${elem.saves}'class='fas fa-star star-image saved'></i>`);
+                        var userImage = $(`<i data-value='${elem.saves}'class='fas fa-star star-image'></i>`);
+                        if (userContentArray.includes(elem.id)) userImage.addClass('saved');
                         userMain.text(elem.contentTitle)
-                        userImage.attr('id', elem.id)
+                        userImage.data('id', elem.id)
                         userSaves.append(userImage)
                         userDate.text(elem.createdAt)
                         $(".user-library-container").append(userMain, userSaves, userDate);
@@ -168,6 +170,7 @@ $(function () {
     $("#full-library-link").on('click', function () {
         if (!$(this).hasClass('active')) {
             $(this).toggleClass('active')
+            $(".user-library-container").empty();
             $("#user-category-dropdown").empty();
             $("#landing").show();
             $(".uk-button-danger").show();
