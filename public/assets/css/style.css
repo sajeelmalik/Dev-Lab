@@ -18,6 +18,10 @@ h2 {
     font-family: 'Montserrat', sans-serif;
 }
 
+h4 {
+    text-transform: uppercase;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -44,9 +48,9 @@ video {
     width: 100%;
 }
 
-h4 {
-    text-transform: uppercase;
-}
+/* .uk-navbar-container{
+    background-color: #000022;
+} */
 
 .library-links {
     display: flex;
@@ -57,6 +61,7 @@ h4 {
 }
 
 .landing-text {
+    width: 450px;
     color: #FFFFFF;
     overflow: hidden;
     /* Ensures the content is not revealed until the animation */
@@ -74,6 +79,7 @@ h4 {
     animation:
         typing 3.5s steps(40, end),
         blink-caret .75s step-end infinite;
+
 }
 
 /* The typing effect */
@@ -83,7 +89,7 @@ h4 {
     }
 
     to {
-        width: 100%
+        width: 78%
     }
 }
 
@@ -139,13 +145,42 @@ h4 {
 #laptop {
     max-height: 175px;
     max-width: 175px;
+    animation-name: laptopFade;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
+    animation-duration: 35s;
 }
 
-#vial {
-    display: none;
-    max-height: 155px;
-    max-width: 155px;
+#laptopred {
+    position: absolute; 
+    left:0px;
+    top: 0px;
+    z-index: -1;
+    max-height: 175px;
+    max-width: 175px;
 }
+
+@keyframes laptopFade {
+    0% {
+        opacity: 1;
+    }
+    35% {
+        opacity: 1;
+    }
+    45% {
+        opacity: .7;
+    }
+    55% {
+        opacity: .25;
+    }
+    65% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+  }
 
 #lab {
     font-weight: 600;
