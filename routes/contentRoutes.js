@@ -35,9 +35,8 @@ module.exports = function (app) {
   app.get("/api/contents/:category", function (req, res) {
     console.log(req.body);
     db.Content.findAll({
-      all: true,
       order: [
-        ['saves', 'ASC']
+        ['saves', 'DESC']
       ],
       where: {
         conceptTitle: req.params.category
