@@ -25,23 +25,21 @@ $(function () {
             setTimeout(function () {
                 console.log("here")
                 $("#landing").removeClass("uk-animation-slide-top-small");
-                $("#background-overlay").addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
                 $("#landing").addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+                $("#background-overlay").addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
                 setTimeout(function () {
                     $("#background-overlay").hide(1000);
                     $("#landing").hide(1000)
 
                     //Quick fix to force the page to scroll, allowing the UIKit animations to trigger
                     setTimeout(function () {
-                        $(this).scrollTop(10);
+                        $(this).scrollTop(20);
                     }, 1100);
                 }, 1000);
 
             }, 8000);
 
         });
-
-
 
 
         //Create Logout Button
@@ -51,24 +49,32 @@ $(function () {
         $("#nav-right").html(logoutLink);
 
     } else {
+        console.log("Not logged in")
         $("#navbar").attr('uk-sticky', 'cls-inactive: uk-hidden; top: 300')
-        $('#add-content-button').prop('disabled', true);
+
+        //Here, disabling the button made it inaccessible to jQuery DOM manipulation
+        // $('#add-content-button').prop('disabled', true);
+        $('#add-content-button').removeAttr('uk-toggle');
+        $('#add-content-button').attr('uk-scroll', true);
+        $('#add-content-button').attr('href', "#");
         $("#login-link").show();
         $("#sign-up-nav-button").show();
         $("#logout-link").hide();
 
-        //prompt user to log-in to add content
+        //prompt user to log-in to add content - dynamic hover works with the tooltip below
         $('#add-content-button').hover(
             function () {
                 var $this = $(this); // caching $(this)
                 $this.data('initialText', $this.text());
-                $this.text("Log-In to DevLab to share your favorite resources!");
+                $this.text("Wait a minute!");
             },
             function () {
                 var $this = $(this); // caching $(this)
                 $this.text($this.data('initialText'));
             }
         );
+
+        $("#add-content-button").attr("uk-tooltip","title: Log-In to DevLab to share your favorite resources!; pos: bottom; delay: 200")
     }
 
     //PAGE LOGIN
