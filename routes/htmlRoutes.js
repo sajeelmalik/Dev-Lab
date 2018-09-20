@@ -9,7 +9,7 @@ var path = require("path");
 module.exports = function(app) {
 
   // index route loads index.html
-  app.get("/", function(req, res) {
+  app.get("/", isLoggedIn, function(req, res) {
     if(req.isAuthenticated()){
     res.cookie('userid', req.user.id, { maxAge: 2592000000 });  // Expires in one month
     }

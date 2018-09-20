@@ -12,30 +12,29 @@ var path = require("path");
 // =============================================================
 module.exports = function (app, passport) {
     app.get('/signup', function (req, res) {
-        res.sendFile(path.join(__dirname, "../public/signup.html"));
+        res.sendFile(path.join(__dirname, "../public/index.html"));
     });
 
     app.get("/signin", function (req, res) {
-        res.sendFile(path.join(__dirname, "../public/signin.html"));
+        res.sendFile(path.join(__dirname, "../public/index.html"));
     });
 
     app.post('/signup', passport.authenticate('local-signup', {
-        failureRedirect: '/signup'
+        successRedirect: '/',
+         failureRedirect: '/signup'
     }),function(res, req){
-        res.cookie('userid', req.user.id, { maxAge: 2592000000 });  // Expires in one month
-        res.redirect("/");
+       console.log("signing up...")
     }
     
     );
 
     app.post('/signin', passport.authenticate('local-signin', {
-        
         successRedirect: '/',
-
-        failureRedirect: '/signin'
-    }), function(res, req){
-        console.log("signing in?");
-    });
+        failureRedirect: '/signup'
+        }), function(res, req){
+            console.log("signing in...")
+        }
+    );
 
     app.get('/signout', function (req, res) {
         res.clearCookie('userid');
