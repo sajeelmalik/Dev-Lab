@@ -21,6 +21,7 @@ $(function () {
 
             // $("#background-overlay").addClass("uk-animation-kenburns uk-animation-reverse");
             $("#landing").addClass("uk-animation-slide-top-small uk-animation-slow");
+            $('#add-content-button').prop('disabled', true);
 
             setTimeout(function () {
                 console.log("here")
@@ -30,6 +31,7 @@ $(function () {
                 setTimeout(function () {
                     $("#background-overlay").hide(1000);
                     $("#landing").hide(1000)
+                    $('#add-content-button').prop('disabled', false);
 
                     //Quick fix to force the page to scroll, allowing the UIKit animations to trigger
                     setTimeout(function () {
@@ -52,7 +54,8 @@ $(function () {
         console.log("Not logged in")
         $("#navbar").attr('uk-sticky', 'cls-inactive: uk-hidden; top: 300')
 
-        //Here, disabling the button made it inaccessible to jQuery DOM manipulation
+        //Here, disabling the button made it inaccessible to jQuery DOM manipulation, so we created a more unique solution
+        
         // $('#add-content-button').prop('disabled', true);
         $('#add-content-button').removeAttr('uk-toggle');
         $('#add-content-button').attr('uk-scroll', true);
@@ -74,7 +77,8 @@ $(function () {
             }
         );
 
-        $("#add-content-button").attr("uk-tooltip", "title: Log-In to DevLab to share your favorite resources!; pos: bottom; delay: 200")
+        $("#add-content-button").attr("uk-tooltip","title: Log-In to DevLab to share your favorite resources!; pos: top; delay: 200")
+
     }
 
     //PAGE LOGIN
@@ -82,17 +86,20 @@ $(function () {
         e.preventDefault();
         var email = $("#username").val();
         var password = $("#password").val();
-        console.log("sign in" + email);
+        console.log("sign in " + email);
         $.ajax({
             type: "POST",
             url: '/signin',
             data: {
-                email: email,
-                password: password
+            email: email,
+            password: password
             },
-            success: function () {
-                location.reload();
+          success: function() {   
+                location.reload();  
+
             }
+        }, function (data){
+            console.log(data);
         })
     })
 
@@ -310,7 +317,8 @@ var userCategoryArray = []
     //     $(".screen-overlay").css('display', 'none');
     // });
 
-    $("#sign-up-submit").on('click', function (e) {
+    $(document).on('click', "#sign-up-submit", function (e) {
+
         e.preventDefault();
 
         if ($("input[name=userName]").val().trim() === "" || $("input   [name=userPassword]").val() === "" || $("input[name=userEmail]").val() === "") {
