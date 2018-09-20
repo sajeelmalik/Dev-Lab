@@ -337,7 +337,7 @@ justify-content: flex-end;
     border: 2px solid rgb(238, 56, 53);
     border-radius: 20px;
     background-color: rgba(235, 131, 129, 0.336);
-    letter-spacing: 5px; 
+    letter-spacing: 4px; 
 }
 
 /* .closed {
@@ -381,6 +381,8 @@ justify-content: flex-end;
 
 .uk-modal-body input {
     background-color: #0101312d;
+    transition: 0.2s ease-in-out;
+    border-radius: 20px;
 }
 
 .uk-modal-body input:focus {
