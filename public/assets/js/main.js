@@ -2,6 +2,7 @@ $(function () {
 
     var userID = Cookies.get('userid');
     var userContentArray = [];
+    var visits = 0;
     getCurrentSaves();
 
     if (userID) {
@@ -9,6 +10,10 @@ $(function () {
         $.get(`/api/users/${userID}`, function (err, data) {
             if (err) throw err;
         }).then(data => {
+            visits++;
+            console.log(visits)
+            $("#login").hide();
+            // $("#scroller").hide();
             $(".landing-text").css("margin-top", "40px");
             $(".landing-text").css("font-size", "1.5em");
             $(".landing-text").css("overflow", "hidden");
@@ -25,14 +30,18 @@ $(function () {
                 setTimeout(function () {
                     $("#background-overlay").hide(1000);
                     $("#landing").hide(1000)
-                }, 1000)
+
+                    //Quick fix to force the page to scroll, allowing the UIKit animations to trigger
+                    setTimeout(function () {
+                        $(this).scrollTop(10);
+                    }, 1100);
+                }, 1000);
 
             }, 8000);
 
         });
 
-        $("#login").hide();
-        $("#scroller").hide();
+
 
 
         //Create Logout Button
@@ -271,32 +280,43 @@ $(function () {
         }
     })
 
-    $("#sign-up-button").on('click', function (e) {
-        $(".sign-up-modal").css('display', 'flex');
-        $(".screen-overlay").css('display', 'flex');
-    });
-    $("#sign-up-cancel").on('click', function (e) {
-        $(".sign-up-modal").css('display', 'none');
-        $(".screen-overlay").css('display', 'none');
-    });
+    // $("#sign-up-button").on('click', function (e) {
+    //     $(".sign-up-modal").css('display', 'flex');
+    //     $(".screen-overlay").css('display', 'flex');
+    // });
+    // $("#sign-up-cancel").on('click', function (e) {
+    //     $(".sign-up-modal").css('display', 'none');
+    //     $(".screen-overlay").css('display', 'none');
+    // });
+    
     $("#sign-up-submit").on('click', function (e) {
         e.preventDefault();
-        var newUser = {
-            name: $("input[name=userName]").val(),
-            password: $("input[name=userPassword]").val(),
-            email: $("input[name=userEmail]").val()
+
+        if ($("input[name=userName]").val().trim() === "" || $("input   [name=userPassword]").val() === "" || $("input[name=userEmail]").val() === "") {
+            $("#sign-up-error").show(200);
         }
-        $.ajax({
-            type: "POST",
-            url: '/signup',
-            data: newUser,
-            success: function () {
-                location.reload();
+        else {
+            $("#sign-up-error").hide();
+            $("#sign-up-error-email").hide();
+            $("#sign-up-success").show(200);
+
+            var newUser = {
+                name: $("input[name=userName]").val().trim(),
+                password: $("input[name=userPassword]").val(),
+                email: $("input[name=userEmail]").val()
             }
-        })
+            $.ajax({
+                type: "POST",
+                url: '/signup',
+                data: newUser,
+                success: function () {
+                    location.reload();
+                }
+            })
 
 
-        console.log(newUser);
+            console.log(newUser);
+        }
     })
 
     function getCurrentSaves() {

@@ -169,15 +169,18 @@
             <div class="uk-modal-body">
                 <form class="uk-form" action="">
                     <label class="uk-form-label" for="userName">Username: </label>
-                    <input class="uk-input" name='userName' type="text">
+                    <input class="uk-input" name='userName' type="text" required>
                     <label class="uk-form-label" for="userPassword">Password: </label>
-                    <input class="uk-input" name='userPassword' type="password">
+                    <input class="uk-input" name='userPassword' type="password" required>
                     <label class="uk-form-label" for="userEmail">Email : </label>
-                    <input class="uk-input" name='userEmail' type="text">
+                    <input class="uk-input" name='userEmail' type="text" required>
                 </form>
+                <p id = "sign-up-error" class = "uk-text-danger uk-text-center">All fields must be submitted!</p>
+                <p id = "sign-up-error-email" class = "uk-text-danger uk-text-center">Submit a valid e-mail address!</p>
+                <p id = "sign-up-success" class = "uk-text-success uk-text-center">- Success!</p>
             </div>
             <div class="uk-modal-footer uk-text-right">
-                <input class="uk-button" type="button" value='Cancel' id="sign-up-cancel">
+                <input class="uk-button uk-modal-close" type="button" value='Cancel' id="sign-up-cancel">
                 <input class="uk-button" type="submit" value='Sign Up!' id="sign-up-submit">
             </div>
         </div>

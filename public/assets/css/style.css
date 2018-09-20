@@ -428,6 +428,12 @@ justify-content: flex-end;
     border-bottom-left-radius: 20px;
 }
 
+#sign-up-error, #sign-up-error-email, #sign-up-success{
+    display: none;
+}
+
+
+
 #sign-up-submit, #sign-up-cancel {
     transition: 0.14s ease-in;
     border-radius: 20px;
