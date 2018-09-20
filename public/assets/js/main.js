@@ -21,6 +21,7 @@ $(function () {
 
             // $("#background-overlay").addClass("uk-animation-kenburns uk-animation-reverse");
             $("#landing").addClass("uk-animation-slide-top-small uk-animation-slow");
+            $('#add-content-button').prop('disabled', true);
 
             setTimeout(function () {
                 console.log("here")
@@ -30,6 +31,7 @@ $(function () {
                 setTimeout(function () {
                     $("#background-overlay").hide(1000);
                     $("#landing").hide(1000)
+                    $('#add-content-button').prop('disabled', false);
 
                     //Quick fix to force the page to scroll, allowing the UIKit animations to trigger
                     setTimeout(function () {
@@ -290,14 +292,14 @@ $(function () {
         }
     })
 
-    $("#sign-up-button").on('click', function (e) {
-        $(".sign-up-modal").css('display', 'flex');
-        $(".screen-overlay").css('display', 'flex');
-    });
-    $("#sign-up-cancel").on('click', function (e) {
-        $(".sign-up-modal").css('display', 'none');
-        $(".screen-overlay").css('display', 'none');
-    });
+    // $("#sign-up-button").on('click', function (e) {
+    //     $(".sign-up-modal").css('display', 'flex');
+    //     $(".screen-overlay").css('display', 'flex');
+    // });
+    // $("#sign-up-cancel").on('click', function (e) {
+    //     $(".sign-up-modal").css('display', 'none');
+    //     $(".screen-overlay").css('display', 'none');
+    // });
     $(document).on('click', "#sign-up-submit", function (e) {
 
         e.preventDefault();
