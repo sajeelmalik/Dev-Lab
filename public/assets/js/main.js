@@ -21,7 +21,6 @@ $(function () {
 
             // $("#background-overlay").addClass("uk-animation-kenburns uk-animation-reverse");
             $("#landing").addClass("uk-animation-slide-top-small uk-animation-slow");
-
             $('#add-content-button').prop('disabled', true);
 
             setTimeout(function () {
@@ -124,7 +123,7 @@ $(function () {
             data.forEach(function (concept) {
                 var newDiv = $("<div class= 'concept-category'>");
                 var linkTitle = $(`<h4 class = content-title>`);
-                var dropdownOption = $(`<option value= ${concept.conceptTitle}>`)
+                var dropdownOption = $(`<option value= "${concept.conceptTitle}">`)
                 newDiv.attr('id', 'category-' + concept.conceptTitle)
                 linkTitle.text(concept.conceptTitle);
                 newDiv.append(linkTitle);
