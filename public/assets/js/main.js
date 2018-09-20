@@ -83,17 +83,20 @@ $(function () {
         e.preventDefault();
         var email = $("#username").val();
         var password = $("#password").val();
-        console.log("sign in" + email);
+        console.log("sign in " + email);
         $.ajax({
             type: "POST",
             url: '/signin',
             data: {
-                email: email,
-                password: password
+            email: email,
+            password: password
             },
-            success: function () {
-                location.reload();
+          success: function() {   
+                location.reload();  
+
             }
+        }, function (data){
+            console.log(data);
         })
     })
 
@@ -287,16 +290,16 @@ $(function () {
         }
     })
 
-    // $("#sign-up-button").on('click', function (e) {
-    //     $(".sign-up-modal").css('display', 'flex');
-    //     $(".screen-overlay").css('display', 'flex');
-    // });
-    // $("#sign-up-cancel").on('click', function (e) {
-    //     $(".sign-up-modal").css('display', 'none');
-    //     $(".screen-overlay").css('display', 'none');
-    // });
-    
-    $("#sign-up-submit").on('click', function (e) {
+    $("#sign-up-button").on('click', function (e) {
+        $(".sign-up-modal").css('display', 'flex');
+        $(".screen-overlay").css('display', 'flex');
+    });
+    $("#sign-up-cancel").on('click', function (e) {
+        $(".sign-up-modal").css('display', 'none');
+        $(".screen-overlay").css('display', 'none');
+    });
+    $(document).on('click', "#sign-up-submit", function (e) {
+
         e.preventDefault();
 
         if ($("input[name=userName]").val().trim() === "" || $("input   [name=userPassword]").val() === "" || $("input[name=userEmail]").val() === "") {
