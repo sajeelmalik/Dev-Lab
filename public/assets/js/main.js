@@ -52,7 +52,8 @@ $(function () {
         console.log("Not logged in")
         $("#navbar").attr('uk-sticky', 'cls-inactive: uk-hidden; top: 300')
 
-        //Here, disabling the button made it inaccessible to jQuery DOM manipulation
+        //Here, disabling the button made it inaccessible to jQuery DOM manipulation, so we created a more unique solution
+        
         // $('#add-content-button').prop('disabled', true);
         $('#add-content-button').removeAttr('uk-toggle');
         $('#add-content-button').attr('uk-scroll', true);
@@ -74,7 +75,7 @@ $(function () {
             }
         );
 
-        $("#add-content-button").attr("uk-tooltip","title: Log-In to DevLab to share your favorite resources!; pos: bottom; delay: 200")
+        $("#add-content-button").attr("uk-tooltip","title: Log-In to DevLab to share your favorite resources!; pos: top; delay: 200")
     }
 
     //PAGE LOGIN
