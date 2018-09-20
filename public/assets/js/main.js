@@ -2,11 +2,46 @@ $(function () {
 
     var userID = Cookies.get('userid');
     var userContentArray = [];
+    var visits = 0;
     getCurrentSaves();
 
     if (userID) {
-        $("#background-overlay").hide();
-        $("#landing").hide()
+        // SHOW WELCOME SCREEN TO USER
+        $.get(`/api/users/${userID}`, function (err, data) {
+            if (err) throw err;
+        }).then(data => {
+            visits++;
+            console.log(visits)
+            $("#login").hide();
+            // $("#scroller").hide();
+            $(".landing-text").css("margin-top", "40px");
+            $(".landing-text").css("font-size", "1.5em");
+            $(".landing-text").css("overflow", "hidden");
+            $(".landing-text").text("Welcome to DevLab, " + data.userName);
+
+            // $("#background-overlay").addClass("uk-animation-kenburns uk-animation-reverse");
+            $("#landing").addClass("uk-animation-slide-top-small uk-animation-slow");
+
+            setTimeout(function () {
+                console.log("here")
+                $("#landing").removeClass("uk-animation-slide-top-small");
+                $("#landing").addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+                $("#background-overlay").addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+                setTimeout(function () {
+                    $("#background-overlay").hide(1000);
+                    $("#landing").hide(1000)
+
+                    //Quick fix to force the page to scroll, allowing the UIKit animations to trigger
+                    setTimeout(function () {
+                        $(this).scrollTop(20);
+                    }, 1100);
+                }, 1000);
+
+            }, 8000);
+
+        });
+
+
         //Create Logout Button
         $("#login-link").hide();
         $("#sign-up-nav-button").hide();
@@ -14,16 +49,32 @@ $(function () {
         $("#nav-right").html(logoutLink);
 
     } else {
+        console.log("Not logged in")
         $("#navbar").attr('uk-sticky', 'cls-inactive: uk-hidden; top: 300')
-        $('#add-content-button').prop('disabled', true);
+
+        //Here, disabling the button made it inaccessible to jQuery DOM manipulation
+        // $('#add-content-button').prop('disabled', true);
+        $('#add-content-button').removeAttr('uk-toggle');
+        $('#add-content-button').attr('uk-scroll', true);
+        $('#add-content-button').attr('href', "#");
         $("#login-link").show();
         $("#sign-up-nav-button").show();
         $("#logout-link").hide();
 
-        $("#add-content-button").hover(function () {
-            console.log("test");
-            $("#add-content-button").text("Login to DevLab to add your favorite resources!");
-        })
+        //prompt user to log-in to add content - dynamic hover works with the tooltip below
+        $('#add-content-button').hover(
+            function () {
+                var $this = $(this); // caching $(this)
+                $this.data('initialText', $this.text());
+                $this.text("Wait a minute!");
+            },
+            function () {
+                var $this = $(this); // caching $(this)
+                $this.text($this.data('initialText'));
+            }
+        );
+
+        $("#add-content-button").attr("uk-tooltip","title: Log-In to DevLab to share your favorite resources!; pos: bottom; delay: 200")
     }
 
     //PAGE LOGIN
@@ -31,25 +82,28 @@ $(function () {
         e.preventDefault();
         var email = $("#username").val();
         var password = $("#password").val();
-        console.log("sign in" + email);
+        console.log("sign in " + email);
         $.ajax({
             type: "POST",
-            url: '/signin', 
+            url: '/signin',
             data: {
             email: email,
             password: password
             },
-            success: function() {   
+          success: function() {   
                 location.reload();  
+
             }
+        }, function (data){
+            console.log(data);
         })
     })
 
-    $(document).on("click", "#logout-link", function(e){
+    $(document).on("click", "#logout-link", function (e) {
         $.ajax({
             type: "GET",
             url: "/signout",
-            success: function(){
+            success: function () {
                 location.reload();
             }
         })
@@ -57,22 +111,22 @@ $(function () {
 
     //POPULATES CONCEPT CATEGORIES
     $.get('/api/contents', function (err, data) {
-            if (err) throw err;
-            console.log(data);
-        }).then(data => {
-            data.forEach(function (concept) {
-                var newDiv = $("<div class= 'concept-category'>");
-                var linkTitle = $(`<h4 class = content-title>`);
-                var dropdownOption = $(`<option value= ${concept.conceptTitle}>`)
-                newDiv.attr('id', 'category-' + concept.conceptTitle)
-                linkTitle.text(concept.conceptTitle);
-                newDiv.append(linkTitle);
-                $(".concept-container").append(newDiv);
-                dropdownOption.text(concept.conceptTitle);
-                $('#new-concept').append(dropdownOption);
+        if (err) throw err;
+        console.log(data);
+    }).then(data => {
+        data.forEach(function (concept) {
+            var newDiv = $("<div class= 'concept-category'>");
+            var linkTitle = $(`<h4 class = content-title>`);
+            var dropdownOption = $(`<option value= ${concept.conceptTitle}>`)
+            newDiv.attr('id', 'category-' + concept.conceptTitle)
+            linkTitle.text(concept.conceptTitle);
+            newDiv.append(linkTitle);
+            $(".concept-container").append(newDiv);
+            dropdownOption.text(concept.conceptTitle);
+            $('#new-concept').append(dropdownOption);
 
-            });
-        })
+        });
+    })
         .catch(err => console.log(err))
 
 
@@ -181,23 +235,35 @@ $(function () {
                     if (err) throw err;
                 }).then(data => {
                     userContentArray = [];
+                    var userAccordion = $("<ul uk-accordion uk-scrollspy='target: > li ; cls:uk-animation-slide-right-medium; delay: 100'>");
+
                     data.savedLinks.forEach(elem => {
                         userContentArray.push(elem.id);
                         var dropdownOption = $(`<option value=${elem.conceptTitle}>`);
                         dropdownOption.text(`${elem.conceptTitle}`);
                         $("#user-category-dropdown").append(dropdownOption);
-                        var userContainer = $("<div class='user-content-container'>");
-                        var userTitle = $("<div class='user-title'>");
-                        var userSaves = $(`<span class='star-number'>${elem.saves}</span>`);
-                        var userDate = $("<div class='user-date'>");
+                        var userContainer = $("<li class='user-content-container'>");
+                        var userTitle = $("<a class='uk-accordion-title user-title'>");
+                        var userSaves = $(`<span class='star-number uk-align-right'>${elem.saves} </span>`);
+                        var userDate = $("<span class='user-date uk-align-right'>");
                         var userImage = $(`<i data-id='${elem.id}' data-value='${elem.saves}'class='fas fa-star star-image'></i>`);
                         if (userContentArray.includes(elem.id)) userImage.addClass('saved');
                         userTitle.text(elem.contentTitle);
                         userSaves.append(userImage);
                         var createdDate = elem.createdAt;
                         userDate.append(moment(createdDate).format('MM DD YYYY'))
-                        $(userContainer).append(userTitle, userSaves, userDate);
-                        $(".user-library").append(userContainer);
+
+                        var newDiv = $("<div class=uk-accordion-content>");
+                        var userLinks = $("<a>");
+                        var userBody = $("<p>");
+                        userLinks.append(elem.links);
+                        userBody.append(elem.contentBody);
+                        newDiv.append(userLinks, userBody);
+
+                        userTitle.append(userSaves, userDate)
+                        userContainer.append(userTitle, newDiv);
+                        userAccordion.append(userContainer)
+                        $(".user-library").append(userAccordion);
                     })
 
 
@@ -231,24 +297,35 @@ $(function () {
         $(".sign-up-modal").css('display', 'none');
         $(".screen-overlay").css('display', 'none');
     });
-    $("#sign-up-submit").on('click', function (e) {
+    $(document).on('click', "#sign-up-submit", function (e) {
+
         e.preventDefault();
-        var newUser = {
-            name: $("input[name=userName]").val(),
-            password: $("input[name=userPassword]").val(),
-            email: $("input[name=userEmail]").val()
+
+        if ($("input[name=userName]").val().trim() === "" || $("input   [name=userPassword]").val() === "" || $("input[name=userEmail]").val() === "") {
+            $("#sign-up-error").show(200);
         }
-        $.ajax({
-            type: "POST",
-            url: '/signup', 
-            data: newUser,
-            success: function() {   
-                location.reload();  
+        else {
+            $("#sign-up-error").hide();
+            $("#sign-up-error-email").hide();
+            $("#sign-up-success").show(200);
+
+            var newUser = {
+                name: $("input[name=userName]").val().trim(),
+                password: $("input[name=userPassword]").val(),
+                email: $("input[name=userEmail]").val()
             }
-        })
+            $.ajax({
+                type: "POST",
+                url: '/signup',
+                data: newUser,
+                success: function () {
+                    location.reload();
+                }
+            })
 
 
-        console.log(newUser);
+            console.log(newUser);
+        }
     })
 
     function getCurrentSaves() {

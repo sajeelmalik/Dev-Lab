@@ -38,7 +38,7 @@
                 <a class="uk-navbar-item uk-logo" href="#" uk-scroll><span>
                         <img src="./assets/images/laptop2.png" id="laptop-icon" style="height: 40px; width: 40px;">
                     </span>
-                    <span style = "color: rgb(235, 92, 90)" >Dev</span><span id="lab">Lab</span></a>
+                    <span style="color: rgb(235, 92, 90)">Dev</span><span id="lab">Lab</span></a>
             </div>
             <div class="uk-navbar-right" id="nav-right">
                 <!-- Login: <input class="uk-input uk-width-1-4" id='username' type="text">
@@ -67,7 +67,6 @@
             <p class="landing-text uk-text-center">Brewing up developers, one lesson at a time.</p>
 
             <form class="uk-form-stacked uk-animation-slide-top-small" action="" id="login">
-                <!-- <h5 class="landing-text uk-text-center">Login to DevLab: </h5> -->
                 <input class="uk-input uk-width-1-2 uk-align-center" id='username' type="text" placeholder="Username">
                 <input class="uk-input uk-width-1-2 uk-align-center" id='password' type="password" placeholder="Password">
                 <input class="uk-button uk-width-1-2 uk-align-center" type="submit" id='submit-login' value="Login">
@@ -76,17 +75,17 @@
             </form>
         </div>
         <!-- <a href = "#full-library" class = "uk-position-bottom-center" id = "scroller" uk-scroll>SCROLL</a> -->
-        <a href="#main-content" uk-scroll><span uk-icon="icon: triangle-down; ratio: 3.5" class="uk-position-bottom-center"
+        <a href="#content-divider" uk-scroll><span uk-icon="icon: triangle-down; ratio: 3.5" class="uk-position-bottom-center"
                 id="scroller"></span></a>
     </div>
 
     </div>
-    <hr class="uk-divider-icon" uk-scrollspy="cls:uk-animation-scale-up">
-    <div id = "main-content" class="uk-container" uk-scrollspy="target: > div; cls:uk-animation-slide-top-small; delay: 300">
+    <hr class="uk-divider-icon" uk-scrollspy="cls:uk-animation-scale-up" id="content-divider">
+    <div id="main-content" class="uk-container" uk-scrollspy="target: > div; cls:uk-animation-slide-top-small; delay: 300">
         <div class="user-library-container">
             <h2>User Library</h2>
             <div class="category-dropdown">
-                <select name="" id="user-category-dropdown"></select>
+                <select class="uk-select" name="" id="user-category-dropdown"></select>
             </div>
             <div class="user-library">
 
@@ -169,26 +168,28 @@
             <div class="uk-modal-body">
                 <form class="uk-form" action="">
                     <label class="uk-form-label" for="userName">Username: </label>
-                    <input class="uk-input" name='userName' type="text">
+                    <input class="uk-input" name='userName' type="text" required>
                     <label class="uk-form-label" for="userPassword">Password: </label>
-                    <input class="uk-input" name='userPassword' type="password">
+                    <input class="uk-input" name='userPassword' type="password" required>
                     <label class="uk-form-label" for="userEmail">Email : </label>
-                    <input class="uk-input" name='userEmail' type="text">
+                    <input class="uk-input" name='userEmail' type="text" required>
                 </form>
+                <p id="sign-up-error" class="uk-text-danger uk-text-center">All fields must be submitted!</p>
+                <p id="sign-up-error-email" class="uk-text-danger uk-text-center">Submit a valid e-mail address!</p>
+                <p id="sign-up-success" class="uk-text-success uk-text-center">- Success!</p>
             </div>
             <div class="uk-modal-footer uk-text-right">
-                <input class="uk-button" type="button" value='Cancel' id="sign-up-cancel">
+                <input class="uk-button uk-modal-close" type="button" value='Cancel' id="sign-up-cancel">
                 <input class="uk-button" type="submit" value='Sign Up!' id="sign-up-submit">
             </div>
         </div>
     </div>
-    <!-- <div class="screen-overlay"></div> -->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous">
 
-    </script>
+        </script>
     <script src='./assets/js/landing.js'></script>
     <script src='./assets/js/main.js'></script>
 </body>
