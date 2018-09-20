@@ -36,14 +36,23 @@ module.exports = function (app) {
     })
   })
 
+    //Adds links to users
+    app.put('/api/users/:id', function (req, res, next) {
+      db.User.findById(req.params.id)
+        .then(user => {
+          user.addSavedLinks(req.body.contentId)
+        })
+        .then(() => {
+          db.Content.increment("saves", {
+            where: {
+              id: req.body.contentId,
+            }
+          })
+        })
+        .then(res.json())
+        .catch(next)
+    })
 
-  //WORKING
-  // content route for creating a new user
-  app.post("/api/new/users", function (req, res) {
-    db.User.create(req.body).then(function (dbUser) {
-      res.json(dbUser);
-    });
-  });
 
   //WORKING
   // DELETE route for deleting saved Links
@@ -64,34 +73,19 @@ module.exports = function (app) {
   });
 
   //WORKING
-  //Adds links to users
-  app.put('/api/users/:id', function (req, res, next) {
-    db.User.findById(req.params.id)
-      .then(user => {
-        user.addSavedLinks(req.body.contentId)
-      })
-      .then(() => {
-        db.Content.increment("saves", {
-          where: {
-            id: req.body.contentId,
-          }
-        })
-      })
-      .then(res.json())
-      .catch(next)
-  })
+
 
   // PUT route for updating user's password
-  app.put("/api/users", function (req, res) {
-    db.User.update(
-      req.body.password, {
-        where: {
-          id: req.body.id
-        }
-      }).then(function (dbUser) {
-      res.json(dbUser);
-    });
-  });
+  // app.put("/api/users", function (req, res) {
+  //   db.User.update(
+  //     req.body.password, {
+  //       where: {
+  //         id: req.body.id
+  //       }
+  //     }).then(function (dbUser) {
+  //     res.json(dbUser);
+  //   });
+  // });
 
 
   // DELETE route for deleting users

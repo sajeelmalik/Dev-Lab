@@ -1,5 +1,20 @@
 "id";"conceptTitle";"contentTitle";"links";"contentBody";"saves";"createdAt";"updatedAt"
-1;"functions";"Function CLosure";"www.google.com";"Functions link lorem ipsum";421;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
-2;"api calls";"Fetch & aJax";"www.yahoo.com";"functions";213;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
-3;"conditionals";"If/Else Statements";"www.gmail.com";"functions";112;"2018-09-19 21:17:37";"2018-09-20 17:25:33"
-4;"functions";"ES6 Arrow Functions";"www.reddit.com";"functions";4021;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+1;"CSS";"Wes Bos' CSS Grid Course";"www.cssgrid.io";"CSS Grid is a brand new layout system in CSS! It's not a framework or library - it's an addition to the language that allows us to quickly create flexible, two dimensional layouts.
+
+We can use it to place, size, align and architect designs that were previously difficult or even impossible with floats or flexbox.
+
+CSS Grid may seem a bit daunting with new syntax and layout ideas, but it's fairly simple and can be broken down into a handful of powerful concepts that when used together will blow your mind and change the way you create layouts for the web forever.";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+
+2;"CSS";"Wes Bos' Flexbox Course";"www.flexbox.io";"The first 13 videos are aimed at understanding the fundamentals of Flexbox - we will take a deep dive into understanding rows, columns, axes, wrapping, alignment, centering and layout. The last 7 are code alongs where we will build everything from a navigation to a mobile app layout entirely with Flexbox!";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+
+3;"CSS";"Brad Traversy CSS Grid Crash Course";"https://www.youtube.com/watch?v=jV8B24rSN5o";"In this video we will look at the new CSS Grid layout and how to create grid based layouts and alignments. We will look at properties for containers and items.";0;"2018-09-19 21:17:37";"2018-09-20 17:25:33"
+
+4;"Pathways";"OSSU Path to a Computer Science Degree";"https://github.com/ossu/computer-science";"The OSSU curriculum is a complete education in computer science using online materials. It's not merely for career training or professional development. It's for those who want a proper, well-rounded grounding in concepts fundamental to all computing disciplines, and for those who have the discipline, will, and (most importantly!) good habits to obtain this education largely on their own, but with support from a worldwide community of fellow learners.
+
+It is designed according to the degree requirements of undergraduate computer science majors, minus general education (non-CS) requirements, as it is assumed most of the people following this curriculum are already educated outside the field of CS. The courses themselves are among the very best in the world, often coming from Harvard, Princeton, and MIT.";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+
+5;"Pathways";"Reddit's /r/learnprogramming Pathway";"https://www.reddit.com/r/learnprogramming/wiki/faq#wiki_getting_started";"Functions";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
