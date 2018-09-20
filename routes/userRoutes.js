@@ -72,6 +72,22 @@ module.exports = function (app) {
       }).catch(err => console.log(err));
   });
 
+
+  app.get('/api/users/:userID/?category=', function (req, res) {
+    // var userID = req.params.userID;
+    // var category = req.params.category;
+    console.log(req.query);
+    var querystring = "SELECT Contents.*, User_Content.* FROM User_Content LEFT JOIN Contents ON User_Content.ContentId=Contents.id WHERE UserId=" + userID + " AND conceptTitle='" + category + "'";
+    db.sequelize.query(
+      querystring
+    ).then(function (data) {
+      console.log(data);
+      res.json(data)
+    });
+    
+  })
+
+
   //WORKING
 
 
