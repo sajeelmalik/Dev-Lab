@@ -31,17 +31,18 @@ $(function () {
         e.preventDefault();
         var email = $("#username").val();
         var password = $("#password").val();
-        console.log("sign in" + email);
+        console.log("sign in " + email);
         $.ajax({
             type: "POST",
             url: '/signin', 
             data: {
             email: email,
             password: password
-            },
-            success: function() {   
+            },success: function() {   
                 location.reload();  
             }
+        }, function (data){
+            console.log(data);
         })
     })
 
@@ -231,7 +232,7 @@ $(function () {
         $(".sign-up-modal").css('display', 'none');
         $(".screen-overlay").css('display', 'none');
     });
-    $("#sign-up-submit").on('click', function (e) {
+    $(document).on('click', "#sign-up-submit", function (e) {
         e.preventDefault();
         var newUser = {
             name: $("input[name=userName]").val(),
