@@ -281,7 +281,7 @@ $(function () {
     function createUserLibrary(data) {
         $('.user-library').empty()
         $('.user-library-container').attr('uk-filter',"target: .js-filter")
-
+        console.log('SAVED', data);
         userContentArray = [];
         var userAccordion = $("<ul class='js-filter' uk-accordion uk-scrollspy='target: > li ; cls:uk-animation-slide-right-medium; delay: 100'>");
         data.savedLinks.forEach(elem => {
