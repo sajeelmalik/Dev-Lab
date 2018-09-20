@@ -101,9 +101,7 @@ $(function () {
             }
         }, function (data){
             console.log(data);
-        }).done(function( data ) {
-            alert( "Data Loaded: " + data );
-          });
+        })
     })
 
     $(document).on("click", "#logout-link", function (e) {
