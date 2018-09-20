@@ -20,10 +20,18 @@ $(function () {
         $("#sign-up-nav-button").show();
         $("#logout-link").hide();
 
-        $("#add-content-button").hover(function () {
-            console.log("test");
-            $("#add-content-button").text("Login to DevLab to add your favorite resources!");
-        })
+        //prompt user to log-in to add content
+        $('#add-content-button').hover(
+            function () {
+                var $this = $(this); // caching $(this)
+                $this.data('initialText', $this.text());
+                $this.text("Log-In to DevLab to share your favorite resources!");
+            },
+            function () {
+                var $this = $(this); // caching $(this)
+                $this.text($this.data('initialText'));
+            }
+        );
     }
 
     //PAGE LOGIN
@@ -34,22 +42,22 @@ $(function () {
         console.log("sign in" + email);
         $.ajax({
             type: "POST",
-            url: '/signin', 
+            url: '/signin',
             data: {
-            email: email,
-            password: password
+                email: email,
+                password: password
             },
-            success: function() {   
-                location.reload();  
+            success: function () {
+                location.reload();
             }
         })
     })
 
-    $(document).on("click", "#logout-link", function(e){
+    $(document).on("click", "#logout-link", function (e) {
         $.ajax({
             type: "GET",
             url: "/signout",
-            success: function(){
+            success: function () {
                 location.reload();
             }
         })
@@ -57,22 +65,22 @@ $(function () {
 
     //POPULATES CONCEPT CATEGORIES
     $.get('/api/contents', function (err, data) {
-            if (err) throw err;
-            console.log(data);
-        }).then(data => {
-            data.forEach(function (concept) {
-                var newDiv = $("<div class= 'concept-category'>");
-                var linkTitle = $(`<h4 class = content-title>`);
-                var dropdownOption = $(`<option value= ${concept.conceptTitle}>`)
-                newDiv.attr('id', 'category-' + concept.conceptTitle)
-                linkTitle.text(concept.conceptTitle);
-                newDiv.append(linkTitle);
-                $(".concept-container").append(newDiv);
-                dropdownOption.text(concept.conceptTitle);
-                $('#new-concept').append(dropdownOption);
+        if (err) throw err;
+        console.log(data);
+    }).then(data => {
+        data.forEach(function (concept) {
+            var newDiv = $("<div class= 'concept-category'>");
+            var linkTitle = $(`<h4 class = content-title>`);
+            var dropdownOption = $(`<option value= ${concept.conceptTitle}>`)
+            newDiv.attr('id', 'category-' + concept.conceptTitle)
+            linkTitle.text(concept.conceptTitle);
+            newDiv.append(linkTitle);
+            $(".concept-container").append(newDiv);
+            dropdownOption.text(concept.conceptTitle);
+            $('#new-concept').append(dropdownOption);
 
-            });
-        })
+        });
+    })
         .catch(err => console.log(err))
 
 
@@ -181,23 +189,35 @@ $(function () {
                     if (err) throw err;
                 }).then(data => {
                     userContentArray = [];
+                    var userAccordion = $("<ul uk-accordion uk-scrollspy='target: > li ; cls:uk-animation-slide-right-medium; delay: 100'>");
+
                     data.savedLinks.forEach(elem => {
                         userContentArray.push(elem.id);
                         var dropdownOption = $(`<option value=${elem.conceptTitle}>`);
                         dropdownOption.text(`${elem.conceptTitle}`);
                         $("#user-category-dropdown").append(dropdownOption);
-                        var userContainer = $("<div class='user-content-container'>");
-                        var userTitle = $("<div class='user-title'>");
-                        var userSaves = $(`<span class='star-number'>${elem.saves}</span>`);
-                        var userDate = $("<div class='user-date'>");
+                        var userContainer = $("<li class='user-content-container'>");
+                        var userTitle = $("<a class=uk-accordion-title user-title'>");
+                        var userSaves = $(`<span class='star-number uk-align-right'>${elem.saves} </span>`);
+                        var userDate = $("<span class='user-date uk-align-right'>");
                         var userImage = $(`<i data-id='${elem.id}' data-value='${elem.saves}'class='fas fa-star star-image'></i>`);
                         if (userContentArray.includes(elem.id)) userImage.addClass('saved');
                         userTitle.text(elem.contentTitle);
                         userSaves.append(userImage);
                         var createdDate = elem.createdAt;
                         userDate.append(moment(createdDate).format('MM DD YYYY'))
-                        $(userContainer).append(userTitle, userSaves, userDate);
-                        $(".user-library").append(userContainer);
+
+                        var newDiv = $("<div class=uk-accordion-content>");
+                        var userLinks = $("<a>");
+                        var userBody = $("<p>");
+                        userLinks.append(elem.links);
+                        userBody.append(elem.contentBody);
+                        newDiv.append(userLinks, userBody);
+
+                        userTitle.append(userSaves, userDate)
+                        userContainer.append(userTitle, newDiv);
+                        userAccordion.append(userContainer)
+                        $(".user-library").append(userAccordion);
                     })
 
 
@@ -240,10 +260,10 @@ $(function () {
         }
         $.ajax({
             type: "POST",
-            url: '/signup', 
+            url: '/signup',
             data: newUser,
-            success: function() {   
-                location.reload();  
+            success: function () {
+                location.reload();
             }
         })
 
