@@ -75,6 +75,7 @@ $(function () {
         );
 
         $("#add-content-button").attr("uk-tooltip","title: Log-In to DevLab to share your favorite resources!; pos: bottom; delay: 200")
+        $("#user-library-link").attr("uk-tooltip", "title: Log-In to DevLab to save your favorite resources!; pos: bottom; delay: 200")
     }
 
     //PAGE LOGIN
@@ -91,11 +92,13 @@ $(function () {
                 password: password
             },
             success: function () {
-                location.reload();
+                document.location = "/";
             }
         }, function (data){
             console.log(data);
-        })
+        }).done(function( data ) {
+            alert( "Data Loaded: " + data );
+          });
     })
 
     $(document).on("click", "#logout-link", function (e) {
@@ -318,7 +321,7 @@ $(function () {
                 url: '/signup',
                 data: newUser,
                 success: function () {
-                    location.reload();
+                    document.location = "/";
                 }
             })
 
