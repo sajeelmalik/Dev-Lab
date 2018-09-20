@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
+
+
+    <link rel="shortcut icon" href="./assets/images/shortcut.png" crossorigin="anonymous">
     <!-- Moment.JS -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js'></script>
     <!-- UIkit CSS -->
@@ -152,6 +155,16 @@
                         <br>
                         <label class="uk-form-label" for="new-desc">Description: </label>
                         <textarea class="uk-textarea" type="text" id='new-desc'></textarea>
+
+                        <div class="uk-alert uk-alert-danger" id="add-error" class="uk-text-center" uk-alert>
+                            <button class="uk-alert-close" type="button" uk-close></button>
+                            <p>All fields must be submitted!</p></div>
+                        <div class="uk-alert uk-alert-danger" id="add-error-URL" class="uk-text-center" uk-alert>
+                            <button class="uk-alert-close" type="button" uk-close></button>
+                            <p>Please submit a valid URL!</p></div>
+                        <div class="uk-alert uk-alert-success" id="add-success" class="uk-text-center" uk-alert>
+                            <button class="uk-alert-close" type="button" uk-close></button>
+                            <p>- Success!</p></div>
                     </div>
 
                     <input class="uk-button uk-button-danger uk-align-center" type="submit" id='submit-content' value="Add Content">

@@ -77,7 +77,7 @@ $(function () {
             }
         );
 
-        $("#add-content-button").attr("uk-tooltip","title: Log-In to DevLab to share your favorite resources!; pos: bottom; delay: 200")
+        $("#add-content-button").attr("uk-tooltip", "title: Log-In to DevLab to share your favorite resources!; pos: bottom; delay: 200")
         $("#user-library-link").attr("uk-tooltip", "title: Log-In to DevLab to save your favorite resources!; pos: bottom; delay: 200")
 
 
@@ -117,23 +117,23 @@ $(function () {
     var userCategoryArray = []
     //POPULATES CONCEPT CATEGORIES ON PAGE LOAD
     $.get('/api/contents', function (err, data) {
-            if (err) throw err;
-            console.log(data);
-        }).then(data => {
-            data.forEach(function (concept) {
-                var newDiv = $("<div class= 'concept-category'>");
-                var linkTitle = $(`<h4 class = content-title>`);
-                var dropdownOption = $(`<option value= "${concept.conceptTitle}">`)
-                newDiv.attr('id', 'category-' + concept.conceptTitle)
-                linkTitle.text(concept.conceptTitle);
-                newDiv.append(linkTitle);
-                $(".concept-container").append(newDiv);
-                dropdownOption.text(concept.conceptTitle);
-                $('#new-concept').append(dropdownOption);
-                userCategoryArray.push(concept.conceptTitle)
+        if (err) throw err;
+        console.log(data);
+    }).then(data => {
+        data.forEach(function (concept) {
+            var newDiv = $("<div class= 'concept-category'>");
+            var linkTitle = $(`<h4 class = content-title>`);
+            var dropdownOption = $(`<option value= "${concept.conceptTitle}">`)
+            newDiv.attr('id', 'category-' + concept.conceptTitle)
+            linkTitle.text(concept.conceptTitle);
+            newDiv.append(linkTitle);
+            $(".concept-container").append(newDiv);
+            dropdownOption.text(concept.conceptTitle);
+            $('#new-concept').append(dropdownOption);
+            userCategoryArray.push(concept.conceptTitle)
 
-            });
-        })
+        });
+    })
         .catch(err => console.log(err))
 
 
@@ -207,6 +207,19 @@ $(function () {
     $("#submit-content").on('click', function (e) {
         e.preventDefault();
         console.log($("#new-concept").val());
+
+        if ($("#new-name").val().trim() === "" || $("#new-link").val() === "" || $("#new-desc").val() === "") {
+            $("#add-error").show(200);
+        }
+        else if(!$("#new-link").val().includes(".")){
+            $("#add-error-URL").show(200);
+        } else {
+            $("#add-error").hide();
+            $("#add-error-URL").hide();
+            $("#add-success").show(200);
+            $(this).attr("uk-toggle","target: #add-content-slider");
+        }
+
         var createObj = {
             conceptTitle: $("#new-concept").val(),
             links: $("#new-link").val(),
@@ -262,16 +275,16 @@ $(function () {
 
     }
     $("#user-category-dropdown").on('change', function () {
-        $.get(`/api/users/${userID}/?category=${$(this).val()}`, (err)=>{
+        $.get(`/api/users/${userID}/?category=${$(this).val()}`, (err) => {
             if (err) throw err;
         })
-        .then(data => createUserLibrary(data))
+            .then(data => createUserLibrary(data))
     })
-    $(".category-dropdown button").on('click', function(){
+    $(".category-dropdown button").on('click', function () {
         console.log($(this));
-        if ($(this).attr('uk-filter-control') ==="sort: data-saves; order: asc"){
+        if ($(this).attr('uk-filter-control') === "sort: data-saves; order: asc") {
             $(this).attr('uk-filter-control', "sort: data-saves; order: desc")
-        } else{
+        } else {
             $(this).attr('uk-filter-control', "sort: data-saves; order: asc")
         }
     })
@@ -280,7 +293,7 @@ $(function () {
 
     function createUserLibrary(data) {
         $('.user-library').empty()
-        $('.user-library-container').attr('uk-filter',"target: .js-filter")
+        $('.user-library-container').attr('uk-filter', "target: .js-filter")
 
         userContentArray = [];
         var userAccordion = $("<ul class='js-filter' uk-accordion uk-scrollspy='target: > li ; cls:uk-animation-slide-right-medium; delay: 100'>");

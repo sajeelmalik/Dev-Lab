@@ -446,6 +446,18 @@ grid-column: 9
     display: none;
 }
 
+#add-error, #add-error-URL, #add-success{
+    display: none;
+    border-radius: 20px;
+    opacity: 0.95;
+}
+
+#add-error, #add-error-URL{
+    background-color: rgb(238, 56, 53);
+    border-radius: 20px;
+    opacity: 0.9;
+    color: white;
+}
 
 
 #sign-up-submit, #sign-up-cancel {
