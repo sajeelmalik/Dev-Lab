@@ -48,8 +48,8 @@ video {
     width: 100%;
 }
 
-/* .uk-navbar-container{
-    background-color: #000022;
+/* #navbar{
+    
 } */
 
 .library-links {
@@ -128,7 +128,7 @@ video {
     text-align: center;
     font-weight: 400;
     color: rgb(235, 92, 90);
-    text-shadow: 1px 1px 3px rgba(234, 15, 11, 0.315);
+    text-shadow: 2px 2px 3px rgba(234, 15, 11, 0.315);
     left: -2%;
     transition: 0.3s ease-in-out;
 }
@@ -234,6 +234,7 @@ video {
 #password,
 #username {
     background-color: #0101312d;
+    color:  #F8F8F8;
 }
 
 #password:focus,
@@ -271,19 +272,45 @@ video {
 /* USER LIBRARY */
 .user-library-container {
     display: none;
-flex-direction: column;
+    flex-direction: column;
 }
 
 .user-content-container {
-    display:flex;
-    border-bottom: 1px black solid;
+    /* display: flex; */
+    border-bottom: 1px rgb(235, 92, 90) solid;
     margin: 1em 0;
+    transition: 0.3s ease-in-out;
+}
+.user-title{
+    transition: 0.3s ease-in-out;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
 }
 
-.user-title {
-    flex: 8;
+.uk-open > .user-title{
+    border-bottom: 1px solid rgb(238, 56, 53);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+    background-color: rgba(235, 158, 157, 0.336);
+    padding-left: 5px;
+    /* letter-spacing: 5px;  */
 }
 
+.uk-accordion-content{
+    margin-left: 10px;
+}
+
+.star-number, .user-date{
+    margin-bottom: 5px;
+}
+
+.user-date{
+    font-style: italic;
+}
+
+
+/* FULL LIBRARY */
 .category-dropdown {
 display:flex;
 justify-content: flex-end;
@@ -308,11 +335,14 @@ justify-content: flex-end;
     padding: 5px;
     margin-right: 2em;
     transition: 0.4s ease-in-out;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
 }
 
 .content-title:hover {
     cursor: cell;
     background-color: rgba(235, 131, 129, 0.089);
+
 }
 
 
@@ -329,6 +359,7 @@ justify-content: flex-end;
 
 .saved {
     color: #FFD447;
+    text-shadow: 1px 1px 2px rgba(255, 212, 71, 0.507);
     size: 1.1em;
     transition: 0.2s ease;
 }
@@ -363,6 +394,8 @@ justify-content: flex-end;
 
 .uk-modal-header {
     background-color: #000022;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
 }
 
 .uk-modal-header h2 {
@@ -381,6 +414,7 @@ justify-content: flex-end;
 
 .uk-modal-body input {
     background-color: #0101312d;
+    border-radius: 20px;
 }
 
 .uk-modal-body input:focus {
@@ -388,6 +422,17 @@ justify-content: flex-end;
     background-color: rgba(233, 136, 134, 0.473);
     color: #000022;
 }
+
+.uk-modal-footer{
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+#sign-up-error, #sign-up-error-email, #sign-up-success{
+    display: none;
+}
+
+
 
 #sign-up-submit, #sign-up-cancel {
     transition: 0.14s ease-in;
