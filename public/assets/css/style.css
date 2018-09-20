@@ -449,13 +449,12 @@ grid-column: 9
 #add-error, #add-error-URL, #add-success{
     display: none;
     border-radius: 20px;
-    opacity: 0.95;
+    /* opacity: 0.95; */
 }
 
 #add-error, #add-error-URL{
-    background-color: rgb(238, 56, 53);
+    background-color: #f0506e;
     border-radius: 20px;
-    opacity: 0.9;
     color: white;
 }
 

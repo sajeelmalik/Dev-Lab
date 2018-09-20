@@ -207,6 +207,7 @@ $(function () {
     $("#submit-content").on('click', function (e) {
         e.preventDefault();
         console.log($("#new-concept").val());
+        var $this = $(this);
 
         if ($("#new-name").val().trim() === "" || $("#new-link").val() === "" || $("#new-desc").val() === "") {
             $("#add-error").show(200);
@@ -218,6 +219,10 @@ $(function () {
             $("#add-error-URL").hide();
             $("#add-success").show(200);
             $(this).attr("uk-toggle","target: #add-content-slider");
+            // $("#add-content-slider").toggle(300);
+            // $("body").removeClass("uk-offcanvas-container");
+            // $("body").removeClass("uk-offcanvas-overlay");
+
         }
 
         var createObj = {
@@ -230,7 +235,11 @@ $(function () {
         }
         $.post('/api/new/contents', createObj, function () {
             //modal pop up - successfully submitted
-        })
+        }).then(function(){
+            console.log($this);
+            $this.val("Close")
+
+        });
 
     })
 
