@@ -82,12 +82,12 @@
     </div>
     <hr class="uk-divider-icon" uk-scrollspy="cls:uk-animation-scale-up" id="content-divider">
     <div id="main-content" class="uk-container" uk-scrollspy="target: > div; cls:uk-animation-slide-top-small; delay: 300">
-        <div class="user-library-container">
+        <div class="user-library-container" >
             <h2>User Library</h2>
-            <div class="category-dropdown">
+            <div class="category-dropdown" >
                 <select class="uk-select" name="" id="user-category-dropdown"></select>
-                <button class="uk-active uk-button" uk-filter-control="sort: data-date"><a href="#">Ascending</a></button>
-                <button class = "uk-button" uk-filter-control="sort: data-date; order: desc"><a href="#">Descending</a></button>
+                <button id= 'date-sort'class="uk-active uk-button" uk-filter-control="sort: data-date; order: desc"><a href="#">By Date</a></button>
+                <button id = 'save-sort'class = "uk-button" uk-filter-control="sort: data-saves; order: asc"><a href="#">Popularity</a></button>
             </div>
             <div class="user-library">
 
