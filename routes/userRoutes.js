@@ -22,10 +22,11 @@ module.exports = function (app) {
   })
 
   //WORKING
-  app.get('/api/users/:id', function (req, res) {
+  //POPULATES USER LIBRARY
+  app.get('/api/users/:userId/', function (req, res) {
     db.User.findOne({
       where: {
-        id: req.params.id
+        id: req.params.userId
       },
       include: [{
         all: true
