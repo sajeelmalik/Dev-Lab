@@ -312,9 +312,23 @@ video {
 
 /* FULL LIBRARY */
 .category-dropdown {
-display:flex;
-justify-content: flex-end;
+display: grid;
+grid-template-columns: repeat(9, 1fr);
+grid-auto-flow: column;
+/* justify-content: flex-start; */
 
+}
+#user-category-dropdown{
+    grid-column: 1/5;
+}
+
+#save-sort{
+grid-column: 9
+}
+
+#date-sort{
+ grid-column: 8
+    
 }
 
 .concept-container {

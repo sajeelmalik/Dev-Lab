@@ -8,30 +8,30 @@ module.exports = {
 
     // Example:
     return queryInterface.bulkInsert('users', [{
-        userName: 'asdf',
-        userPassword: 'John Doe',
+        userName: 'John Doe',
+        userPassword: 'password',
+        userEmail: 'John@aol.com',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userName: 'Steve',
+        userPassword: 'password',
         userEmail: 'steve@aol.com',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'asdf',
-        userPassword: 'Steve Doe',
-        userEmail: 'steve@aol.com',
+        userName: 'Calvin',
+        userPassword: 'password',
+        userEmail: 'calvin@aol.com',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'asdf',
-        userPassword: 'Calvin Doe',
-        userEmail: 'steve@aol.com',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        userName: 'asdf',
-        userPassword: 'Arnold Doe',
-        userEmail: 'steve@aol.com',
+        userName: 'Arnold',
+        userPassword: 'password',
+        userEmail: 'arnold@aol.com',
         createdAt: new Date(),
         updatedAt: new Date()
       },

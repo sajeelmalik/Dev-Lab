@@ -12,7 +12,7 @@ module.exports = {
         contentTitle: 'Function CLosure',
         links: 'www.google.com',
         contentBody: 'Functions link lorem ipsum',
-        saves: 421,
+        saves: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       }, {
@@ -20,7 +20,7 @@ module.exports = {
         contentTitle: 'Fetch & aJax',
         links: 'www.yahoo.com',
         contentBody: 'functions',
-        saves: 213,
+        saves: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -29,7 +29,7 @@ module.exports = {
         contentTitle: 'If/Else Statements',
         links: 'www.gmail.com',
         contentBody: 'functions',
-        saves: 111,
+        saves: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -38,7 +38,7 @@ module.exports = {
         contentTitle: 'ES6 Arrow Functions',
         links: 'www.reddit.com',
         contentBody: 'functions',
-        saves: 4021,
+        saves: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       },
