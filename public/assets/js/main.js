@@ -21,6 +21,7 @@ $(function () {
 
             // $("#background-overlay").addClass("uk-animation-kenburns uk-animation-reverse");
             $("#landing").addClass("uk-animation-slide-top-small uk-animation-slow");
+
             $('#add-content-button').prop('disabled', true);
 
             setTimeout(function () {
@@ -53,9 +54,8 @@ $(function () {
     } else {
         console.log("Not logged in")
         $("#navbar").attr('uk-sticky', 'cls-inactive: uk-hidden; top: 300')
-
         //Here, disabling the button made it inaccessible to jQuery DOM manipulation, so we created a more unique solution
-        
+
         // $('#add-content-button').prop('disabled', true);
         $('#add-content-button').removeAttr('uk-toggle');
         $('#add-content-button').attr('uk-scroll', true);
@@ -77,7 +77,9 @@ $(function () {
             }
         );
 
-        $("#add-content-button").attr("uk-tooltip","title: Log-In to DevLab to share your favorite resources!; pos: top; delay: 200")
+
+        $("#add-content-button").attr("uk-tooltip","title: Log-In to DevLab to share your favorite resources!; pos: bottom; delay: 200")
+        $("#user-library-link").attr("uk-tooltip", "title: Log-In to DevLab to save your favorite resources!; pos: bottom; delay: 200")
 
     }
 
@@ -91,16 +93,17 @@ $(function () {
             type: "POST",
             url: '/signin',
             data: {
-            email: email,
-            password: password
+                email: email,
+                password: password
             },
-          success: function() {   
-                location.reload();  
-
+            success: function () {
+                document.location = "/";
             }
         }, function (data){
             console.log(data);
-        })
+        }).done(function( data ) {
+            alert( "Data Loaded: " + data );
+          });
     })
 
     $(document).on("click", "#logout-link", function (e) {
@@ -338,7 +341,7 @@ var userCategoryArray = []
                 url: '/signup',
                 data: newUser,
                 success: function () {
-                    location.reload();
+                    document.location = "/";
                 }
             })
 
