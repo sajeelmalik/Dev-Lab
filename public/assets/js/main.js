@@ -36,10 +36,11 @@ $(function () {
                     //Quick fix to force the page to scroll, allowing the UIKit animations to trigger
                     setTimeout(function () {
                         $(this).scrollTop(20);
+                        $(this).scrollTop(0);
                     }, 1100);
                 }, 1000);
 
-            }, 8000);
+            }, 5000);
 
         });
 
@@ -55,7 +56,7 @@ $(function () {
         $("#navbar").attr('uk-sticky', 'cls-inactive: uk-hidden; top: 300')
 
         //Here, disabling the button made it inaccessible to jQuery DOM manipulation, so we created a more unique solution
-        
+
         // $('#add-content-button').prop('disabled', true);
         $('#add-content-button').removeAttr('uk-toggle');
         $('#add-content-button').attr('uk-scroll', true);
@@ -77,7 +78,7 @@ $(function () {
             }
         );
 
-        $("#add-content-button").attr("uk-tooltip","title: Log-In to DevLab to share your favorite resources!; pos: top; delay: 200")
+        $("#add-content-button").attr("uk-tooltip", "title: Log-In to DevLab to share your favorite resources!; pos: top; delay: 200")
 
     }
 
@@ -91,14 +92,14 @@ $(function () {
             type: "POST",
             url: '/signin',
             data: {
-            email: email,
-            password: password
+                email: email,
+                password: password
             },
-          success: function() {   
-                location.reload();  
+            success: function () {
+                location.reload();
 
             }
-        }, function (data){
+        }, function (data) {
             console.log(data);
         })
     })
@@ -112,7 +113,7 @@ $(function () {
             }
         })
     })
-var userCategoryArray = []
+    var userCategoryArray = []
     //POPULATES CONCEPT CATEGORIES ON PAGE LOAD
     $.get('/api/contents', function (err, data) {
             if (err) throw err;
@@ -225,11 +226,20 @@ var userCategoryArray = []
             $("#landing").hide();
             $("#background-overlay").hide();
             //Populates user-library category dropdown. Emptied on 'full library' click
-            userCategoryArray.forEach(categoryTitle=>{
-                var dropdownOption = $(`<option value="${categoryTitle}">`)
-                dropdownOption.text(categoryTitle);
-                $("#user-category-dropdown").append(dropdownOption)
-    
+            userCategoryArray.forEach((categoryTitle, i) => {
+                if (i === 0) {
+                    var dropdownOption = $(`<option value="ALL">`)
+                    dropdownOption.text('ALL');
+                    $("#user-category-dropdown").append(dropdownOption)
+                    dropdownOption = $(`<option value="${categoryTitle}">`)
+                    dropdownOption.text(categoryTitle);
+                    $("#user-category-dropdown").append(dropdownOption)
+                } else {
+                    var dropdownOption = $(`<option value="${categoryTitle}">`)
+                    dropdownOption.text(categoryTitle);
+                    $("#user-category-dropdown").append(dropdownOption)
+                }
+
             })
             if (!$(this).hasClass('active')) {
                 console.log('working');
@@ -243,31 +253,40 @@ var userCategoryArray = []
                 $(".user-library-container").css('display', 'flex');
 
                 //CREATE USER CONTENT DIVS
-                $.get(`/api/users/${userID}`, function (err, data) {
+                $.get(`/api/users/${userID}`, function (err) {
                     if (err) throw err;
-                }).then(data=> createUserLibrary(data))
+                }).then(data => createUserLibrary(data))
             }
         })
 
     }
-    $("#user-category-dropdown").on('change', function(){
-        $.post(`/api/users/${userID}/`,{
-            category: $(this).val(),
-            sort: "savesDesc"
-        }).then(data=>createUserLibrary(data))
+    $("#user-category-dropdown").on('change', function () {
+        $.get(`/api/users/${userID}/?category=${$(this).val()}`, (err)=>{
+            if (err) throw err;
+        })
+        .then(data => createUserLibrary(data))
+    })
+    $(".category-dropdown button").on('click', function(){
+        console.log($(this));
+        if ($(this).attr('uk-filter-control') ==="sort: data-saves; order: asc"){
+            $(this).attr('uk-filter-control', "sort: data-saves; order: desc")
+        } else{
+            $(this).attr('uk-filter-control', "sort: data-saves; order: asc")
+        }
     })
 
-    $("#sort")
 
 
     function createUserLibrary(data) {
         $('.user-library').empty()
+        $('.user-library-container').attr('uk-filter',"target: .js-filter")
 
         userContentArray = [];
         var userAccordion = $("<ul class='js-filter' uk-accordion uk-scrollspy='target: > li ; cls:uk-animation-slide-right-medium; delay: 100'>");
         data.savedLinks.forEach(elem => {
             userContentArray.push(elem.id);
-            var userContainer = $(`<li class='user-content-container'>`);
+            var createdDate = elem.User_Content.createdAt;
+            var userContainer = $(`<li data-saves='${elem.saves}' data-date='${moment(createdDate).format('YYYY-MM-DD, hh:mm:ss')}'class='user-content-container'>`);
             var userTitle = $("<a class='uk-accordion-title user-title'>");
             var userSaves = $(`<span class='star-number uk-align-right'>${elem.saves} </span>`);
             var userDate = $("<span class='user-date uk-align-right'>");
@@ -275,7 +294,6 @@ var userCategoryArray = []
             if (userContentArray.includes(elem.id)) userImage.addClass('saved');
             userTitle.text(elem.contentTitle);
             userSaves.append(userImage);
-            var createdDate = elem.User_Content.createdAt;
             userDate.append(moment(createdDate).format('MM DD YYYY'))
             var newDiv = $("<div class=uk-accordion-content>");
             var userLinks = $("<a>");
@@ -295,9 +313,7 @@ var userCategoryArray = []
         getCurrentSaves();
         if (!$(this).hasClass('active')) {
             userID ? $("#landing").hide() : $("#landing").show();
-
             $(this).toggleClass('active')
-            $(".user-library").empty();
             $("#user-category-dropdown").empty();
             $(".uk-button-danger").show();
             $(".uk-divider-icon").show();
