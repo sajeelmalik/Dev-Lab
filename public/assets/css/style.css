@@ -279,12 +279,22 @@ video {
     /* display: flex; */
     border-bottom: 1px rgb(235, 92, 90) solid;
     margin: 1em 0;
+    transition: 0.3s ease-in-out;
 }
-
-.user-title {
+.user-title{
+    transition: 0.3s ease-in-out;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    
+}
+
+.uk-open > .user-title{
+    border-bottom: 1px solid rgb(238, 56, 53);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+    background-color: rgba(235, 158, 157, 0.336);
+    padding-left: 5px;
+    /* letter-spacing: 5px;  */
 }
 
 .uk-accordion-content{

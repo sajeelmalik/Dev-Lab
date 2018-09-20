@@ -5,8 +5,36 @@ $(function () {
     getCurrentSaves();
 
     if (userID) {
-        $("#background-overlay").hide();
-        $("#landing").hide()
+        // SHOW WELCOME SCREEN TO USER
+        $.get(`/api/users/${userID}`, function (err, data) {
+            if (err) throw err;
+        }).then(data => {
+            $(".landing-text").css("margin-top", "40px");
+            $(".landing-text").css("font-size", "1.5em");
+            $(".landing-text").css("overflow", "hidden");
+            $(".landing-text").text("Welcome to DevLab, " + data.userName);
+
+            // $("#background-overlay").addClass("uk-animation-kenburns uk-animation-reverse");
+            $("#landing").addClass("uk-animation-slide-top-small uk-animation-slow");
+
+            setTimeout(function () {
+                console.log("here")
+                $("#landing").removeClass("uk-animation-slide-top-small");
+                $("#background-overlay").addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+                $("#landing").addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
+                setTimeout(function () {
+                    $("#background-overlay").hide(1000);
+                    $("#landing").hide(1000)
+                }, 1000)
+
+            }, 8000);
+
+        });
+
+        $("#login").hide();
+        $("#scroller").hide();
+
+
         //Create Logout Button
         $("#login-link").hide();
         $("#sign-up-nav-button").hide();
@@ -197,7 +225,7 @@ $(function () {
                         dropdownOption.text(`${elem.conceptTitle}`);
                         $("#user-category-dropdown").append(dropdownOption);
                         var userContainer = $("<li class='user-content-container'>");
-                        var userTitle = $("<a class=uk-accordion-title user-title'>");
+                        var userTitle = $("<a class='uk-accordion-title user-title'>");
                         var userSaves = $(`<span class='star-number uk-align-right'>${elem.saves} </span>`);
                         var userDate = $("<span class='user-date uk-align-right'>");
                         var userImage = $(`<i data-id='${elem.id}' data-value='${elem.saves}'class='fas fa-star star-image'></i>`);
