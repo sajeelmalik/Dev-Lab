@@ -10,7 +10,7 @@ var db = require("../models");
 // Routes
 // =============================================================
 module.exports = function (app) {
-  //WORKING
+
   app.get('/api/users', function (req, res) {
     db.User.findAll({
       include: [{
@@ -21,7 +21,7 @@ module.exports = function (app) {
     })
   })
 
-  //WORKING
+
   //POPULATES USER LIBRARY
   app.get('/api/users/:userId/', function (req, res) {
     db.User.findOne({
@@ -90,8 +90,6 @@ module.exports = function (app) {
         res.json(resp[0]);
       }
     })
-
-
 
   })
 

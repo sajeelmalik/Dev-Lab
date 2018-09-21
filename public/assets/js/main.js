@@ -26,8 +26,8 @@ $(function () {
                 $("#landing").addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
                 $("#background-overlay").addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
                 setTimeout(function () {
-                    $("#background-overlay").hide(1000);
-                    $("#landing").hide(1000)
+                    $("#background-overlay").hide(900);
+                    $("#landing").hide(900)
                     $('#add-content-button').prop('disabled', false);
 
                     //Quick fix to force the page to scroll, allowing the UIKit animations to trigger
@@ -171,8 +171,8 @@ $(function () {
                 newDiv.append(itemLinks, itemBody);
                 newItem.append(linkTitle, newDiv);
                 newAccordion.append(newItem);
-                $(".content-item-container").prepend(newAccordion);
             })
+            $(".content-item-container").prepend(newAccordion);
         })
     })
 

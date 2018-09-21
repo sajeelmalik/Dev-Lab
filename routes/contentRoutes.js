@@ -19,21 +19,23 @@ module.exports = function (app) {
   //     res.json(dbcontent);
   //   });
   // });
-  //WORKING
+
   // GET route for getting all of the concent titles
   app.get("/api/contents", function (req, res) {
     db.Content.findAll({
       attributes: [
         [Sequelize.fn('DISTINCT', Sequelize.col('conceptTitle')), 'conceptTitle'],
-      ], 
-      order:[['conceptTitle', 'ASC']]
+      ],
+      order: [
+        ['conceptTitle', 'ASC']
+      ]
 
     }).then(function (dbcontent) {
       res.json(dbcontent);
     });
   });
 
-  //WORKING
+
   // gets all the content per category
   app.get("/api/contents/:category", function (req, res) {
     console.log(req.body);
