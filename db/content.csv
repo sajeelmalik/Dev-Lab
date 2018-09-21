@@ -58,7 +58,7 @@ The idea behind this repo is, to have a place to log the learning process in an 
 This can be used as a companion to FreeCodeCamp curriculum";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
 
 
-10;"Promises/Asynchronous JS";"JavaScript Promises with Node.js
+10;"Promises";"JavaScript Promises with Node.js
 ";"https://itnext.io/javascript-promises-with-node-js-e8ca827e0ea3";"In this article, I explain how to use JavaScript promises by the means of short Node.js example programs.
 
 I will also explain what asynchronous tasks are and how they are implemented in JavaScript with promises and callbacks.
@@ -68,6 +68,8 @@ Since, I’m using Node.js programs as examples, I will also briefly explain wha
 Finally, throughout the article, I compare the use of promises to the more traditional use of callbacks for implementing asynchronous tasks in JavaScript.";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
 
 
-11;"CONCEPT";"TITLE";"URL";"BLURB";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+11;"Javascript ES6";"Arrow Notation for Beginners";"https://codeburst.io/javascript-arrow-functions-for-beginners-926947fc0cdc";"A quick five minute read on how to use arrow notation";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+12;"HTML";"Build A Full Responsive Website";"https://www.youtube.com/watch?v=Wm6CUkswsNw";"In this video we will build a clean coded responsive mobile friendly HTML5 website for a fictional web design company. We will go over semantic HTML tags like header and footer as well as the basics of HTML and CSS. This is a great project for beginners.";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
 
 
