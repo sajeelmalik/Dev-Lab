@@ -2,7 +2,7 @@ $(function () {
 
     var userID = Cookies.get('userid');
     var userContentArray = [];
-    var visits = 0;
+
     getCurrentSaves();
 
     if (userID) {
@@ -10,8 +10,6 @@ $(function () {
         $.get(`/api/users/${userID}`, function (err, data) {
             if (err) throw err;
         }).then(data => {
-            visits++;
-            console.log(visits)
             $("#login").hide();
             // $("#scroller").hide();
             $(".landing-text").css("margin-top", "40px");
@@ -24,7 +22,6 @@ $(function () {
             $('#add-content-button').prop('disabled', true);
 
             setTimeout(function () {
-                console.log("here")
                 $("#landing").removeClass("uk-animation-slide-top-small");
                 $("#landing").addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
                 $("#background-overlay").addClass("uk-animation-fade uk-animation-reverse uk-animation-slow");
@@ -88,7 +85,7 @@ $(function () {
         e.preventDefault();
         var email = $("#username").val();
         var password = $("#password").val();
-        console.log("sign in " + email);
+        console.log("Sign in: " + email);
         $.ajax({
             type: "POST",
             url: '/signin',
@@ -145,7 +142,7 @@ $(function () {
         $(".content-item-container").empty();
         var category = $(this).attr('id');
         category = category.slice(category.indexOf('-') + 1);
-        console.log(category);
+        // console.log(category);
         $.get('/api/contents/' + category, function (err, data) {
             if (err) throw err;
         }).then(data => {
@@ -210,8 +207,6 @@ $(function () {
     //ADD NEW CONTENT
     $("#submit-content").on('click', function (e) {
         e.preventDefault();
-        console.log($("#new-concept").val());
-        var $this = $(this);
 
         if ($("#new-name").val().trim() === "" || $("#new-link").val() === "" || $("#new-desc").val() === "") {
             $("#add-error").show(200);
@@ -222,11 +217,10 @@ $(function () {
             $("#add-error").hide();
             $("#add-error-URL").hide();
             $("#add-success").show(200);
-            $(this).attr("uk-toggle","target: #add-content-slider");
+            // $(this).attr("uk-toggle","target: #add-content-slider");
             // $("#add-content-slider").toggle(300);
             // $("body").removeClass("uk-offcanvas-container");
             // $("body").removeClass("uk-offcanvas-overlay");
-
         }
 
         var createObj = {
@@ -239,13 +233,17 @@ $(function () {
         }
         $.post('/api/new/contents', createObj, function () {
             //modal pop up - successfully submitted
-        }).then(function(){
-            console.log($this);
-            $this.val("Close")
-
-        });
+        }).then(function(){});
 
     })
+
+    //GENERATE ALERTS BASED ON USER'S ADD CONTENT INPUT
+    $(document).on("change", ".content-input", function(){
+        if($("#new-name").val().trim() !== "" && $("#new-link").val().includes(".") && $("#new-desc").val() !== ""){
+            console.log("You're good to go to add content!")
+            $("#submit-content").attr("uk-toggle","target: #add-content-slider");
+        }
+    });
 
     //USER LIBRARY
     if (userID) {
@@ -255,7 +253,7 @@ $(function () {
             //Populates user-library category dropdown. Emptied on 'full library' click
             
             if (!$(this).hasClass('active')) {
-                console.log('working');
+
                 $(this).toggleClass('active');
                 $("#landing").hide();
                 $(".uk-button-danger").hide();
@@ -305,7 +303,7 @@ $(function () {
                 if (err) throw err;
             })
             .then(data => {
-                console.log(this.value);
+                
                 if($(this).val()!=='ALL'){
                 var tempObj = {savedLinks: []}
                 data.forEach(obj=>{
@@ -314,14 +312,13 @@ $(function () {
                 console.log('categories', tempObj);
                 createUserLibrary(tempObj)
             }else{
-                console.log('value is all');
                 createUserLibrary(data)
             }
 
             })
     })
     $(".category-dropdown button").on('click', function () {
-        console.log($(this));
+ 
         if ($(this).attr('uk-filter-control') === "sort: data-saves; order: asc") {
             $(this).attr('uk-filter-control', "sort: data-saves; order: desc")
         } else {
