@@ -170,6 +170,8 @@ $(function () {
                 linkTitle.append(starNumber);
                 starNumber.addClass("uk-align-right");
                 itemLinks.append(item.links);
+                itemLinks.attr('href',item.links)
+                itemLinks.attr('target','_blank')
                 itemBody.append(item.contentBody);
                 newDiv.append(itemLinks, itemBody);
                 newItem.append(linkTitle, newDiv);
@@ -330,6 +332,8 @@ $(function () {
                 var userLinks = $("<a>");
                 var userBody = $("<p>");
                 userLinks.append(elem.links);
+                userLinks.attr('href',elem.links)
+                userLinks.attr('target','_blank')
                 userBody.append(elem.contentBody);
                 newDiv.append(userLinks, userBody);
                 userTitle.append(userSaves, userDate)
