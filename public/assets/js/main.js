@@ -1,11 +1,11 @@
 $(function () {
 
     var userID = Cookies.get('userid');
-
+    var userContentArray = [];
+    getCurrentSaves();
 
     if (userID) {
-        var userContentArray = [];
-        getCurrentSaves();
+
         // SHOW WELCOME SCREEN TO USER
         $.get(`/api/users/${userID}`, function (err, data) {
             if (err) throw err;
@@ -157,7 +157,7 @@ $(function () {
                 var newDiv = $("<div class=uk-accordion-content>");
                 var itemLinks = $("<a>");
                 var itemBody = $("<p>");
-                if (userContentArray.includes(item.id)) starImage.addClass('saved')
+                if (userContentArray.includes(item.id) && userId) starImage.addClass('saved')
                 starNumber.text(item.saves);
                 starNumber.attr('id', 'content-item' + item.id);
                 starNumber.append(starImage);
@@ -191,14 +191,16 @@ $(function () {
 
         } else {
             //IF CONTENT IS BEING SAVED
-            matchingStars.forEach(node => node.classList.add('saved'))
-            this.previousSibling.nodeValue++;
-            $.ajax(`/api/users/${userID}`, {
-                method: 'PUT',
-                data: {
-                    contentId: starID
-                }
-            })
+            if (userID) {
+                matchingStars.forEach(node => node.classList.add('saved'))
+                this.previousSibling.nodeValue++;
+                $.ajax(`/api/users/${userID}`, {
+                    method: 'PUT',
+                    data: {
+                        contentId: starID
+                    }
+                })
+            }
         }
 
     })
