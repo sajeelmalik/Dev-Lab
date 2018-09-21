@@ -36,22 +36,22 @@ module.exports = function (app) {
     })
   })
 
-    //Adds links to users
-    app.put('/api/users/:id', function (req, res, next) {
-      db.User.findById(req.params.id)
-        .then(user => {
-          user.addSavedLinks(req.body.contentId)
+  //Adds links to users
+  app.put('/api/users/:id', function (req, res, next) {
+    db.User.findById(req.params.id)
+      .then(user => {
+        user.addSavedLinks(req.body.contentId)
+      })
+      .then(() => {
+        db.Content.increment("saves", {
+          where: {
+            id: req.body.contentId,
+          }
         })
-        .then(() => {
-          db.Content.increment("saves", {
-            where: {
-              id: req.body.contentId,
-            }
-          })
-        })
-        .then(res.json())
-        .catch(next)
-    })
+      })
+      .then(res.json())
+      .catch(next)
+  })
 
 
   //WORKING
@@ -74,37 +74,25 @@ module.exports = function (app) {
 
 
   app.get('/api/users/:userID/category/', function (req, res) {
-var category = req.query.category;
-      db.User.findAll({
-        include: [{
-          all: true
-        }],
-        where: {
-          id: req.params.userID,
-        }
-      }).then(function (resp) {
-        if (category !== 'ALL'){
-        var returnArray = resp[0].savedLinks.filter(obj=>obj.conceptTitle === category)
-        console.log('RETURN ARRAY', returnArray);
+    var category = req.query.category;
+    db.User.findAll({
+      include: [{
+        all: true
+      }],
+      where: {
+        id: req.params.userID,
+      }
+    }).then(function (resp) {
+      if (category !== 'ALL') {
+        var returnArray = resp[0].savedLinks.filter(obj => obj.conceptTitle === category)
         res.json(returnArray)
-        }
-        else{
-          console.log('ALLALALALALA', resp[0]);
-          res.json(resp[0]);
-        }
-      })
- 
-    // if (req.query.category === 'ALL'){
-    //   category = '*'
-    // }
+      } else {
+        res.json(resp[0]);
+      }
+    })
 
-    // var querystring = "SELECT Contents.*, User_Content.* FROM User_Content LEFT JOIN Contents ON User_Content.ContentId=Contents.id WHERE UserId=" + userID + " AND conceptTitle='" + category + "'";
-    // db.sequelize.query(
-    //   querystring
-    // ).then(function (data) {
-    //   res.send(data)
-    // });
-    
+
+
   })
 
 
@@ -135,4 +123,15 @@ var category = req.query.category;
   //   });
   // });
 
+
+  // if (req.query.category === 'ALL'){
+  //   category = '*'
+  // }
+
+  // var querystring = "SELECT Contents.*, User_Content.* FROM User_Content LEFT JOIN Contents ON User_Content.ContentId=Contents.id WHERE UserId=" + userID + " AND conceptTitle='" + category + "'";
+  // db.sequelize.query(
+  //   querystring
+  // ).then(function (data) {
+  //   res.send(data)
+  // });
 };
