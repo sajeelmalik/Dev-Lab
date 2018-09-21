@@ -7,6 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
         crossorigin="anonymous">
+
+
+    <link rel="shortcut icon" href="./assets/images/shortcut.png" crossorigin="anonymous">
     <!-- Moment.JS -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js'></script>
     <!-- UIkit CSS -->
@@ -29,10 +32,18 @@
     <div id='navbar' uk-sticky="sel-target: .uk-navbar-container; cls-active: uk-navbar-sticky;">
         <nav class=" uk-navbar-container uk-animation-slide-top" uk-navbar style="position: relative; z-index: 980;">
             <div class="uk-navbar-left">
-                <ul class="uk-navbar-nav">
+                <ul class="uk-navbar-nav uk-visible@m">
                     <li class="uk-button" id='user-library-link'>My Library</li>
                     <li class="uk-button active" id='full-library-link'>Full Library</li>
                 </ul>
+                <a href="" class="uk-navbar-toggle uk-hidden@m" uk-navbar-toggle-icon></a>
+                <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        <li><a href="#">My Library</a></li>
+                        <li class="uk-nav-divider"></li>
+                        <li class="active"><a href="#">Full Library</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="uk-navbar-center">
                 <a class="uk-navbar-item uk-logo" href="#" uk-scroll><span>
@@ -144,14 +155,24 @@
                 <form class="uk-form-stacked" action="">
                     <div id="add-content-inputs">
                         <label class="uk-form-label" for="new-concept">Concept: </label>
-                        <select class="uk-select" id="new-concept"></select>
+                        <select class="uk-select content-input" id="new-concept"></select>
                         <label class="uk-form-label" for="new-name">Title: </label>
-                        <input class="uk-input" type="text" id='new-name'>
+                        <input class="uk-input content-input" type="text" id='new-name'>
                         <label class="uk-form-label" for="new-link">Link: </label>
-                        <input class="uk-input" type="text" id='new-link'>
+                        <input class="uk-input content-input" type="text" id='new-link'>
                         <br>
                         <label class="uk-form-label" for="new-desc">Description: </label>
-                        <textarea class="uk-textarea" type="text" id='new-desc'></textarea>
+                        <textarea class="uk-textarea content-input" type="text" id='new-desc'></textarea>
+
+                        <div class="uk-alert uk-button-danger" id="add-error" class="uk-text-center" uk-alert>
+                            <button class="uk-alert-close" type="button" uk-close></button>
+                            <p>All fields must be submitted!</p></div>
+                        <div class="uk-alert uk-button-danger" id="add-error-URL" class="uk-text-center" uk-alert>
+                            <button class="uk-alert-close" type="button" uk-close></button>
+                            <p>Please submit a valid URL!</p></div>
+                        <div class="uk-alert uk-alert-success" id="add-success" class="uk-text-center" uk-alert>
+                            <button class="uk-alert-close" type="button" uk-close></button>
+                            <p>- Success!</p></div>
                     </div>
 
                     <input class="uk-button uk-button-danger uk-align-center" type="submit" id='submit-content' value="Add Content">
@@ -187,6 +208,11 @@
             </div>
         </div>
     </div>
+    </div>
+
+    <div id = "footer">
+        <hr class="uk-divider-icon" uk-scrollspy="cls:uk-animation-scale-up uk-animation-slow">
+        <p id = "footer-text" class="uk-text-center"><span ><a id="github" href = "https://github.com/sajeelmalik/Dev-Lab"><i class="fab fa-github"></i> Github </a>|</span> Developed in San Francisco, CA © 2018 DevLab</p>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
