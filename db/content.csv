@@ -17,4 +17,59 @@ CSS Grid may seem a bit daunting with new syntax and layout ideas, but it's fair
 It is designed according to the degree requirements of undergraduate computer science majors, minus general education (non-CS) requirements, as it is assumed most of the people following this curriculum are already educated outside the field of CS. The courses themselves are among the very best in the world, often coming from Harvard, Princeton, and MIT.";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
 
 
-5;"Pathways";"Reddit's /r/learnprogramming Pathway";"https://www.reddit.com/r/learnprogramming/wiki/faq#wiki_getting_started";"Functions";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+5;"General Javascript";"Wes Bos' JavaScript 30 for 30";"https://javascript30.com/";"So, you've done a few courses and read a few books but still don't feel great about your relationship with JavaScript.
+
+How do you get better?
+
+Build things. Lots of things. Build 1,000 things. Keep it up and don't stop. Seriously.
+
+This has always been my advice. Just put in the work and you will get better.
+
+But Wes, what should I build? I have no ideas! Please don't make me do another todo app.
+
+Ideas, Eh? I've got lots! This is JavaScript30 — let's build 30 things together.";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+
+6;"Javascript ES6";"ES6 For Beginners";"https://codeburst.io/es6-tutorial-for-beginners-5f3c4e7960be";"In this post, I will cover some new features in ES6. It will be helpful if you are new to ES6 or learning front-end frameworks.
+
+Topics Covered:
+
+Let and Const, 
+Arrow functions, 
+Default parameters, 
+for of loop, 
+Spread attributes, 
+Maps, 
+Sets, 
+Static methods, 
+Getters and Setters";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+
+7;"Sorting";"QuickSort in JS";"https://medium.com/@joebegley15/how-to-implement-quicksort-in-js-53eefeb0fd9f";"This post covers how to create a quicksort algorithm using recursion in Javascript";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+
+8;"Javascript ES6";"5 Features in Javascript worth mastering";"http://www.javascriptkit.com/javatutors/javascript-es6-top-five.shtml";"BLURB";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+
+9;"Pathways";"FullStack Web Developer Path";"https://github.com/shovanch/fullstack-web-developer-path";"
+This is a guide to learn full-stack web development. It is focused on full-stack JavaScript. It covers all the way from the fundamentals to React and Node. 
+The idea behind this repo is, to have a place to log the learning process in an organized way. 
+
+This can be used as a companion to FreeCodeCamp curriculum";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+
+10;"Promises";"JavaScript Promises with Node.js
+";"https://itnext.io/javascript-promises-with-node-js-e8ca827e0ea3";"In this article, I explain how to use JavaScript promises by the means of short Node.js example programs.
+
+I will also explain what asynchronous tasks are and how they are implemented in JavaScript with promises and callbacks.
+
+Since, I’m using Node.js programs as examples, I will also briefly explain what Node.js is and how it works.
+
+Finally, throughout the article, I compare the use of promises to the more traditional use of callbacks for implementing asynchronous tasks in JavaScript.";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+
+11;"Javascript ES6";"Arrow Notation for Beginners";"https://codeburst.io/javascript-arrow-functions-for-beginners-926947fc0cdc";"A quick five minute read on how to use arrow notation";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+12;"HTML";"Build A Full Responsive Website";"https://www.youtube.com/watch?v=Wm6CUkswsNw";"In this video we will build a clean coded responsive mobile friendly HTML5 website for a fictional web design company. We will go over semantic HTML tags like header and footer as well as the basics of HTML and CSS. This is a great project for beginners.";0;"2018-09-19 21:17:37";"2018-09-19 21:17:37"
+
+

@@ -12,7 +12,9 @@ var Sequelize = require('sequelize');
 module.exports = function (app) {
   // app.get("/api/contents/all", function (req, res) {
   //   db.Content.findAll({
-  //     all: true
+  //     include: [{
+  //       all: true
+  //     }]
   //   }).then(function (dbcontent) {
   //     res.json(dbcontent);
   //   });
@@ -23,7 +25,8 @@ module.exports = function (app) {
     db.Content.findAll({
       attributes: [
         [Sequelize.fn('DISTINCT', Sequelize.col('conceptTitle')), 'conceptTitle'],
-      ]
+      ], 
+      order:[['conceptTitle', 'ASC']]
 
     }).then(function (dbcontent) {
       res.json(dbcontent);
