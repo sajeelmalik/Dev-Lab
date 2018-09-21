@@ -73,17 +73,37 @@ module.exports = function (app) {
   });
 
 
-  app.get('/api/users/:userID/?category=', function (req, res) {
-    // var userID = req.params.userID;
-    // var category = req.params.category;
-    console.log(req.query);
-    var querystring = "SELECT Contents.*, User_Content.* FROM User_Content LEFT JOIN Contents ON User_Content.ContentId=Contents.id WHERE UserId=" + userID + " AND conceptTitle='" + category + "'";
-    db.sequelize.query(
-      querystring
-    ).then(function (data) {
-      console.log(data);
-      res.json(data)
-    });
+  app.get('/api/users/:userID/category/', function (req, res) {
+var category = req.query.category;
+      db.User.findAll({
+        include: [{
+          all: true
+        }],
+        where: {
+          id: req.params.userID,
+        }
+      }).then(function (resp) {
+        if (category !== 'ALL'){
+        var returnArray = resp[0].savedLinks.filter(obj=>obj.conceptTitle === category)
+        console.log('RETURN ARRAY', returnArray);
+        res.json(returnArray)
+        }
+        else{
+          console.log('ALLALALALALA', resp[0]);
+          res.json(resp[0]);
+        }
+      })
+ 
+    // if (req.query.category === 'ALL'){
+    //   category = '*'
+    // }
+
+    // var querystring = "SELECT Contents.*, User_Content.* FROM User_Content LEFT JOIN Contents ON User_Content.ContentId=Contents.id WHERE UserId=" + userID + " AND conceptTitle='" + category + "'";
+    // db.sequelize.query(
+    //   querystring
+    // ).then(function (data) {
+    //   res.send(data)
+    // });
     
   })
 

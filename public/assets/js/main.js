@@ -77,7 +77,7 @@ $(function () {
             }
         );
 
-        $("#add-content-button").attr("uk-tooltip","title: Log-In to DevLab to share your favorite resources!; pos: bottom; delay: 200")
+        $("#add-content-button").attr("uk-tooltip", "title: Log-In to DevLab to share your favorite resources!; pos: bottom; delay: 200")
         $("#user-library-link").attr("uk-tooltip", "title: Log-In to DevLab to save your favorite resources!; pos: bottom; delay: 200")
 
 
@@ -149,8 +149,10 @@ $(function () {
         $.get('/api/contents/' + category, function (err, data) {
             if (err) throw err;
         }).then(data => {
+
             //CREATE INDIVIDUAL CONTENT ITEM DIV
             //Items come in an array of objects and come in Most saves, DESC
+
             var newAccordion = $("<ul uk-accordion uk-scrollspy='target: > li ; cls:uk-animation-slide-right-medium; delay: 100'>");
             data.forEach(function (item) {
                 var newItem = $("<li class=content-item>")
@@ -227,21 +229,7 @@ $(function () {
             $("#landing").hide();
             $("#background-overlay").hide();
             //Populates user-library category dropdown. Emptied on 'full library' click
-            userCategoryArray.forEach((categoryTitle, i) => {
-                if (i === 0) {
-                    var dropdownOption = $(`<option value="ALL">`)
-                    dropdownOption.text('ALL');
-                    $("#user-category-dropdown").append(dropdownOption)
-                    dropdownOption = $(`<option value="${categoryTitle}">`)
-                    dropdownOption.text(categoryTitle);
-                    $("#user-category-dropdown").append(dropdownOption)
-                } else {
-                    var dropdownOption = $(`<option value="${categoryTitle}">`)
-                    dropdownOption.text(categoryTitle);
-                    $("#user-category-dropdown").append(dropdownOption)
-                }
-
-            })
+            
             if (!$(this).hasClass('active')) {
                 console.log('working');
                 $(this).toggleClass('active');
@@ -256,22 +244,63 @@ $(function () {
                 //CREATE USER CONTENT DIVS
                 $.get(`/api/users/${userID}`, function (err) {
                     if (err) throw err;
-                }).then(data => createUserLibrary(data))
+                }).then(data => {
+                    userCategoryArray = [];
+                    data.savedLinks.forEach(item=>{
+                        if (!userCategoryArray.includes(item.conceptTitle)){
+                            userCategoryArray.push(item.conceptTitle)
+                        }
+                        
+                    })
+                    userCategoryArray.forEach((categoryTitle, i) => {
+                        if (i === 0) {
+                            var dropdownOption = $(`<option value="ALL">`)
+                            dropdownOption.text('ALL');
+                            $("#user-category-dropdown").append(dropdownOption)
+                            dropdownOption = $(`<option value="${categoryTitle}">`)
+                            dropdownOption.text(categoryTitle);
+                            $("#user-category-dropdown").append(dropdownOption)
+                        } else {
+                            var dropdownOption = $(`<option value="${categoryTitle}">`)
+                            dropdownOption.text(categoryTitle);
+                            $("#user-category-dropdown").append(dropdownOption)
+                        }
+        
+                    })
+
+                    createUserLibrary(data)
+                })
+
+                
             }
         })
 
     }
     $("#user-category-dropdown").on('change', function () {
-        $.get(`/api/users/${userID}/?category=${$(this).val()}`, (err)=>{
-            if (err) throw err;
-        })
-        .then(data => createUserLibrary(data))
+        $.get(`/api/users/${userID}/category/?category=${$(this).val()}`, (err) => {
+                if (err) throw err;
+            })
+            .then(data => {
+                console.log(this.value);
+                if($(this).val()!=='ALL'){
+                var tempObj = {savedLinks: []}
+                data.forEach(obj=>{
+                    tempObj.savedLinks.push(obj)
+                })
+                console.log('categories', tempObj);
+                createUserLibrary(tempObj)
+            }else{
+                console.log('value is all');
+                createUserLibrary(data)
+            }
+
+            })
     })
-    $(".category-dropdown button").on('click', function(){
+    $(".category-dropdown button").on('click', function () {
         console.log($(this));
-        if ($(this).attr('uk-filter-control') ==="sort: data-saves; order: asc"){
+        if ($(this).attr('uk-filter-control') === "sort: data-saves; order: asc") {
             $(this).attr('uk-filter-control', "sort: data-saves; order: desc")
-        } else{
+        } else {
             $(this).attr('uk-filter-control', "sort: data-saves; order: asc")
         }
     })
@@ -280,33 +309,35 @@ $(function () {
 
     function createUserLibrary(data) {
         $('.user-library').empty()
-        $('.user-library-container').attr('uk-filter',"target: .js-filter")
+        $('.user-library-container').attr('uk-filter', "target: .js-filter")
         console.log('SAVED', data);
         userContentArray = [];
         var userAccordion = $("<ul class='js-filter' uk-accordion uk-scrollspy='target: > li ; cls:uk-animation-slide-right-medium; delay: 100'>");
-        data.savedLinks.forEach(elem => {
-            userContentArray.push(elem.id);
-            var createdDate = elem.User_Content.createdAt;
-            var userContainer = $(`<li data-saves='${elem.saves}' data-date='${moment(createdDate).format('YYYY-MM-DD, hh:mm:ss')}'class='user-content-container'>`);
-            var userTitle = $("<a class='uk-accordion-title user-title'>");
-            var userSaves = $(`<span class='star-number uk-align-right'>${elem.saves} </span>`);
-            var userDate = $("<span class='user-date uk-align-right'>");
-            var userImage = $(`<i data-id='${elem.id}' data-value='${elem.saves}'class='fas fa-star star-image'></i>`);
-            if (userContentArray.includes(elem.id)) userImage.addClass('saved');
-            userTitle.text(elem.contentTitle);
-            userSaves.append(userImage);
-            userDate.append(moment(createdDate).format('MM DD YYYY'))
-            var newDiv = $("<div class=uk-accordion-content>");
-            var userLinks = $("<a>");
-            var userBody = $("<p>");
-            userLinks.append(elem.links);
-            userBody.append(elem.contentBody);
-            newDiv.append(userLinks, userBody);
-            userTitle.append(userSaves, userDate)
-            userContainer.append(userTitle, newDiv);
-            userAccordion.append(userContainer)
-            $(".user-library").append(userAccordion);
-        })
+        if (data.savedLinks.length > 0) {
+            data.savedLinks.forEach(elem => {
+                userContentArray.push(elem.id);
+                var createdDate = elem.User_Content.createdAt;
+                var userContainer = $(`<li data-saves='${elem.saves}' data-date='${moment(createdDate).format('YYYY-MM-DD, hh:mm:ss')}'class='user-content-container'>`);
+                var userTitle = $("<a class='uk-accordion-title user-title'>");
+                var userSaves = $(`<span class='star-number uk-align-right'>${elem.saves} </span>`);
+                var userDate = $("<span class='user-date uk-align-right'>");
+                var userImage = $(`<i data-id='${elem.id}' data-value='${elem.saves}'class='fas fa-star star-image'></i>`);
+                if (userContentArray.includes(elem.id)) userImage.addClass('saved');
+                userTitle.text(elem.contentTitle);
+                userSaves.append(userImage);
+                userDate.append(moment(createdDate).format('MM DD YYYY'))
+                var newDiv = $("<div class=uk-accordion-content>");
+                var userLinks = $("<a>");
+                var userBody = $("<p>");
+                userLinks.append(elem.links);
+                userBody.append(elem.contentBody);
+                newDiv.append(userLinks, userBody);
+                userTitle.append(userSaves, userDate)
+                userContainer.append(userTitle, newDiv);
+                userAccordion.append(userContainer)
+            })
+        }
+        $(".user-library").append(userAccordion);
 
     }
     $("#full-library-link").on('click', function () {
