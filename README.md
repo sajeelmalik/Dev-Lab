@@ -1,4 +1,5 @@
-# Dev Lab
+# [![DevLab Preview](./public/assets/images/Title.PNG "DevLab")](devlab.herokuapp.com)
+
 
 DevLab is a crowd-sourced platform for learning how to code. As developers, we are often bombarded with an overwhelming flood of resources. DevLab seeks to wade through the flood by providing a robust, user-driven tool to pool the best resources!
 
@@ -23,7 +24,7 @@ Follow the deployed project link below to utilize the application.
 
 ### Image Preview of DevLab
 <!-- take a picture of the image and add it into the readme  -->
-[![DevLab Preview]( "DevLab")](skeeis.github.io/Pet-Package/)
+[![DevLab Preview](./public/assets/images/DLsplash.PNG "DevLab")](devlab.herokuapp.com)
 
 ## Prerequisites
 
@@ -64,23 +65,27 @@ We initially designed a rough wireframe outlining the core functionality of the 
 
 The application shifted through a rigorous design shift in which a splash page was rendered to comfortably welcome the user to the website.
 
-![DevLab Wireframe](./public/assets/images/splashComparison.PNG "Mockup")
+![DevLab Splash Page](./public/assets/images/splashComparison.PNG "Mockup")
 *Splash Page - Design Stage Two and Three*
+
+The main content section additionally went through a design overhaul, and a cleaner, dynamic concept page was created.
+
+![DevLab Main Content](./public/assets/images/conceptsComparison.PNG "Mockup")
+*Main Content - Design Stage Two and Three*
 
 # Code Snippets
 <!-- put snippets of code inside ``` ``` so it will look like code -->
 <!-- if you want to put blockquotes use a > -->
 
-Here, we queried Petfinder’s API with a jQuery AJAX call and created unique conditional statements to check whether certain pet characteristics existed for each pet. Since Petfinder’s API has different requirements and different outputs for each query, we had to make sure that each parameter existed before we proceeded. 
+Sorting through user-saved results was a relatively challenging feature to introduce to the application. Initially, we deeply considered an entirely back-end approach where we would run unique SQL queries to order the list items by specific parameters, but that would require a new query each time we required a sorting - breaking the RESTful paradigm to which we were ascribing. Instead, we adopted UIKit's unique filter method and applied a *uk-filter* to the User Library to target 
 
 ![Filter Sorting Code Snippet](./public/assets/images/filtersorting.PNG "UIKit Filter-Sorting")
 
-Dynamic generation of HTML elements via jQuery is an extremely powerful tool to instantaneously adjust the webpage to the user's interaction with the interface. Here, we establish a simple, clean iframe in the HTML waiting to be rendered. Without a source, Google Maps doesn’t generate.
-Then, we embed a "data-location" attribute within each pet thumbnail on the page. From there, we push the address *on click* of the thumbnail to dynamically generate a particular source attribute of a Google Maps iFrame HTML element so that we can query appropriately and populate the location of the animal.
+Here is a brief demonstration of the filter-sorting in action:
 
-![Google Maps Code Snippet](https://raw.githubusercontent.com/SkeeIs/Pet-Package/master/img/CodeSnip.PNG "Google Maps API")
+![Filter Sorting Demo](./public/assets/images/DLpreviewfilter.gif "Demo")
 
-We also implemented dynamic CSS styling upon creation of new HTML elements. 
+
 
 ```
 
@@ -90,8 +95,7 @@ We also implemented dynamic CSS styling upon creation of new HTML elements.
 
 # Learning Points and Future Goals
 <!-- Learning points where you would write what you thought was helpful -->
-* Firebase is extremely useful for long-term cloud storage of user data
-* *Additional Learning Points to Come*
+* 
 
 ## Core Developers
 
