@@ -1,4 +1,4 @@
-# [![DevLab Preview](./public/assets/images/Title.PNG "DevLab")](devlab.herokuapp.com)
+# [![DevLab Preview](./public/assets/images/Title.png "DevLab")](devlab.herokuapp.com)
 
 
 DevLab is a crowd-sourced platform for learning how to code. As developers, we are often bombarded with an overwhelming flood of resources. DevLab seeks to wade through the flood by providing a robust, user-driven tool to pool the best resources!
@@ -65,12 +65,12 @@ We initially designed a rough wireframe outlining the core functionality of the 
 
 The application shifted through a rigorous design shift in which a splash page was rendered to comfortably welcome the user to the website.
 
-![DevLab Splash Page](./public/assets/images/splashComparison.PNG "Mockup")
+![DevLab Splash Page](./public/assets/images/splashComparison.png "Mockup")
 *Splash Page - Design Stage Two and Three*
 
 The main content section additionally went through a design overhaul, and a cleaner, dynamic concept page was created.
 
-![DevLab Main Content](./public/assets/images/conceptsComparison.PNG "Mockup")
+![DevLab Main Content](./public/assets/images/conceptsComparison.png "Mockup")
 *Main Content - Design Stage Two and Three*
 
 # Code Snippets
@@ -79,7 +79,7 @@ The main content section additionally went through a design overhaul, and a clea
 
 Sorting through user-saved results was a relatively challenging feature to introduce to the application. Initially, we deeply considered an entirely back-end approach where we would run unique SQL queries to order the list items by specific parameters, but that would require a new query each time we required a sorting - breaking the RESTful paradigm to which we were ascribing. Instead, we adopted UIKit's unique filter method and applied a *uk-filter* to the User Library to target 
 
-![Filter Sorting Code Snippet](./public/assets/images/filtersorting.PNG "UIKit Filter-Sorting")
+![Filter Sorting Code Snippet](./public/assets/images/filtersorting.png "UIKit Filter-Sorting")
 
 Here is a brief demonstration of the filter-sorting in action:
 
