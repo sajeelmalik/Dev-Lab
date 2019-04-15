@@ -63,7 +63,7 @@ We initially designed a rough wireframe outlining the core functionality of the 
 
 ### Final Design Comparisons
 
-The application shifted through a rigorous design shift in which a splash page was rendered to comfortably welcome the user to the website.
+The application underwent a rigorous design shift in which a splash page was rendered to comfortably welcome the user to the website.
 
 ![DevLab Splash Page](./public/assets/images/splashComparison.png "Mockup")
 *Splash Page - Design Stage Two and Three*
@@ -77,7 +77,7 @@ The main content section additionally went through a design overhaul, and a clea
 <!-- put snippets of code inside ``` ``` so it will look like code -->
 <!-- if you want to put blockquotes use a > -->
 
-Sorting through user-saved results was a relatively challenging feature to introduce to the application. Initially, we deeply considered an entirely back-end approach where we would run unique SQL queries to order the list items by specific parameters, but that would require a new query each time we required a sorting - breaking the RESTful paradigm to which we were ascribing. Instead, we adopted UIKit's unique filter method and applied a *uk-filter* to the User Library to target 
+Sorting through user-saved results was a relatively challenging feature to introduce to the application. Initially, we deeply considered an entirely back-end approach where we would run unique SQL queries to order the list items by specific parameters, but that would require a new query each time we required a sorting - breaking the RESTful paradigm to which we were ascribing. Instead, we adopted UIKit's unique filter method and applied a *uk-filter* to the User Library to target each individual item that contained our generated attributes of *data-saves* and *data-date*.
 
 ![Filter Sorting Code Snippet](./public/assets/images/filtersorting.png "UIKit Filter-Sorting")
 
@@ -87,7 +87,7 @@ Here is a brief demonstration of the filter-sorting in action:
 
 
 
-```
+```Javascript
 
 
 ```
