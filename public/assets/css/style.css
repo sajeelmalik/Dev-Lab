@@ -219,7 +219,7 @@ video {
     text-decoration-line: underline;
     text-decoration-style: solid;
     background-color: rgb(238, 56, 53);
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 #password,
@@ -381,7 +381,8 @@ video {
     border: 2px solid rgb(238, 56, 53);
     border-radius: 20px;
     background-color: rgba(235, 131, 129, 0.336);
-    letter-spacing: 5px; 
+    letter-spacing: 2px;
+    padding-left: 10px; 
 }
 
 /* .closed {
@@ -472,6 +473,7 @@ video {
 
 #footer{
     position: relative;
+    padding-top: 5px;
     /* display: flex; */
     height: 15vh;
     width: 100%;
@@ -479,8 +481,8 @@ video {
     background-image: linear-gradient(#010131, #000022);
     /* background-color: #010131; */
     color: rgb(195, 200, 240);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    /* border-top-left-radius: 10px;
+    border-top-right-radius: 10px; */
 }
 
 #github{
@@ -527,7 +529,7 @@ video {
     bottom: -20px;
 }
 
-.title::before {
+/* .title::before {
     -webkit-transition: width 0.6s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
     background: rgba(40, 42, 167, 0.781);
     border-radius: 20px;
@@ -535,12 +537,11 @@ video {
 }
 
 .title::after {
-    /* transition: width 0.2s cubic-bezier(0.29, 0.18, 0.26, 0.83); */
     -webkit-transition: width 0.4s cubic-bezier(0.29, 0.18, 0.26, 0.83);
     background: #0e0e4eb9;
     border-radius: 20px;
 
-}
+} */
 
 /* MEDIA QUERIES */
 
@@ -561,16 +562,16 @@ video {
 
 @media only screen and (max-width: 426px) {
     .title{
-        font-size: 72px;
+        font-size: 70px;
     }
     #laptop {
-        max-height: 113px;
-        max-width: 113px;
+        max-height: 107px;
+        max-width: 107px;
     }
     
     #laptopred {
-        max-height: 113px;
-        max-width: 113px;
+        max-height: 107px;
+        max-width: 107px;
     }
 
     .landing-text {
@@ -579,7 +580,36 @@ video {
         font-size: 0.85em;
     }
   }
+
+  @media only screen and (max-width: 376px) {
+    .title{
+        font-size: 68px;
+    }
+    #laptop {
+        max-height: 113px;
+        max-width: 113px;
+    }
+    
+    #laptopred {
+        transform: translateX(116%);
+        max-height: 113px;
+        max-width: 113px;
+    }
+
+    .landing-text {
+        width: 342px;
+        letter-spacing: 0.1em;
+        font-size: 0.85em;
+    }
+  }
   
+  /* Galaxy S5 */
+  @media only screen and (max-width: 361px) {
+    #laptopred {
+        transform: translateX(109.5%);
+    }
+  }
+
   @media only screen and (max-width: 325px) {
     .title{
         font-size: 60px;
@@ -590,13 +620,14 @@ video {
     }
     
     #laptopred {
+        transform: translateX(120%);
         max-height: 94px;
         max-width: 94px;
     }
 
     .landing-text {
-        width: 250px;
+        width: 285px;
         letter-spacing: 0.1em;
-        font-size: 0.85em;
+        font-size: 0.7em;
     }
   }
